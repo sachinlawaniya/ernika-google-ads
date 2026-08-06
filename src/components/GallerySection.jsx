@@ -55,7 +55,7 @@ export default function GallerySection() {
           grabCursor={true}
           speed={800}
           autoplay={{ delay: 3500, disableOnInteraction: false }}
-          pagination={{ clickable: true }}
+          // pagination={{ clickable: true }}
           navigation={true}
           breakpoints={{
             768: { slidesPerView: 2, spaceBetween: 24 },
