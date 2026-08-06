@@ -10,6 +10,7 @@ import SpecificationsSection from './components/SpecificationsSection.jsx';
 import LocationSection from './components/LocationSection.jsx';
 import CtaSection from './components/CtaSection.jsx';
 import FaqSection from './components/FaqSection.jsx';
+import QuickEnquiryForm from './components/QuickEnquiryForm.jsx';
 import Footer from './components/Footer.jsx';
 import BrochureModal from './components/BrochureModal.jsx';
 
@@ -54,17 +55,27 @@ export default function App() {
     <div id="er_page">
       <Header onOpenModal={handleOpenBrochure} />
       <HeroSection heroVidId="VNnsHctRUx0" onOpenBrochure={handleOpenBrochure} />
-      <AboutSection onOpenBrochure={handleOpenBrochure} />
-      <HighlightsSection />
-      <GallerySection />
-      <AmenitiesSection />
-      <VideoSection sectionVidId="sLBAywF0k44" />
-      <SpecificationsSection />
-      <LocationSection />
-      <CtaSection onOpenBrochure={handleOpenBrochure} />
-      <FaqSection />
-      <Footer />
 
+      {/* Main Layout Container with Sticky Sidebar Quick Enquiry Form */}
+      <div className="er_main-layout-wrap">
+        <div className="er_main-content-col">
+          <AboutSection onOpenBrochure={handleOpenBrochure} />
+          <HighlightsSection />
+          <GallerySection />
+          <AmenitiesSection />
+          <VideoSection sectionVidId="sLBAywF0k44" />
+          <SpecificationsSection />
+          <LocationSection />
+          <CtaSection onOpenBrochure={handleOpenBrochure} />
+          <FaqSection />
+        </div>
+
+        <aside className="er_sticky-sidebar-col">
+          <QuickEnquiryForm onOpenBrochure={handleOpenBrochure} />
+        </aside>
+      </div>
+
+      <Footer />
       <BrochureModal isOpen={isModalOpen} onClose={handleCloseBrochure} />
     </div>
   );
