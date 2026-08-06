@@ -699,7 +699,7 @@ select {
 }
 
 #er_page .er_video-frame {
-  aspect-ratio: 16/7 !important;
+  aspect-ratio: 16/9 !important;
   width: 100% !important;
   max-width: 100% !important;
   border-radius: 16px !important;
@@ -1815,7 +1815,7 @@ select {
 /* Quick Enquiry Card Styles - Luxury Redesign */
 .er_quick-enquiry-card {
   position: sticky !important;
-  top: 100px !important;
+  top: 60px !important;
   z-index: 999 !important;
   background: #ffffff;
   border: 1.5px solid rgba(197, 139, 45, 0.4);
