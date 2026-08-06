@@ -1474,12 +1474,19 @@ body {
   }
 
   #er_page .er_container,
-  #er_page #er_gallery,
   .gp_header-inner {
     max-width: calc(100% - 24px) !important;
     width: calc(100% - 24px) !important;
     margin-left: auto !important;
     margin-right: auto !important;
+  }
+
+  #er_page #er_gallery {
+    max-width: 98% !important;
+    width: 98% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 !important;
   }
 
   #er_page .er_intro-grid {
@@ -1491,8 +1498,13 @@ body {
     height: 320px !important;
   }
 
-  #er_page .er_gallery-img {
-    height: 260px !important;
+  #er_page .er_gallery-img,
+  #er_page .er_gallery-img img {
+    height: 50vh !important;
+    max-height: 50vh !important;
+    min-height: 50vh !important;
+    width: 100% !important;
+    object-fit: cover !important;
   }
 
   .er_form-row {
