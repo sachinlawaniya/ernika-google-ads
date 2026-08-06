@@ -53,7 +53,7 @@ export default function App() {
   return (
     <div id="er_page">
       <Header onOpenModal={handleOpenBrochure} />
-      <HeroSection heroVidId="p8lf1kNTEJI" onOpenBrochure={handleOpenBrochure} />
+      <HeroSection heroVidId="VNnsHctRUx0" onOpenBrochure={handleOpenBrochure} />
       <AboutSection onOpenBrochure={handleOpenBrochure} />
       <HighlightsSection />
       <GallerySection />
