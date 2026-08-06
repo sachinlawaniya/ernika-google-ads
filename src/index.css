@@ -1776,11 +1776,11 @@ select {
 /* ── SPLIT MAIN LAYOUT WITH STICKY SIDEBAR FORM ── */
 .er_main-layout-wrap {
   display: flex;
-  max-width: 92%;
-  width: 92%;
+  max-width: 94%;
+  width: 94%;
   margin: 30px auto 0;
   gap: 40px;
-  align-items: stretch;
+  align-items: flex-start;
   box-sizing: border-box;
   position: relative;
 }
@@ -1789,21 +1789,32 @@ select {
   flex: 1;
   min-width: 0;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.er_main-content-col .er_container,
+.er_main-content-col #er_gallery,
+.er_main-content-col .er_faq-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
 }
 
 .er_sticky-sidebar-col {
   width: 360px;
   flex-shrink: 0;
+  position: sticky !important;
+  top: 100px !important;
+  z-index: 100 !important;
+  margin-top: 40px;
   box-sizing: border-box;
-  position: relative;
-  margin-top: 30px;
 }
 
-/* Quick Enquiry Card Styles - Sticky Locking */
+/* Quick Enquiry Card Styles */
 .er_quick-enquiry-card {
-  position: sticky !important;
-  top: 20px !important;
-  z-index: 99 !important;
   background: #ffffff;
   border: 2px solid var(--er-gold, #c68a28);
   border-radius: 20px;
