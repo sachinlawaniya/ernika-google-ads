@@ -50,8 +50,8 @@ export default function LocationSection() {
             className="er_proximity-open-btn"
             title="Proximity Map"
           >
-            <span>Proximity Map</span>
-            <i className="fas fa-map-marker-alt"></i>
+            {/* <span>Proximity Map</span> */}
+            <i className="fas fa-external-link-alt"></i>
           </a>
         </div>
       ) : (

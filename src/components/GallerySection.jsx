@@ -57,8 +57,8 @@ export default function GallerySection() {
           autoplay={{ delay: 3500, disableOnInteraction: false }}
           navigation={true}
           breakpoints={{
-            640: { slidesPerView: 2, spaceBetween: 20 },
-            1024: { slidesPerView: 2, spaceBetween: 24 },
+            640: { slidesPerView: 1, spaceBetween: 20 },
+            1024: { slidesPerView: 1, spaceBetween: 24 },
           }}
           className="er_gallery-slider"
         >

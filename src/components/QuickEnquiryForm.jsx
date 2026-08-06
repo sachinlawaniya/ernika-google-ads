@@ -122,143 +122,146 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
 
   return (
     <div className="er_quick-enquiry-card">
+      {/* Premium Luxury Header Banner */}
       <div className="er_quick-card-head">
         <span className="er_quick-badge">
-          <i className="fas fa-bolt"></i> INSTANT CALLBACK
+          <i className="fas fa-crown"></i> BMRDA APPROVED PLOTS
         </span>
         <h3 className="er_quick-title">Express Site Visit &amp; Pricing</h3>
-        <p className="er_quick-sub">Fill details to get instant price sheet &amp; plot layout</p>
+        <p className="er_quick-sub">Instant Plot Pricing &amp; Master Plan Download</p>
       </div>
 
-      {errorMsg && (
-        <div className="er_quick-error">
-          <i className="fas fa-exclamation-circle"></i> {errorMsg}
+      <div className="er_quick-card-body">
+        {errorMsg && (
+          <div className="er_quick-error">
+            <i className="fas fa-exclamation-circle"></i> {errorMsg}
+          </div>
+        )}
+
+        {phase === 'input' && (
+          <form onSubmit={handleFormSubmit} className="er_quick-form">
+            <div className="er_quick-field">
+              <label htmlFor="er_sticky_name">Your Name *</label>
+              <div className="er_quick-input-icon">
+                <i className="fas fa-user"></i>
+                <input
+                  id="er_sticky_name"
+                  type="text"
+                  name="name"
+                  placeholder="Full Name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="er_quick-field">
+              <label htmlFor="er_sticky_phone">Mobile Number *</label>
+              <div className="er_quick-input-icon">
+                <i className="fas fa-phone-alt"></i>
+                <input
+                  id="er_sticky_phone"
+                  type="tel"
+                  name="phone"
+                  placeholder="10-digit Mobile No."
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  maxLength="10"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="er_quick-field">
+              <label htmlFor="er_sticky_email">Email Address (Optional)</label>
+              <div className="er_quick-input-icon">
+                <i className="fas fa-envelope"></i>
+                <input
+                  id="er_sticky_email"
+                  type="email"
+                  name="email"
+                  placeholder="Email ID"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+
+            <button type="submit" className="er_quick-submit-btn" disabled={loading}>
+              {loading ? (
+                <span><i className="fas fa-spinner fa-spin"></i> Processing...</span>
+              ) : (
+                <>
+                  <span>Get Instant Price &amp; Layout</span>
+                  <i className="fas fa-arrow-right"></i>
+                </>
+              )}
+            </button>
+          </form>
+        )}
+
+        {phase === 'otp' && (
+          <form onSubmit={handleOtpSubmit} className="er_quick-form">
+            <div className="er_quick-otp-notice">
+              Enter 6-digit OTP sent to <strong>+91 {formData.phone}</strong>
+            </div>
+
+            <div className="er_quick-otp-grid">
+              {otp.map((digit, idx) => (
+                <input
+                  key={idx}
+                  id={`er_sticky_otp_${idx}`}
+                  type="text"
+                  maxLength="1"
+                  inputMode="numeric"
+                  className="er_quick-otp-box"
+                  value={digit}
+                  onChange={(e) => handleOtpChange(idx, e.target.value)}
+                />
+              ))}
+            </div>
+
+            <button type="submit" className="er_quick-submit-btn" disabled={loading}>
+              {loading ? (
+                <span><i className="fas fa-spinner fa-spin"></i> Verifying...</span>
+              ) : (
+                <>
+                  <span>Verify OTP &amp; Download</span>
+                  <i className="fas fa-check-circle"></i>
+                </>
+              )}
+            </button>
+
+            <button
+              type="button"
+              className="er_quick-back-btn"
+              onClick={() => setPhase('input')}
+            >
+              Edit Mobile Number
+            </button>
+          </form>
+        )}
+
+        {phase === 'success' && (
+          <div className="er_quick-success-box">
+            <i className="fas fa-check-circle er_quick-success-icon"></i>
+            <h4>Request Submitted!</h4>
+            <p>Brochure &amp; Plot Layout downloading automatically. Our sales team will connect with you shortly.</p>
+            <button
+              type="button"
+              className="er_quick-submit-btn"
+              onClick={() => setPhase('input')}
+            >
+              Submit Another Request
+            </button>
+          </div>
+        )}
+
+        <div className="er_quick-trust-footer">
+          <span><i className="fas fa-shield-alt"></i> 100% Privacy Protected</span>
+          <span><i className="fas fa-headset"></i> Direct Builder Price</span>
         </div>
-      )}
-
-      {phase === 'input' && (
-        <form onSubmit={handleFormSubmit} className="er_quick-form">
-          <div className="er_quick-field">
-            <label htmlFor="er_sticky_name">Your Name *</label>
-            <div className="er_quick-input-icon">
-              <i className="fas fa-user"></i>
-              <input
-                id="er_sticky_name"
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-          </div>
-
-          <div className="er_quick-field">
-            <label htmlFor="er_sticky_phone">Mobile Number *</label>
-            <div className="er_quick-input-icon">
-              <i className="fas fa-phone-alt"></i>
-              <input
-                id="er_sticky_phone"
-                type="tel"
-                name="phone"
-                placeholder="10-digit Mobile No."
-                value={formData.phone}
-                onChange={handleInputChange}
-                maxLength="10"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="er_quick-field">
-            <label htmlFor="er_sticky_email">Email Address (Optional)</label>
-            <div className="er_quick-input-icon">
-              <i className="fas fa-envelope"></i>
-              <input
-                id="er_sticky_email"
-                type="email"
-                name="email"
-                placeholder="Email ID"
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-
-          <button type="submit" className="er_quick-submit-btn" disabled={loading}>
-            {loading ? (
-              <span><i className="fas fa-spinner fa-spin"></i> Processing...</span>
-            ) : (
-              <>
-                <span>Get Instant Price &amp; Layout</span>
-                <i className="fas fa-arrow-right"></i>
-              </>
-            )}
-          </button>
-        </form>
-      )}
-
-      {phase === 'otp' && (
-        <form onSubmit={handleOtpSubmit} className="er_quick-form">
-          <div className="er_quick-otp-notice">
-            Enter 6-digit OTP sent to <strong>+91 {formData.phone}</strong>
-          </div>
-
-          <div className="er_quick-otp-grid">
-            {otp.map((digit, idx) => (
-              <input
-                key={idx}
-                id={`er_sticky_otp_${idx}`}
-                type="text"
-                maxLength="1"
-                inputMode="numeric"
-                className="er_quick-otp-box"
-                value={digit}
-                onChange={(e) => handleOtpChange(idx, e.target.value)}
-              />
-            ))}
-          </div>
-
-          <button type="submit" className="er_quick-submit-btn" disabled={loading}>
-            {loading ? (
-              <span><i className="fas fa-spinner fa-spin"></i> Verifying...</span>
-            ) : (
-              <>
-                <span>Verify OTP &amp; Download</span>
-                <i className="fas fa-check-circle"></i>
-              </>
-            )}
-          </button>
-
-          <button
-            type="button"
-            className="er_quick-back-btn"
-            onClick={() => setPhase('input')}
-          >
-            Edit Mobile Number
-          </button>
-        </form>
-      )}
-
-      {phase === 'success' && (
-        <div className="er_quick-success-box">
-          <i className="fas fa-check-circle er_quick-success-icon"></i>
-          <h4>Request Submitted!</h4>
-          <p>Brochure &amp; Plot Layout downloading automatically. Our sales team will connect with you shortly.</p>
-          <button
-            type="button"
-            className="er_quick-submit-btn"
-            onClick={() => setPhase('input')}
-          >
-            Submit Another Request
-          </button>
-        </div>
-      )}
-
-      <div className="er_quick-trust-footer">
-        <span><i className="fas fa-shield-alt"></i> 100% Privacy Protected</span>
-        <span><i className="fas fa-headset"></i> Direct Builder Price</span>
       </div>
     </div>
   );

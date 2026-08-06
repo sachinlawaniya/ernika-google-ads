@@ -59,8 +59,8 @@ export default function AmenitiesSection() {
             breakpoints={{
               480: { slidesPerView: 2, spaceBetween: 16 },
               768: { slidesPerView: 3, spaceBetween: 20 },
-              1024: { slidesPerView: 4, spaceBetween: 20 },
-              1280: { slidesPerView: 5, spaceBetween: 20 },
+              // 1024: { slidesPerView: 4, spaceBetween: 20 },
+              // 1280: { slidesPerView: 5, spaceBetween: 20 },
             }}
             className="er_amenities-slider"
           >

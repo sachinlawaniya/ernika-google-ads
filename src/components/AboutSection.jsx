@@ -4,14 +4,7 @@ export default function AboutSection({ onOpenBrochure }) {
   return (
     <section id="er_about" className="er_intro er_section">
       <div className="er_container er_intro-grid">
-        <div className="er_intro-image">
-          <img
-            src="https://gurupunvaanii.com/wp-content/uploads/2026/05/ErnikaArch-scaled.jpeg"
-            alt="Ernika entrance arch"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
+       
         <div className="er_intro-text">
           <h2>Ernika: Amazon-Themed Villa Plots in Anekal</h2>
           <p>
@@ -35,6 +28,14 @@ export default function AboutSection({ onOpenBrochure }) {
               <span>Download Brochure</span>
             </button>
           </div>
+        </div>
+         <div className="er_intro-image">
+          <img
+            src="https://gurupunvaanii.com/wp-content/uploads/2026/05/ErnikaArch-scaled.jpeg"
+            alt="Ernika entrance arch"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </section>
