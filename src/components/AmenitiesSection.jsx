@@ -1,8 +1,7 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 export default function AmenitiesSection() {
@@ -49,17 +48,16 @@ export default function AmenitiesSection() {
 
         <div className="er_amenities-container">
           <Swiper
-            modules={[Autoplay, Pagination, Navigation]}
-            slidesPerView={1}
-            spaceBetween={20}
+            modules={[Autoplay, Navigation]}
+            slidesPerView={2}
+            spaceBetween={12}
             loop={true}
             grabCursor={true}
             speed={800}
             autoplay={{ delay: 3000, disableOnInteraction: false }}
-            // pagination={{ clickable: true }}
             navigation={true}
             breakpoints={{
-              480: { slidesPerView: 2, spaceBetween: 20 },
+              480: { slidesPerView: 2, spaceBetween: 16 },
               768: { slidesPerView: 3, spaceBetween: 20 },
               1024: { slidesPerView: 4, spaceBetween: 20 },
               1280: { slidesPerView: 5, spaceBetween: 20 },

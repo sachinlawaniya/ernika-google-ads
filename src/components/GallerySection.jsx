@@ -50,16 +50,15 @@ export default function GallerySection() {
         <Swiper
           modules={[Autoplay, Pagination, Navigation]}
           slidesPerView={1}
-          spaceBetween={20}
+          spaceBetween={16}
           loop={false}
           grabCursor={true}
           speed={800}
           autoplay={{ delay: 3500, disableOnInteraction: false }}
-          // pagination={{ clickable: true }}
           navigation={true}
           breakpoints={{
-            768: { slidesPerView: 2, spaceBetween: 24 },
-            1024: { slidesPerView: 2, spaceBetween: 24 },
+            640: { slidesPerView: 2, spaceBetween: 20 },
+            1024: { slidesPerView: 3, spaceBetween: 24 },
           }}
           className="er_gallery-slider"
         >
