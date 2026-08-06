@@ -23,6 +23,9 @@ export default function Footer() {
             <a href="#er_page" aria-label="Facebook">
               <i className="fab fa-facebook-f"></i>
             </a>
+            <a href="#er_page" aria-label="Twitter">
+              <i className="fab fa-twitter"></i>
+            </a>
             <a href="#er_page" aria-label="Instagram">
               <i className="fab fa-instagram"></i>
             </a>
