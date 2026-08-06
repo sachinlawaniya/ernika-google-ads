@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header.jsx';
 import HeroSection from './components/HeroSection.jsx';
 import AboutSection from './components/AboutSection.jsx';
@@ -19,6 +19,37 @@ export default function App() {
   const handleOpenBrochure = () => setIsModalOpen(true);
   const handleCloseBrochure = () => setIsModalOpen(false);
 
+  useEffect(() => {
+    // Disable right click context menu
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+    };
+
+    // Disable keyboard shortcuts for DevTools & View Source
+    const handleKeyDown = (e) => {
+      if (
+        e.keyCode === 123 || // F12
+        (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) || // Ctrl+Shift+I, J, C
+        (e.metaKey && e.altKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) || // Cmd+Alt+I, J, C
+        (e.ctrlKey && e.keyCode === 85) || // Ctrl+U (View Source)
+        (e.metaKey && e.keyCode === 85) || // Cmd+U
+        (e.ctrlKey && e.keyCode === 83) || // Ctrl+S (Save Page)
+        (e.metaKey && e.keyCode === 83)    // Cmd+S
+      ) {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   return (
     <div id="er_page">
       <Header onOpenModal={handleOpenBrochure} />
@@ -35,8 +66,6 @@ export default function App() {
       <Footer />
 
       <BrochureModal isOpen={isModalOpen} onClose={handleCloseBrochure} />
-      {/* <FloatingCta onOpenBrochure={handleOpenBrochure} /> */}
     </div>
   );
 }
-
