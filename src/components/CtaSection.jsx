@@ -25,11 +25,6 @@ export default function CtaSection({ onOpenBrochure }) {
               </svg>
               <span>Download Brochure</span>
             </button>
-
-            <button className="er_cta-btn-secondary" onClick={onOpenBrochure}>
-              <i className="fas fa-calendar-alt"></i>
-              <span>Schedule Free Site Visit</span>
-            </button>
           </div>
 
           <div className="er_cta-trust-tags">
