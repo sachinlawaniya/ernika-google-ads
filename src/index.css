@@ -1939,6 +1939,31 @@ select {
   box-shadow: 0 0 0 4px rgba(198, 138, 40, 0.15) !important;
 }
 
+.er_quick-textarea-icon i {
+  top: 14px !important;
+}
+
+.er_quick-textarea-icon textarea {
+  width: 100%;
+  padding: 11px 14px 11px 42px !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  font-size: 13.5px !important;
+  color: #1e293b !important;
+  outline: none !important;
+  transition: all 0.25s ease !important;
+  background: #f8fafc !important;
+  box-sizing: border-box !important;
+  font-family: 'Inter', sans-serif !important;
+  resize: vertical;
+}
+
+.er_quick-textarea-icon textarea:focus {
+  border-color: var(--er-gold, #c68a28) !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 4px rgba(198, 138, 40, 0.15) !important;
+}
+
 .er_quick-submit-btn {
   width: 100%;
   padding: 14px 20px;

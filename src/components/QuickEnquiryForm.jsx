@@ -5,6 +5,7 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
     name: '',
     email: '',
     phone: '',
+    message: '',
   });
 
   const [phase, setPhase] = useState('input'); // 'input' | 'otp' | 'success'
@@ -33,7 +34,7 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
 
     try {
       // 1. Submit lead to StrategicERP
-      const erpUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name)}&Email=${encodeURIComponent(formData.email || '')}&MobileNo=${encodeURIComponent(formData.phone)}&ProjectName=Ernika&Source=GoogleAds_LandingPage`;
+      const erpUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name)}&Email=${encodeURIComponent(formData.email || '')}&MobileNo=${encodeURIComponent(formData.phone)}&Comments=${encodeURIComponent(formData.message || '')}&ProjectName=Ernika&Source=GoogleAds_LandingPage`;
       fetch(erpUrl, { mode: 'no-cors' }).catch(() => {});
 
       // 2. Dispatch SMS OTP via backend proxy
@@ -185,6 +186,21 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
                   value={formData.email}
                   onChange={handleInputChange}
                 />
+              </div>
+            </div>
+
+            <div className="er_quick-field">
+              <label htmlFor="er_sticky_msg">Message / Comments (Optional)</label>
+              <div className="er_quick-input-icon er_quick-textarea-icon">
+                <i className="fas fa-comment-alt"></i>
+                <textarea
+                  id="er_sticky_msg"
+                  name="message"
+                  rows="2"
+                  placeholder="Preferred plot size or questions..."
+                  value={formData.message}
+                  onChange={handleInputChange}
+                ></textarea>
               </div>
             </div>
 
