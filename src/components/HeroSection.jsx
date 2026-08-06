@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function HeroSection({ heroVidId = 'p8lf1kNTEJI', onOpenBrochure }) {
+export default function HeroSection({ heroVidId = 'VNnsHctRUx0', onOpenBrochure }) {
   return (
     <section className="er_hero" aria-label="Ernika project video">
       <iframe
