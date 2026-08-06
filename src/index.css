@@ -1778,10 +1778,11 @@ select {
   display: flex;
   max-width: 92%;
   width: 92%;
-  margin: 20px auto 0;
+  margin: 30px auto 0;
   gap: 40px;
-  align-items: flex-start;
+  align-items: stretch;
   box-sizing: border-box;
+  position: relative;
 }
 
 .er_main-content-col {
@@ -1793,15 +1794,16 @@ select {
 .er_sticky-sidebar-col {
   width: 360px;
   flex-shrink: 0;
-  position: sticky;
-  top: 90px;
-  z-index: 100;
-  margin-top: 45px;
   box-sizing: border-box;
+  position: relative;
+  margin-top: 30px;
 }
 
-/* Quick Enquiry Card Styles */
+/* Quick Enquiry Card Styles - Sticky Locking */
 .er_quick-enquiry-card {
+  position: sticky !important;
+  top: 20px !important;
+  z-index: 99 !important;
   background: #ffffff;
   border: 2px solid var(--er-gold, #c68a28);
   border-radius: 20px;
@@ -1809,7 +1811,6 @@ select {
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
-  position: relative;
   overflow: hidden;
 }
 
