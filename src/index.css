@@ -1447,6 +1447,11 @@ body {
 }
 
 @media(max-width: 768px) {
+  #er_page .swiper-button-prev,
+  #er_page .swiper-button-next {
+    display: none !important;
+  }
+
   #er_page .er_container {
     max-width: 96% !important;
     width: 96% !important;
