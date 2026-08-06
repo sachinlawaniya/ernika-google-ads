@@ -1452,6 +1452,27 @@ body {
     display: none !important;
   }
 
+  #er_page .er_amenities-container,
+  #er_page .er_spec-container {
+    padding: 0 4px !important;
+  }
+
+  #er_page .er_amenity-icon,
+  #er_page .er_spec-icon {
+    width: 96px !important;
+    max-width: 85% !important;
+    height: 48px !important;
+    font-size: 18px !important;
+  }
+
+  #er_page .er_amenity-item,
+  #er_page .er_spec-item {
+    min-height: 120px !important;
+    padding: 6px 4px !important;
+    gap: 8px !important;
+    font-size: 12px !important;
+  }
+
   #er_page .er_container {
     max-width: 96% !important;
     width: 96% !important;
