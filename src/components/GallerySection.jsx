@@ -58,7 +58,7 @@ export default function GallerySection() {
           navigation={true}
           breakpoints={{
             640: { slidesPerView: 2, spaceBetween: 20 },
-            1024: { slidesPerView: 3, spaceBetween: 24 },
+            1024: { slidesPerView: 2, spaceBetween: 24 },
           }}
           className="er_gallery-slider"
         >
@@ -66,7 +66,7 @@ export default function GallerySection() {
             <SwiperSlide key={idx}>
               <div className="er_gallery-item" onClick={() => openLightbox(idx)}>
                 <div className="er_gallery-img">
-                  <img src={img.src} alt={img.title} />
+                  <img src={img.src} alt={img.title} loading="lazy" decoding="async" />
                 </div>
               </div>
             </SwiperSlide>

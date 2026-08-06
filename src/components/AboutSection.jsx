@@ -8,6 +8,8 @@ export default function AboutSection({ onOpenBrochure }) {
           <img
             src="https://gurupunvaanii.com/wp-content/uploads/2026/05/ErnikaArch-scaled.jpeg"
             alt="Ernika entrance arch"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <div className="er_intro-text">
