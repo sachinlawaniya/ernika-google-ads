@@ -20,7 +20,7 @@ html,
 body {
   margin: 0 !important;
   padding: 0 !important;
-  overflow-x: hidden;
+  overflow-x: clip;
   font-family: 'Inter', sans-serif;
   color: var(--er-text);
   line-height: 1.6;
@@ -1780,7 +1780,7 @@ select {
   width: 94%;
   margin: 30px auto 0;
   gap: 40px;
-  align-items: flex-start;
+  align-items: stretch !important;
   box-sizing: border-box;
   position: relative;
 }
@@ -1806,15 +1806,16 @@ select {
 .er_sticky-sidebar-col {
   width: 360px;
   flex-shrink: 0;
-  position: sticky !important;
-  top: 100px !important;
-  z-index: 100 !important;
-  margin-top: 40px;
+  position: relative !important;
+  align-self: stretch !important;
   box-sizing: border-box;
 }
 
-/* Quick Enquiry Card Styles */
+/* Quick Enquiry Card Styles - Sticky Locking */
 .er_quick-enquiry-card {
+  position: sticky !important;
+  top: 100px !important;
+  z-index: 999 !important;
   background: #ffffff;
   border: 2px solid var(--er-gold, #c68a28);
   border-radius: 20px;
