@@ -922,7 +922,8 @@ body {
 
 @media (max-width: 768px) {
   #er_page .er_cta-section {
-    padding: 40px 16px;
+    padding: 28px 12px !important;
+    margin: 20px 0 !important;
   }
 
   .er_cta-btn-primary,
@@ -1471,6 +1472,29 @@ body {
     padding: 6px 4px !important;
     gap: 8px !important;
     font-size: 12px !important;
+  }
+
+  #er_page .er_section {
+    padding: 24px 0 !important;
+  }
+
+  #er_page .er_section-head {
+    margin: 0 auto 16px !important;
+  }
+
+  #er_page .er_section-h2 {
+    font-size: 1.65rem !important;
+    margin-bottom: 8px !important;
+  }
+
+  #er_page .er_section-desc {
+    font-size: 13.5px !important;
+    margin-top: 8px !important;
+    line-height: 1.55 !important;
+  }
+
+  #er_page .er_gold-line {
+    margin-bottom: 8px !important;
   }
 
   #er_page .er_container,
