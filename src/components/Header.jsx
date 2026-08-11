@@ -8,12 +8,10 @@ export default function Header({ onOpenModal }) {
       <header className="gp_custom-header">
         <div className="gp_header-inner">
           <div className="gp_logo">
-            <a href="#er_page">
-              <img
-                src="https://gurupunvaanii.com/wp-content/uploads/2026/03/Guru-Punvaanii-Logo-300x172.png"
-                alt="Guru Punvaanii Logo"
-              />
-            </a>
+            <img
+              src="https://gurupunvaanii.com/wp-content/uploads/2026/03/Guru-Punvaanii-Logo-300x172.png"
+              alt="Guru Punvaanii Logo"
+            />
           </div>
 
           <button
@@ -43,23 +41,23 @@ export default function Header({ onOpenModal }) {
         </button>
         <div className="gp_mobile-modal-inner">
           <ul className="gp_mobile-menu">
-            <li><a href="#er_about" className="gp_m-link" onClick={() => setMenuActive(false)}>About</a></li>
-            <li><a href="#er_highlights" className="gp_m-link" onClick={() => setMenuActive(false)}>Highlights</a></li>
-            <li><a href="#er_gallery" className="gp_m-link" onClick={() => setMenuActive(false)}>Gallery</a></li>
-            <li><a href="#er_amenities" className="gp_m-link" onClick={() => setMenuActive(false)}>Amenities</a></li>
-            <li><a href="#er_location" className="gp_m-link" onClick={() => setMenuActive(false)}>Location</a></li>
-            <li><a href="#er_faq" className="gp_m-link" onClick={() => setMenuActive(false)}>FAQ</a></li>
+            <li><span className="gp_m-link" onClick={() => setMenuActive(false)}>About</span></li>
+            <li><span className="gp_m-link" onClick={() => setMenuActive(false)}>Highlights</span></li>
+            <li><span className="gp_m-link" onClick={() => setMenuActive(false)}>Gallery</span></li>
+            <li><span className="gp_m-link" onClick={() => setMenuActive(false)}>Amenities</span></li>
+            <li><span className="gp_m-link" onClick={() => setMenuActive(false)}>Location</span></li>
+            <li><span className="gp_m-link" onClick={() => setMenuActive(false)}>FAQ</span></li>
           </ul>
           <div className="gp_mobile-social">
-            <a href="#er_page" aria-label="Instagram">
+            <span aria-label="Instagram">
               <i className="fab fa-instagram"></i>
-            </a>
-            <a href="#er_page" aria-label="Facebook">
+            </span>
+            <span aria-label="Facebook">
               <i className="fab fa-facebook-f"></i>
-            </a>
-            <a href="#er_page" aria-label="Youtube">
+            </span>
+            <span aria-label="Youtube">
               <i className="fab fa-youtube"></i>
-            </a>
+            </span>
           </div>
         </div>
       </div>

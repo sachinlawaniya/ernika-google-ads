@@ -15,7 +15,7 @@ export default function HeroSection({ heroVidId = 'VNnsHctRUx0', onOpenBrochure 
       <div className="er_hero-bottom-bar">
         <div className="er_hero-bar-text">
           <p>
-            <span>Ernika Villa Plots</span> — Amazon Forest Theme in Anekal, Bengaluru
+           Amazon Forest-Themed Villa Plots at Ernika, Anekal, Bengaluru
           </p>
           <button className="er_hero-bar-btn" onClick={onOpenBrochure}>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

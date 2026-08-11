@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export default function LocationSection() {
-  const [activeTab, setActiveTab] = useState('proximity');
+  const [activeTab, setActiveTab] = useState('map');
 
   return (
     <section id="er_location" className="er_section er_container">
@@ -12,17 +12,7 @@ export default function LocationSection() {
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '20px' }}>
-        <button
-          className={`er_btn-sm ${activeTab === 'proximity' ? '' : 'outline'}`}
-          style={{
-            background: activeTab === 'proximity' ? 'var(--er-gold)' : '#f1f5f9',
-            color: activeTab === 'proximity' ? '#fff' : '#334155',
-            boxShadow: activeTab === 'proximity' ? '0 4px 12px rgba(197,139,45,0.25)' : 'none',
-          }}
-          onClick={() => setActiveTab('proximity')}
-        >
-          Proximity Map
-        </button>
+       
         <button
           className={`er_btn-sm ${activeTab === 'map' ? '' : 'outline'}`}
           style={{
@@ -33,6 +23,17 @@ export default function LocationSection() {
           onClick={() => setActiveTab('map')}
         >
           Google Map
+        </button>
+         <button
+          className={`er_btn-sm ${activeTab === 'proximity' ? '' : 'outline'}`}
+          style={{
+            background: activeTab === 'proximity' ? 'var(--er-gold)' : '#f1f5f9',
+            color: activeTab === 'proximity' ? '#fff' : '#334155',
+            boxShadow: activeTab === 'proximity' ? '0 4px 12px rgba(197,139,45,0.25)' : 'none',
+          }}
+          onClick={() => setActiveTab('proximity')}
+        >
+          Proximity Map
         </button>
       </div>
 

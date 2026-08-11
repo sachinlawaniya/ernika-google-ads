@@ -10,28 +10,28 @@ export default function Footer() {
       <div className="gp_footer-content">
         {/* Column 1: Brand Info */}
         <div className="gp_footer-col gp_footer-brand">
-          <a href="#er_page" className="gp_footer-logo">
+          <div className="gp_footer-logo">
             <img
               src="https://gurupunvaanii.com/wp-content/uploads/2026/03/Guru-Punvaanii-Logo-300x172.png"
               alt="Guru Punvaanii Logo"
             />
-          </a>
+          </div>
           <p className="gp_footer-desc">
             We welcome you to visit Guru Punvaanii. We are here to provide clear, honest guidance at every step of your real estate journey.
           </p>
           <div className="gp_footer-socials">
-            <a href="#er_page" aria-label="Facebook">
+            <span aria-label="Facebook">
               <i className="fab fa-facebook-f"></i>
-            </a>
-            <a href="#er_page" aria-label="Twitter">
+            </span>
+            <span aria-label="Twitter">
               <i className="fab fa-twitter"></i>
-            </a>
-            <a href="#er_page" aria-label="Instagram">
+            </span>
+            <span aria-label="Instagram">
               <i className="fab fa-instagram"></i>
-            </a>
-            <a href="#er_page" aria-label="Youtube">
+            </span>
+            <span aria-label="Youtube">
               <i className="fab fa-youtube"></i>
-            </a>
+            </span>
           </div>
         </div>
 
@@ -39,15 +39,15 @@ export default function Footer() {
         <div className="gp_footer-col">
           <h3 className="gp_footer-title">Project Pages</h3>
           <ul className="gp_footer-links">
-            <li><a href="#er_page">Elegance</a></li>
-            <li><a href="#er_page">Eka</a></li>
-            <li><a href="#er_page">Exotica</a></li>
-            <li><a href="#er_page">Ernika</a></li>
-            <li><a href="#er_page">Eureka</a></li>
-            <li><a href="#er_page">Etasha</a></li>
-            <li><a href="#er_page">Shyam Residency</a></li>
-            <li><a href="#er_page">SPN</a></li>
-            <li><a href="#er_page">Ekansh</a></li>
+            <li><span>Elegance</span></li>
+            <li><span>Eka</span></li>
+            <li><span>Exotica</span></li>
+            <li><span>Ernika</span></li>
+            <li><span>Eureka</span></li>
+            <li><span>Etasha</span></li>
+            <li><span>Shyam Residency</span></li>
+            <li><span>SPN</span></li>
+            <li><span>Ekansh</span></li>
           </ul>
         </div>
 
@@ -55,11 +55,11 @@ export default function Footer() {
         <div className="gp_footer-col">
           <h3 className="gp_footer-title">Quick Links</h3>
           <ul className="gp_footer-links">
-            <li><a href="#er_highlights">Our Projects</a></li>
-            <li><a href="#er_about">About Us</a></li>
-            <li><a href="#er_page">Privacy Policy</a></li>
-            <li><a href="#er_page">Terms of Service</a></li>
-            <li><a href="#er_faq">FAQ</a></li>
+            <li><span>Our Projects</span></li>
+            <li><span>About Us</span></li>
+            <li><span>Privacy Policy</span></li>
+            <li><span>Terms of Service</span></li>
+            <li><span>FAQ</span></li>
           </ul>
         </div>
 
@@ -72,11 +72,11 @@ export default function Footer() {
           </div>
           <div className="gp_footer-info-item">
             <i className="fas fa-phone-alt"></i>
-            <a href="tel:8546854600">8546 8546 00</a>
+            <span>8546 8546 00</span>
           </div>
           <div className="gp_footer-info-item">
             <i className="fas fa-phone-alt"></i>
-            <a href="tel:7676000909">7676 000 909</a>
+            <span>7676 000 909</span>
           </div>
           <div className="gp_footer-info-item">
             <i className="fas fa-clock"></i>

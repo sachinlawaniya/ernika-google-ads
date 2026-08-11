@@ -126,10 +126,10 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
       {/* Premium Luxury Header Banner */}
       <div className="er_quick-card-head">
         <span className="er_quick-badge">
-          <i className="fas fa-crown"></i> BMRDA APPROVED PLOTS
+          <i className="fas fa-tree"></i> AMAZON THEMED VILLA PLOTS
         </span>
-        <h3 className="er_quick-title">Express Site Visit &amp; Pricing</h3>
-        <p className="er_quick-sub">Instant Plot Pricing &amp; Master Plan Download</p>
+        <h3 className="er_quick-title">Ernika Villa Plots - Anekal</h3>
+        <p className="er_quick-sub">220 BMRDA Approved Plots across 12.5 Acres</p>
       </div>
 
       <div className="er_quick-card-body">
@@ -190,14 +190,14 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
             </div>
 
             <div className="er_quick-field">
-              <label htmlFor="er_sticky_msg">Message / Comments (Optional)</label>
+              <label htmlFor="er_sticky_msg">Plot Dimensions / Query (Optional)</label>
               <div className="er_quick-input-icon er_quick-textarea-icon">
                 <i className="fas fa-comment-alt"></i>
                 <textarea
                   id="er_sticky_msg"
                   name="message"
                   rows="2"
-                  placeholder="Preferred plot size or questions..."
+                  placeholder="Preferred plot size (30x40, 30x50) or site visit date..."
                   value={formData.message}
                   onChange={handleInputChange}
                 ></textarea>
@@ -209,7 +209,7 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
                 <span><i className="fas fa-spinner fa-spin"></i> Processing...</span>
               ) : (
                 <>
-                  <span>Get Instant Price &amp; Layout</span>
+                  <span>Get Price List &amp; Layout</span>
                   <i className="fas fa-arrow-right"></i>
                 </>
               )}
@@ -243,7 +243,7 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
                 <span><i className="fas fa-spinner fa-spin"></i> Verifying...</span>
               ) : (
                 <>
-                  <span>Verify OTP &amp; Download</span>
+                  <span>Verify OTP &amp; Download Brochure</span>
                   <i className="fas fa-check-circle"></i>
                 </>
               )}
@@ -262,21 +262,21 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
         {phase === 'success' && (
           <div className="er_quick-success-box">
             <i className="fas fa-check-circle er_quick-success-icon"></i>
-            <h4>Request Submitted!</h4>
-            <p>Brochure &amp; Plot Layout downloading automatically. Our sales team will connect with you shortly.</p>
+            <h4>Thank You for Enquiring!</h4>
+            <p>Ernika Brochure &amp; Master Layout are downloading automatically. Our sales manager will contact you with pricing details.</p>
             <button
               type="button"
               className="er_quick-submit-btn"
               onClick={() => setPhase('input')}
             >
-              Submit Another Request
+              Submit Another Inquiry
             </button>
           </div>
         )}
 
         <div className="er_quick-trust-footer">
-          <span><i className="fas fa-shield-alt"></i> 100% Privacy Protected</span>
-          <span><i className="fas fa-headset"></i> Direct Builder Price</span>
+          <span><i className="fas fa-shield-alt"></i> BMRDA Approved</span>
+          <span><i className="fas fa-tag"></i> Direct Builder Price</span>
         </div>
       </div>
     </div>
