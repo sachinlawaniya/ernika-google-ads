@@ -8,12 +8,12 @@ export default function Header({ onOpenModal }) {
       <header className="gp_custom-header">
         <div className="gp_header-inner">
           <div className="gp_logo">
-            <a href="#er_page">
+            <p>
               <img
                 src="https://gurupunvaanii.com/wp-content/uploads/2026/03/Guru-Punvaanii-Logo-300x172.png"
                 alt="Guru Punvaanii Logo"
               />
-            </a>
+            </p>
           </div>
 
           <button
