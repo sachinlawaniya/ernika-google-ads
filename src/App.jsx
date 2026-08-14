@@ -1,27 +1,52 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Header from './components/Header.jsx';
-import HeroSection from './components/HeroSection.jsx';
-import AboutSection from './components/AboutSection.jsx';
-import HighlightsSection from './components/HighlightsSection.jsx';
-import GallerySection from './components/GallerySection.jsx';
-import AmenitiesSection from './components/AmenitiesSection.jsx';
-import VideoSection from './components/VideoSection.jsx';
-import SpecificationsSection from './components/SpecificationsSection.jsx';
-import LocationSection from './components/LocationSection.jsx';
-import CtaSection from './components/CtaSection.jsx';
-import FaqSection from './components/FaqSection.jsx';
-import QuickEnquiryForm from './components/QuickEnquiryForm.jsx';
 import Footer from './components/Footer.jsx';
 import BrochureModal from './components/BrochureModal.jsx';
+import MobileEnquiryPopup from './components/MobileEnquiryPopup.jsx';
+
+import HomePage from './pages/HomePage.jsx';
+import VillaPlotsPage from './pages/VillaPlotsPage.jsx';
+import ProjectHighlightsPage from './pages/ProjectHighlightsPage.jsx';
+import LocationPage from './pages/LocationPage.jsx';
+import BookSiteVisitPage from './pages/BookSiteVisitPage.jsx';
+
+function ScrollToTopOrHash() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      setTimeout(() => {
+        const id = hash.replace('#', '');
+        const element = document.getElementById(id) || document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 150);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, hash]);
+
+  return null;
+}
+
+const getBasename = () => {
+  return window.location.pathname.startsWith('/ernika') ? '/ernika' : '/';
+};
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalSource, setModalSource] = useState('');
 
-  const handleOpenBrochure = () => setIsModalOpen(true);
+  const handleOpenBrochure = (source = '') => {
+    setModalSource(typeof source === 'string' ? source : '');
+    setIsModalOpen(true);
+  };
   const handleCloseBrochure = () => setIsModalOpen(false);
 
   useEffect(() => {
-    // Disable right click context menu
+    // Disable right click context menu (preserving text selection)
     const handleContextMenu = (e) => {
       e.preventDefault();
     };
@@ -52,31 +77,34 @@ export default function App() {
   }, []);
 
   return (
-    <div id="er_page">
-      <Header onOpenModal={handleOpenBrochure} />
-      <HeroSection heroVidId="VNnsHctRUx0" onOpenBrochure={handleOpenBrochure} />
+    <Router>
+      <ScrollToTopOrHash />
+      <div id="er_page">
+        <Header onOpenModal={handleOpenBrochure} />
 
-      {/* Main Layout Container with Sticky Sidebar Quick Enquiry Form */}
-      <div className="er_main-layout-wrap">
-        <div className="er_main-content-col">
-          <AboutSection onOpenBrochure={handleOpenBrochure} />
-          <HighlightsSection />
-          <GallerySection />
-          <AmenitiesSection />
-          <VideoSection sectionVidId="sLBAywF0k44" />
-          <SpecificationsSection />
-          <LocationSection />
-          <CtaSection onOpenBrochure={handleOpenBrochure} />
-          <FaqSection />
-        </div>
+        <Routes>
+          {/* Main /ernika/ sitelink routes */}
+          <Route path="/ernika/" element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/ernika" element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/ernika/villa-plots" element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/ernika/project-highlights" element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/ernika/location" element={<LocationPage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/ernika/book-site-visit" element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} />} />
 
-        <aside className="er_sticky-sidebar-col">
-          <QuickEnquiryForm onOpenBrochure={handleOpenBrochure} />
-        </aside>
+          {/* Fallback routes */}
+          <Route path="/" element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/villa-plots" element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/project-highlights" element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/location" element={<LocationPage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/book-site-visit" element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} />} />
+
+          <Route path="*" element={<Navigate to="/ernika/" replace />} />
+        </Routes>
+
+        <Footer />
+        <BrochureModal isOpen={isModalOpen} onClose={handleCloseBrochure} sourceComment={modalSource} />
+        <MobileEnquiryPopup onOpenBrochure={handleOpenBrochure} />
       </div>
-
-      <Footer />
-      <BrochureModal isOpen={isModalOpen} onClose={handleCloseBrochure} />
-    </div>
+    </Router>
   );
 }

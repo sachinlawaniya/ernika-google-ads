@@ -5,19 +5,35 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
+import imgEntrance from '../assets/gallery/ernika_img_12_13_11zon_51_11zon.webp';
+import imgStreetView from '../assets/gallery/ernika_street_view.webp';
+import imgSkatingRink from '../assets/gallery/ernika_skating_rink.webp';
+import imgRugbyCourt from '../assets/gallery/ernika_rugby_court.webp';
+import imgNatureTrail from '../assets/gallery/ernika_nature_trail.webp';
+import imgJoggingPark from '../assets/gallery/ernika_jogging_park.webp';
+import imgButterflyGarden from '../assets/gallery/ernika_butterfly garden.webp';
+import imgBaseballCourt from '../assets/gallery/ernika_baseball_court.webp';
+import imgAmphitheater from '../assets/gallery/ernika_amphitheater.webp';
+import imgAerialView from '../assets/gallery/ernika_aerial_view.webp';
+import imgModernVilla from '../assets/gallery/ernika_modern_villa.webp';
+import imgAerialViewAlt from '../assets/gallery/ernika_Aerial-View.webp';
+import imgOverview from '../assets/gallery/ernika_img.webp';
+
 export default function GallerySection() {
   const galleryImages = [
-    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/ernika_img_9.jpeg', title: 'Ernika villa plots community view 9' },
-    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/ernika_img_2.jpg', title: 'Ernika villa plots community view 2' },
-    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/ernika_img_3.jpg', title: 'Ernika villa plots community view 3' },
-    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/ernika_img_4.jpg', title: 'Ernika villa plots community view 4' },
-    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/ernika_img_5.jpg', title: 'Ernika villa plots community view 5' },
-    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/ernika_img_6.jpg', title: 'Ernika villa plots community view 6' },
-    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/ernika_img_7.jpg', title: 'Ernika villa plots community view 7' },
-    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/ernika_img_8.jpg', title: 'Ernika villa plots community view 8' },
-    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/ernika_img_10.png', title: 'Ernika villa plots community view 10' },
-    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/ernika_img_11.jpg', title: 'Ernika villa plots community view 11' },
-    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/ernika_img_12.jpg', title: 'Ernika villa plots community view 12' },
+    { src: imgEntrance, title: 'Ernika Amazon-themed entrance & layout' },
+    { src: imgStreetView, title: 'Ernika 30ft concrete street view & tree lines' },
+    { src: imgSkatingRink, title: 'Ernika community skating rink' },
+    { src: imgRugbyCourt, title: 'Ernika sports & rugby court' },
+    { src: imgNatureTrail, title: 'Ernika Amazon forest nature trail' },
+    { src: imgJoggingPark, title: 'Ernika jogging park & greenery' },
+    { src: imgButterflyGarden, title: 'Ernika butterfly garden & open space' },
+    { src: imgBaseballCourt, title: 'Ernika baseball & outdoor sports court' },
+    { src: imgAmphitheater, title: 'Ernika open air amphitheater' },
+    { src: imgAerialView, title: 'Ernika 12.5-acre aerial view layout' },
+    { src: imgModernVilla, title: 'Ernika modern luxury villa architecture' },
+    { src: imgAerialViewAlt, title: 'Ernika masterplan aerial perspective' },
+    { src: imgOverview, title: 'Ernika villa plots community layout' },
   ];
 
   const [lightboxIndex, setLightboxIndex] = useState(null);

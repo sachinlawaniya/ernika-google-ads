@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -11,57 +12,37 @@ export default function Footer() {
         {/* Column 1: Brand Info */}
         <div className="gp_footer-col gp_footer-brand">
           <div className="gp_footer-logo">
-            <img
-              src="https://gurupunvaanii.com/wp-content/uploads/2026/03/Guru-Punvaanii-Logo-300x172.png"
-              alt="Guru Punvaanii Logo"
-            />
+            <Link to="/ernika/">
+              <img
+                src="https://gurupunvaanii.com/wp-content/uploads/2026/03/Guru-Punvaanii-Logo-300x172.png"
+                alt="Guru Punvaanii Logo"
+              />
+            </Link>
           </div>
           <p className="gp_footer-desc">
             We welcome you to visit Guru Punvaanii. We are here to provide clear, honest guidance at every step of your real estate journey.
           </p>
           <div className="gp_footer-socials">
-            <span aria-label="Facebook">
-              <i className="fab fa-facebook-f"></i>
-            </span>
-            <span aria-label="Twitter">
-              <i className="fab fa-twitter"></i>
-            </span>
-            <span aria-label="Instagram">
-              <i className="fab fa-instagram"></i>
-            </span>
-            <span aria-label="Youtube">
-              <i className="fab fa-youtube"></i>
-            </span>
+            <span aria-label="Facebook"><i className="fab fa-facebook-f"></i></span>
+            <span aria-label="Twitter"><i className="fab fa-twitter"></i></span>
+            <span aria-label="Instagram"><i className="fab fa-instagram"></i></span>
+            <span aria-label="Youtube"><i className="fab fa-youtube"></i></span>
           </div>
         </div>
 
-        {/* Column 2: Project Pages */}
-        <div className="gp_footer-col">
-          <h3 className="gp_footer-title">Project Pages</h3>
-          <ul className="gp_footer-links">
-            <li><span>Elegance</span></li>
-            <li><span>Eka</span></li>
-            <li><span>Exotica</span></li>
-            <li><span>Ernika</span></li>
-            <li><span>Eureka</span></li>
-            <li><span>Etasha</span></li>
-            <li><span>Shyam Residency</span></li>
-            <li><span>SPN</span></li>
-            <li><span>Ekansh</span></li>
-          </ul>
-        </div>
-
-        {/* Column 3: Quick Links */}
+        {/* Column 2: Google Ads Sitelinks */}
         <div className="gp_footer-col">
           <h3 className="gp_footer-title">Quick Links</h3>
           <ul className="gp_footer-links">
-            <li><span>Our Projects</span></li>
-            <li><span>About Us</span></li>
-            <li><span>Privacy Policy</span></li>
-            <li><span>Terms of Service</span></li>
-            <li><span>FAQ</span></li>
+            <li><Link to="/ernika/">Overview</Link></li>
+            <li><Link to="/ernika/villa-plots">Premium Villa Plots</Link></li>
+            <li><Link to="/ernika/project-highlights">Project Highlights</Link></li>
+            <li><Link to="/ernika/location">Location &amp; Connectivity</Link></li>
+            <li><Link to="/ernika/book-site-visit">Book Free Site Visit</Link></li>
           </ul>
         </div>
+
+
 
         {/* Column 4: Head Office Location */}
         <div className="gp_footer-col">
@@ -74,10 +55,10 @@ export default function Footer() {
             <i className="fas fa-phone-alt"></i>
             <span>8546 8546 00</span>
           </div>
-          <div className="gp_footer-info-item">
+          {/* <div className="gp_footer-info-item">
             <i className="fas fa-phone-alt"></i>
             <span>7676 000 909</span>
-          </div>
+          </div> */}
           <div className="gp_footer-info-item">
             <i className="fas fa-clock"></i>
             <span>Mon - Sat : 10:00 AM - 06:00 PM</span>

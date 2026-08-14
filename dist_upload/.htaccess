@@ -1,0 +1,17 @@
+# React Router Single Page Application (SPA) Apache Rewrite Rules
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 1. Direct Base URL Redirect: Base domain root (/) redirects directly to /ernika/
+  RewriteCond %{REQUEST_URI} ^/$ [OR]
+  RewriteCond %{REQUEST_URI} ^$
+  RewriteRule ^$ /ernika/ [R=301,L]
+
+  # 2. SPA Rewrite Rule for /ernika/ sub-routes (e.g. /ernika/villa-plots)
+  RewriteBase /ernika/
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /ernika/index.html [L]
+</IfModule>
+

@@ -21,7 +21,7 @@ export default function AboutSection({ onOpenBrochure }) {
             <li><i className="fas fa-check-circle"></i> Prime Location in Anekal, Bengaluru</li>
           </ul>
           <div>
-            <button className="er_btn-sm" type="button" onClick={onOpenBrochure}>
+            <button className="er_btn-sm" type="button" onClick={() => onOpenBrochure && onOpenBrochure('About Section - Download Brochure')}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
               </svg>
@@ -31,7 +31,7 @@ export default function AboutSection({ onOpenBrochure }) {
         </div>
          <div className="er_intro-image">
           <img
-            src="https://gurupunvaanii.com/wp-content/uploads/2026/05/ErnikaArch-scaled.jpeg"
+            src="https://gurupunvaanii.com/wp-content/uploads/2026/08/ernika_img-1.webp"
             alt="Ernika entrance arch"
             loading="lazy"
             decoding="async"

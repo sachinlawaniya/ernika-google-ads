@@ -567,8 +567,10 @@ $prox_it   = [
             #er_page .er_dev-frame-main img,
             #er_page .er_dev-frame-sub img,
             #er_page .er_trust-frame-main img { max-width: 100% !important; height: auto !important; max-height: 360px !important; object-fit: cover !important; border-radius: 12px; }
+            #er_page #er_gallery { max-width: 98% !important; width: 98% !important; margin: 0 auto !important; padding: 0 !important; }
+            #er_page #er_gallery .er_gallery-container { padding: 0 !important; width: 100% !important; }
             #er_page .er_gallery-img,
-            #er_page .er_gallery-img img { height: 220px !important; min-height: 220px !important; max-height: 220px !important; object-fit: cover !important; border-radius: 12px !important; }
+            #er_page .er_gallery-img img { height: calc(50vh - 50px) !important; min-height: calc(50vh - 50px) !important; max-height: calc(50vh - 50px) !important; object-fit: cover !important; border-radius: 12px !important; }
             #er_page .swiper-button-prev,
             #er_page .swiper-button-next { width: 32px !important; height: 32px !important; margin-top: 0 !important; }
             #er_page .swiper-button-prev:after,
@@ -1518,8 +1520,8 @@ $prox_it   = [
                    + '&field15800=' + encodeURIComponent(nowStr)
                    + '&field31227=' + encodeURIComponent(nowStr)
                    + '&field31228=' + encodeURIComponent('Digital Marketing')
-                   + '&field31229=' + encodeURIComponent('SEO')
-                   + '&field31230=' + encodeURIComponent('/ SEO/ /')
+                   + '&field31229=' + encodeURIComponent('Google Ads')
+                   + '&field31230=' + encodeURIComponent('/ Google Ads/ /')
                    + '&field37710=' + encodeURIComponent('+91')
                    + '&field15716=' + encodeURIComponent('Brochure Download (OTP Verified) - Ernika')
                    + '&field34785=';

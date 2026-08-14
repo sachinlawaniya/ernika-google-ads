@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function QuickEnquiryForm({ onOpenBrochure }) {
+export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -8,8 +8,7 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
     message: '',
   });
 
-  const [phase, setPhase] = useState('input'); // 'input' | 'otp' | 'success'
-  const [otp, setOtp] = useState(['', '', '', '', '', '']);
+  const [phase, setPhase] = useState('input'); // 'input' | 'success'
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -20,11 +19,15 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
     if (!formData.name.trim()) {
       setErrorMsg('Please enter your full name');
       return;
     }
-    if (!formData.phone.trim() || formData.phone.trim().length < 10) {
+
+    const cleanPhone = formData.phone.replace(/\D/g, '').slice(-10);
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(cleanPhone)) {
       setErrorMsg('Please enter a valid 10-digit mobile number');
       return;
     }
@@ -33,87 +36,26 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
     setErrorMsg('');
 
     try {
-      // 1. Submit lead to StrategicERP
-      const erpUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name)}&Email=${encodeURIComponent(formData.email || '')}&MobileNo=${encodeURIComponent(formData.phone)}&Comments=${encodeURIComponent(formData.message || '')}&ProjectName=Ernika&Source=GoogleAds_LandingPage`;
+      // 1. Submit lead to StrategicERP API
+      const erpUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name.trim())}&Email=${encodeURIComponent(formData.email.trim() || '')}&MobileNo=${encodeURIComponent(cleanPhone)}&Comments=${encodeURIComponent(formData.message || 'Quick Enquiry Form')}&ProjectName=Ernika&Source=GoogleAds_LandingPage`;
       fetch(erpUrl, { mode: 'no-cors' }).catch(() => {});
 
-      // 2. Dispatch SMS OTP via backend proxy
-      const otpRes = await fetch('https://gurupunvaanii.com/otp.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          action: 'send_otp',
-          mobile: formData.phone,
-          name: formData.name,
-        }),
-      });
+      // 2. Fire StrategicERP Image Pixel
+      const d = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const nowStr = `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      const pixelUrl = `https://24.strategicerpcloud.com/strategicerp/SaveFormField.do?actn=SaveData&id=873&globalvar=0&cloudcode=gurupunvaanii&idselected=0&idhidden=0&mobileform=yes&editids=15715/15800/31227/15730/state//31228/31229/31230/33937/15713/30754/34785/15716/37710/37710/&field15715=${encodeURIComponent(cleanPhone)}&field15713=${encodeURIComponent(formData.name.trim())}&field33937=${encodeURIComponent(formData.email.trim())}&field15730=${encodeURIComponent('Guru Punvaanii Ernika')}&field15800=${encodeURIComponent(nowStr)}&field31227=${encodeURIComponent(nowStr)}&field31228=${encodeURIComponent('Digital Marketing')}&field31229=${encodeURIComponent('Google Ads')}&field31230=${encodeURIComponent('/ Google Ads /')}&field37710=${encodeURIComponent('+91')}&field15716=${encodeURIComponent('Quick Enquiry Form')}&field34785=`;
+      const erpImg = new Image();
+      erpImg.src = pixelUrl;
 
-      const data = await otpRes.json().catch(() => ({ success: true }));
-      if (data && data.success === false) {
-        setErrorMsg(data.message || 'Failed to send OTP. Please try again.');
-        setLoading(false);
-        return;
-      }
-
-      setPhase('otp');
-    } catch (err) {
-      // Proceed to OTP phase on network fallback
-      setPhase('otp');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleOtpChange = (index, value) => {
-    if (!/^\d*$/.test(value)) return;
-    const newOtp = [...otp];
-    newOtp[index] = value.slice(-1);
-    setOtp(newOtp);
-
-    if (value && index < 5) {
-      const nextInput = document.getElementById(`er_sticky_otp_${index + 1}`);
-      if (nextInput) nextInput.focus();
-    }
-  };
-
-  const handleOtpSubmit = async (e) => {
-    e.preventDefault();
-    const enteredOtp = otp.join('');
-    if (enteredOtp.length < 6) {
-      setErrorMsg('Please enter the complete 6-digit OTP');
-      return;
-    }
-
-    setLoading(true);
-    setErrorMsg('');
-
-    try {
-      const verifyRes = await fetch('https://gurupunvaanii.com/otp.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          action: 'verify_otp',
-          mobile: formData.phone,
-          otp: enteredOtp,
-        }),
-      });
-
-      const data = await verifyRes.json().catch(() => ({ success: true }));
-      if (data && data.success === false) {
-        setErrorMsg(data.message || 'Invalid OTP. Please check and re-enter.');
-        setLoading(false);
-        return;
+      // 3. Trigger Google Ads conversion event
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-CONVERSION_ID/CONVERSION_LABEL',
+        });
       }
 
       setPhase('success');
-      // Trigger brochure download
-      const link = document.createElement('a');
-      link.href = 'https://gurupunvaanii.com/wp-content/uploads/2026/05/Ernika-Brochure.pdf';
-      link.download = 'Ernika-Villa-Plots-Brochure.pdf';
-      link.target = '_blank';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
     } catch (err) {
       setPhase('success');
     } finally {
@@ -125,6 +67,17 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
     <div className="er_quick-enquiry-card">
       {/* Premium Luxury Header Banner */}
       <div className="er_quick-card-head">
+        {onClose && (
+          <button
+            type="button"
+            className="er_quick-header-close-btn"
+            onClick={onClose}
+            aria-label="Close Enquiry Form"
+            title="Close"
+          >
+            <i className="fas fa-times"></i>
+          </button>
+        )}
         <span className="er_quick-badge">
           <i className="fas fa-tree"></i> AMAZON THEMED VILLA PLOTS
         </span>
@@ -175,7 +128,7 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
             </div>
 
             <div className="er_quick-field">
-              <label htmlFor="er_sticky_email">Email Address (Optional)</label>
+              <label htmlFor="er_sticky_email">Email Address</label>
               <div className="er_quick-input-icon">
                 <i className="fas fa-envelope"></i>
                 <input
@@ -190,7 +143,7 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
             </div>
 
             <div className="er_quick-field">
-              <label htmlFor="er_sticky_msg">Plot Dimensions / Query (Optional)</label>
+              <label htmlFor="er_sticky_msg">Plot Dimensions / Remarks</label>
               <div className="er_quick-input-icon er_quick-textarea-icon">
                 <i className="fas fa-comment-alt"></i>
                 <textarea
@@ -206,10 +159,10 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
 
             <button type="submit" className="er_quick-submit-btn" disabled={loading}>
               {loading ? (
-                <span><i className="fas fa-spinner fa-spin"></i> Processing...</span>
+                <span><i className="fas fa-spinner fa-spin"></i> Submitting...</span>
               ) : (
                 <>
-                  <span>Get Price List &amp; Layout</span>
+                  <span>Get Price List &amp; Details</span>
                   <i className="fas fa-arrow-right"></i>
                 </>
               )}
@@ -217,57 +170,29 @@ export default function QuickEnquiryForm({ onOpenBrochure }) {
           </form>
         )}
 
-        {phase === 'otp' && (
-          <form onSubmit={handleOtpSubmit} className="er_quick-form">
-            <div className="er_quick-otp-notice">
-              Enter 6-digit OTP sent to <strong>+91 {formData.phone}</strong>
-            </div>
-
-            <div className="er_quick-otp-grid">
-              {otp.map((digit, idx) => (
-                <input
-                  key={idx}
-                  id={`er_sticky_otp_${idx}`}
-                  type="text"
-                  maxLength="1"
-                  inputMode="numeric"
-                  className="er_quick-otp-box"
-                  value={digit}
-                  onChange={(e) => handleOtpChange(idx, e.target.value)}
-                />
-              ))}
-            </div>
-
-            <button type="submit" className="er_quick-submit-btn" disabled={loading}>
-              {loading ? (
-                <span><i className="fas fa-spinner fa-spin"></i> Verifying...</span>
-              ) : (
-                <>
-                  <span>Verify OTP &amp; Download Brochure</span>
-                  <i className="fas fa-check-circle"></i>
-                </>
-              )}
-            </button>
-
-            <button
-              type="button"
-              className="er_quick-back-btn"
-              onClick={() => setPhase('input')}
-            >
-              Edit Mobile Number
-            </button>
-          </form>
-        )}
-
         {phase === 'success' && (
           <div className="er_quick-success-box">
             <i className="fas fa-check-circle er_quick-success-icon"></i>
-            <h4>Thank You for Enquiring!</h4>
-            <p>Ernika Brochure &amp; Master Layout are downloading automatically. Our sales manager will contact you with pricing details.</p>
+            <h4>Form Submitted Successfully!</h4>
+            <p>Thank you for your enquiry. Your details have been received. Click below to download the official brochure.</p>
+            <a
+              href="https://gurupunvaanii.com/wp-content/uploads/2026/07/Ernika-Brochure-compressed-1.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="er_quick-submit-btn"
+              style={{ textDecoration: 'none', marginBottom: '10px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+            >
+              <i className="fas fa-download"></i>
+              <span>Download Brochure PDF</span>
+            </a>
             <button
               type="button"
               className="er_quick-submit-btn"
-              onClick={() => setPhase('input')}
+              style={{ background: '#f8fafc', color: '#475569', border: '1px solid #cbd5e1' }}
+              onClick={() => {
+                setFormData({ name: '', email: '', phone: '', message: '' });
+                setPhase('input');
+              }}
             >
               Submit Another Inquiry
             </button>
