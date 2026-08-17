@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useProjectContext } from '../utils/useProjectContext.js';
 
 export default function Footer() {
+  const { basePath } = useProjectContext();
+
   return (
     <footer className="gp_footer">
       <div className="gp_footer-top">
@@ -12,7 +15,7 @@ export default function Footer() {
         {/* Column 1: Brand Info */}
         <div className="gp_footer-col gp_footer-brand">
           <div className="gp_footer-logo">
-            <Link to="/ernika/">
+            <Link to={`${basePath}/`}>
               <img
                 src="https://gurupunvaanii.com/wp-content/uploads/2026/03/Guru-Punvaanii-Logo-300x172.png"
                 alt="Guru Punvaanii Logo"
@@ -34,15 +37,13 @@ export default function Footer() {
         <div className="gp_footer-col">
           <h3 className="gp_footer-title">Quick Links</h3>
           <ul className="gp_footer-links">
-            <li><Link to="/ernika/">Overview</Link></li>
-            <li><Link to="/ernika/villa-plots">Premium Villa Plots</Link></li>
-            <li><Link to="/ernika/project-highlights">Project Highlights</Link></li>
-            <li><Link to="/ernika/location">Location &amp; Connectivity</Link></li>
-            <li><Link to="/ernika/book-site-visit">Book Free Site Visit</Link></li>
+            <li><Link to={`${basePath}/`}>Overview</Link></li>
+            <li><Link to={`${basePath}/villa-plots`}>Premium Villa Plots</Link></li>
+            <li><Link to={`${basePath}/project-highlights`}>Project Highlights</Link></li>
+            <li><Link to={`${basePath}/location`}>Location &amp; Connectivity</Link></li>
+            <li><Link to={`${basePath}/book-site-visit`}>Book Free Site Visit</Link></li>
           </ul>
         </div>
-
-
 
         {/* Column 4: Head Office Location */}
         <div className="gp_footer-col">
@@ -55,10 +56,6 @@ export default function Footer() {
             <i className="fas fa-phone-alt"></i>
             <span>8546 8546 00</span>
           </div>
-          {/* <div className="gp_footer-info-item">
-            <i className="fas fa-phone-alt"></i>
-            <span>7676 000 909</span>
-          </div> */}
           <div className="gp_footer-info-item">
             <i className="fas fa-clock"></i>
             <span>Mon - Sat : 10:00 AM - 06:00 PM</span>

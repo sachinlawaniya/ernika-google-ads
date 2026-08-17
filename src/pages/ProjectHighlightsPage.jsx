@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useProjectContext } from '../utils/useProjectContext.js';
 import HeroSection from '../components/HeroSection.jsx';
 import HighlightsSection from '../components/HighlightsSection.jsx';
 import AmenitiesSection from '../components/AmenitiesSection.jsx';
@@ -9,10 +10,12 @@ import CtaSection from '../components/CtaSection.jsx';
 import FaqSection from '../components/FaqSection.jsx';
 
 export default function ProjectHighlightsPage({ onOpenBrochure }) {
+  const { isElegance, projectName } = useProjectContext();
+
   useEffect(() => {
-    document.title = 'Project Highlights & 26+ Amenities | Guru Punvaanii Ernika';
+    document.title = `Project Highlights & Amenities | ${projectName}`;
     window.scrollTo(0, 0);
-  }, []);
+  }, [isElegance, projectName]);
 
   return (
     <main>
@@ -23,7 +26,7 @@ export default function ProjectHighlightsPage({ onOpenBrochure }) {
           {/* Key Highlights Component */}
           <HighlightsSection />
 
-          {/* 26+ Amenities Component */}
+          {/* Amenities Component */}
           <AmenitiesSection />
 
           {/* Video Walkthrough */}

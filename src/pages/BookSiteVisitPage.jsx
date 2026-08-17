@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useProjectContext } from '../utils/useProjectContext.js';
 import HeroSection from '../components/HeroSection.jsx';
 import CtaSection from '../components/CtaSection.jsx';
 import FaqSection from '../components/FaqSection.jsx';
 
 export default function BookSiteVisitPage({ onOpenBrochure }) {
+  const { isElegance, shortName, projectName } = useProjectContext();
+
   useEffect(() => {
-    document.title = 'Book a Free Site Visit | Guru Punvaanii Ernika Anekal';
+    document.title = `Book a Free Site Visit | ${projectName} Anekal`;
     window.scrollTo(0, 0);
-  }, []);
+  }, [isElegance, projectName]);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -47,7 +50,7 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
 
     try {
       const comments = `SITE VISIT BOOKING: Date=${formData.visitDate || 'Not Specified'}, Slot=${formData.timeSlot}, Pickup=${formData.pickupAddress || 'Self Drive'}`;
-      const erpUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name)}&Email=${encodeURIComponent(formData.email || '')}&MobileNo=${encodeURIComponent(formData.phone)}&Comments=${encodeURIComponent(comments)}&ProjectName=Ernika&Source=GoogleAds_BookSiteVisitPage`;
+      const erpUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name)}&Email=${encodeURIComponent(formData.email || '')}&MobileNo=${encodeURIComponent(formData.phone)}&Comments=${encodeURIComponent(comments)}&ProjectName=${encodeURIComponent(shortName)}&Source=GoogleAds_BookSiteVisitPage`;
       fetch(erpUrl, { mode: 'no-cors' }).catch(() => {});
 
       /* OTP logic commented out for direct submission

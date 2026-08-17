@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useProjectContext } from '../utils/useProjectContext.js';
 
 export default function Header({ onOpenModal }) {
   const [menuActive, setMenuActive] = useState(false);
+  const { basePath } = useProjectContext();
 
   return (
     <>
       <header className="gp_custom-header">
         <div className="gp_header-inner">
           <div className="gp_logo">
-            <Link to="/ernika/">
+            <Link to={`${basePath}/`}>
               <img
                 src="https://gurupunvaanii.com/wp-content/uploads/2026/03/Guru-Punvaanii-Logo-300x172.png"
                 alt="Guru Punvaanii Logo"
@@ -44,11 +46,11 @@ export default function Header({ onOpenModal }) {
         </button>
         <div className="gp_mobile-modal-inner">
           <ul className="gp_mobile-menu">
-            <li><Link to="/ernika/" className="gp_m-link" onClick={() => setMenuActive(false)}>Overview</Link></li>
-            <li><Link to="/ernika/villa-plots" className="gp_m-link" onClick={() => setMenuActive(false)}>Villa Plots</Link></li>
-            <li><Link to="/ernika/project-highlights" className="gp_m-link" onClick={() => setMenuActive(false)}>Project Highlights</Link></li>
-            <li><Link to="/ernika/location" className="gp_m-link" onClick={() => setMenuActive(false)}>Location &amp; Connectivity</Link></li>
-            <li><Link to="/ernika/book-site-visit" className="gp_m-link" onClick={() => setMenuActive(false)}>Book Free Site Visit</Link></li>
+            <li><Link to={`${basePath}/`} className="gp_m-link" onClick={() => setMenuActive(false)}>About Us</Link></li>
+            <li><Link to={`${basePath}/villa-plots`} className="gp_m-link" onClick={() => setMenuActive(false)}>Villa &amp; Plots</Link></li>
+            <li><Link to={`${basePath}/project-highlights`} className="gp_m-link" onClick={() => setMenuActive(false)}>Project Highlights</Link></li>
+            <li><Link to={`${basePath}/location`} className="gp_m-link" onClick={() => setMenuActive(false)}>Location &amp; Connectivity</Link></li>
+            <li><Link to={`${basePath}/book-site-visit`} className="gp_m-link" onClick={() => setMenuActive(false)}>Book Free Site Visit</Link></li>
           </ul>
           <div className="gp_mobile-social">
             <span aria-label="Instagram">

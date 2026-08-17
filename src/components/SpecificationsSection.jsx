@@ -32,7 +32,7 @@ export default function SpecificationsSection() {
         <div className="er_spec-container">
           <Swiper
             modules={[Autoplay, Navigation]}
-            slidesPerView={1}
+            slidesPerView={2}
             spaceBetween={20}
             loop={true}
             grabCursor={true}

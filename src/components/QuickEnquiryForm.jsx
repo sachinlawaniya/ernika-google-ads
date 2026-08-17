@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useProjectContext } from '../utils/useProjectContext.js';
 
 export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
+  const { isElegance, shortName, projectName } = useProjectContext();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -37,14 +40,14 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
 
     try {
       // 1. Submit lead to StrategicERP API
-      const erpUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name.trim())}&Email=${encodeURIComponent(formData.email.trim() || '')}&MobileNo=${encodeURIComponent(cleanPhone)}&Comments=${encodeURIComponent(formData.message || 'Quick Enquiry Form')}&ProjectName=Ernika&Source=GoogleAds_LandingPage`;
+      const erpUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name.trim())}&Email=${encodeURIComponent(formData.email.trim() || '')}&MobileNo=${encodeURIComponent(cleanPhone)}&Comments=${encodeURIComponent(formData.message || 'Quick Enquiry Form')}&ProjectName=${encodeURIComponent(shortName)}&Source=GoogleAds_LandingPage`;
       fetch(erpUrl, { mode: 'no-cors' }).catch(() => {});
 
       // 2. Fire StrategicERP Image Pixel
       const d = new Date();
       const pad = (n) => String(n).padStart(2, '0');
       const nowStr = `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-      const pixelUrl = `https://24.strategicerpcloud.com/strategicerp/SaveFormField.do?actn=SaveData&id=873&globalvar=0&cloudcode=gurupunvaanii&idselected=0&idhidden=0&mobileform=yes&editids=15715/15800/31227/15730/state//31228/31229/31230/33937/15713/30754/34785/15716/37710/37710/&field15715=${encodeURIComponent(cleanPhone)}&field15713=${encodeURIComponent(formData.name.trim())}&field33937=${encodeURIComponent(formData.email.trim())}&field15730=${encodeURIComponent('Guru Punvaanii Ernika')}&field15800=${encodeURIComponent(nowStr)}&field31227=${encodeURIComponent(nowStr)}&field31228=${encodeURIComponent('Digital Marketing')}&field31229=${encodeURIComponent('Google Ads')}&field31230=${encodeURIComponent('/ Google Ads /')}&field37710=${encodeURIComponent('+91')}&field15716=${encodeURIComponent('Quick Enquiry Form')}&field34785=`;
+      const pixelUrl = `https://24.strategicerpcloud.com/strategicerp/SaveFormField.do?actn=SaveData&id=873&globalvar=0&cloudcode=gurupunvaanii&idselected=0&idhidden=0&mobileform=yes&editids=15715/15800/31227/15730/state//31228/31229/31230/33937/15713/30754/34785/15716/37710/37710/&field15715=${encodeURIComponent(cleanPhone)}&field15713=${encodeURIComponent(formData.name.trim())}&field33937=${encodeURIComponent(formData.email.trim())}&field15730=${encodeURIComponent(projectName)}&field15800=${encodeURIComponent(nowStr)}&field31227=${encodeURIComponent(nowStr)}&field31228=${encodeURIComponent('Digital Marketing')}&field31229=${encodeURIComponent('Google Ads')}&field31230=${encodeURIComponent('/ Google Ads /')}&field37710=${encodeURIComponent('+91')}&field15716=${encodeURIComponent('Quick Enquiry Form')}&field34785=`;
       const erpImg = new Image();
       erpImg.src = pixelUrl;
 
@@ -79,10 +82,10 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
           </button>
         )}
         <span className="er_quick-badge">
-          <i className="fas fa-tree"></i> AMAZON THEMED VILLA PLOTS
+          <i className="fas fa-tree"></i> {isElegance ? 'PREMIUM VILLA PLOTS' : 'AMAZON THEMED VILLA PLOTS'}
         </span>
-        <h3 className="er_quick-title">Ernika Villa Plots - Anekal</h3>
-        <p className="er_quick-sub">220 BMRDA Approved Plots across 12.5 Acres</p>
+        <h3 className="er_quick-title">{shortName} Villa Plots - Anekal</h3>
+        <p className="er_quick-sub">{isElegance ? 'Luxury Approved Villa Plots Community' : '220 BMRDA Approved Plots across 12.5 Acres'}</p>
       </div>
 
       <div className="er_quick-card-body">

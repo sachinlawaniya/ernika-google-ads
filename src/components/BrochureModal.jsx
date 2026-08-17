@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useProjectContext } from '../utils/useProjectContext.js';
 
 const BROCHURE_URL = 'https://gurupunvaanii.com/wp-content/uploads/2026/07/Ernika-Brochure-compressed-1.pdf';
 
 export default function BrochureModal({ isOpen, onClose, sourceComment }) {
-  const [step, setStep] = useState('input'); // 'input' | 'success' (OTP commented out)
+  const { shortName, projectName } = useProjectContext();
+
+  const [step, setStep] = useState('input'); // 'input' | 'success'
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -40,7 +43,7 @@ export default function BrochureModal({ isOpen, onClose, sourceComment }) {
     return `${dd}/${mm}/${yyyy} ${hh}:${min}`;
   };
 
-  // Direct Lead Submission to StrategicERP (OTP logic commented out)
+  // Direct Lead Submission to StrategicERP
   const handleSubmitLead = (e) => {
     e.preventDefault();
     setMsg({ text: '', type: '' });
@@ -68,15 +71,15 @@ export default function BrochureModal({ isOpen, onClose, sourceComment }) {
     try {
       const nowStr = getERPFormattedDateTime();
       const commentVal = sourceComment
-        ? `${sourceComment} - Ernika Landing Page`
-        : 'Download Brochure Form - Ernika Landing Page';
+        ? `${sourceComment} - ${shortName} Landing Page`
+        : `Download Brochure Form - ${shortName} Landing Page`;
 
       const erpUrl =
         `https://24.strategicerpcloud.com/strategicerp/SaveFormField.do?actn=SaveData&id=873&globalvar=0&cloudcode=gurupunvaanii&idselected=0&idhidden=0&mobileform=yes&editids=15715/15800/31227/15730/state//31228/31229/31230/33937/15713/30754/34785/15716/37710/37710/` +
         `&field15715=${encodeURIComponent(cleanPhone)}` +
         `&field15713=${encodeURIComponent(name.trim())}` +
         `&field33937=${encodeURIComponent(email.trim())}` +
-        `&field15730=${encodeURIComponent('Guru Punvaanii Ernika')}` +
+        `&field15730=${encodeURIComponent(projectName)}` +
         `&field15800=${encodeURIComponent(nowStr)}` +
         `&field31227=${encodeURIComponent(nowStr)}` +
         `&field31228=${encodeURIComponent('Digital Marketing')}` +
@@ -105,15 +108,6 @@ export default function BrochureModal({ isOpen, onClose, sourceComment }) {
     }
   };
 
-  /* OTP LOGIC COMMENTED OUT FOR DIRECT SUBMISSION
-  const handleRequestOtp = async (e) => {
-    // OTP request code commented out
-  };
-  const handleVerifyOtp = async () => {
-    // OTP verification code commented out
-  };
-  */
-
   if (!isOpen) return null;
 
   return (
@@ -136,10 +130,10 @@ export default function BrochureModal({ isOpen, onClose, sourceComment }) {
         <div className="er_modal-header">
           <div className="er_modal-brand-tag">
             <span className="er_brand-icon"></span>
-            <span>GURU PUNVAANII &nbsp;|&nbsp; ERNIKA</span>
+            <span>GURU PUNVAANII &nbsp;|&nbsp; {shortName.toUpperCase()}</span>
           </div>
           <h2 id="er_brochureTitle">
-            Get the <em>ERNIKA</em><br />layout & brochure
+            Get the <em>{shortName.toUpperCase()}</em><br />layout & brochure
           </h2>
           <p>
             Share a few details and we’ll send the full brochure — plot layouts, phase-wise pricing and RERA documents — straight to your phone.
@@ -217,7 +211,7 @@ export default function BrochureModal({ isOpen, onClose, sourceComment }) {
                 Form Submitted Successfully!
               </h3>
               <p style={{ fontSize: '13px', color: '#475569', marginBottom: '18px', lineHeight: 1.5 }}>
-                Thank you <strong>{name}</strong>! Your enquiry has been received. Click below to download the official Ernika brochure PDF.
+                Thank you <strong>{name}</strong>! Your enquiry has been received. Click below to download the official {shortName} brochure PDF.
               </p>
               <a
                 href={BROCHURE_URL}
@@ -242,7 +236,7 @@ export default function BrochureModal({ isOpen, onClose, sourceComment }) {
           )}
 
           <p style={{ textAlign: 'center', fontSize: '11px', color: '#94a3b8', margin: '12px 0 6px' }}>
-            No spam — only the Ernika brochure and updates you ask for.
+            No spam — only the {shortName} brochure and updates you ask for.
           </p>
         </div>
 

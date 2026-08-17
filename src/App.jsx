@@ -4,6 +4,7 @@ import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import BrochureModal from './components/BrochureModal.jsx';
 import MobileEnquiryPopup from './components/MobileEnquiryPopup.jsx';
+import FloatingCallBtn from './components/FloatingCallBtn.jsx';
 
 import HomePage from './pages/HomePage.jsx';
 import VillaPlotsPage from './pages/VillaPlotsPage.jsx';
@@ -91,8 +92,16 @@ export default function App() {
           <Route path="/ernika/location" element={<LocationPage onOpenBrochure={handleOpenBrochure} />} />
           <Route path="/ernika/book-site-visit" element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} />} />
 
+          {/* New /elegance/ sitelink routes */}
+          <Route path="/elegance/" element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/elegance" element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/elegance/villa-plots" element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/elegance/project-highlights" element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/elegance/location" element={<LocationPage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/elegance/book-site-visit" element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} />} />
+
           {/* Fallback routes */}
-          <Route path="/" element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/" element={<Navigate to="/ernika/" replace />} />
           <Route path="/villa-plots" element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
           <Route path="/project-highlights" element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} />} />
           <Route path="/location" element={<LocationPage onOpenBrochure={handleOpenBrochure} />} />
@@ -104,6 +113,7 @@ export default function App() {
         <Footer />
         <BrochureModal isOpen={isModalOpen} onClose={handleCloseBrochure} sourceComment={modalSource} />
         <MobileEnquiryPopup onOpenBrochure={handleOpenBrochure} />
+        <FloatingCallBtn />
       </div>
     </Router>
   );

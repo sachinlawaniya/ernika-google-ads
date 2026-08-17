@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useProjectContext } from '../utils/useProjectContext.js';
 import HeroSection from '../components/HeroSection.jsx';
 import AboutSection from '../components/AboutSection.jsx';
 import HighlightsSection from '../components/HighlightsSection.jsx';
@@ -10,12 +11,17 @@ import LocationSection from '../components/LocationSection.jsx';
 import CtaSection from '../components/CtaSection.jsx';
 import FaqSection from '../components/FaqSection.jsx';
 import QuickEnquiryForm from '../components/QuickEnquiryForm.jsx';
+import PlotSizesSection from '../components/PlotSizesSection.jsx';
 
 export default function HomePage({ onOpenBrochure }) {
+  const { isElegance } = useProjectContext();
+
   useEffect(() => {
-    document.title = 'Guru Punvaanii Ernika | Amazon Forest-Themed Villa Plots in Anekal Bengaluru';
+    document.title = isElegance
+      ? 'Guru Punvaanii Elegance | Premium Villa Plots in Anekal Bangalore'
+      : 'Guru Punvaanii Ernika | Amazon Forest-Themed Villa Plots in Anekal Bengaluru';
     window.scrollTo(0, 0);
-  }, []);
+  }, [isElegance]);
 
   return (
     <main>
@@ -26,6 +32,7 @@ export default function HomePage({ onOpenBrochure }) {
           <HighlightsSection />
           <GallerySection />
           <AmenitiesSection />
+          <PlotSizesSection onOpenBrochure={onOpenBrochure} />
           <VideoSection sectionVidId="sLBAywF0k44" />
           <SpecificationsSection />
           <LocationSection />
