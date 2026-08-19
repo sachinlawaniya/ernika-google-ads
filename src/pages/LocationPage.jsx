@@ -45,7 +45,7 @@ export default function LocationPage({ onOpenBrochure }) {
 
   return (
     <main>
-      <HeroSection heroVidId="VNnsHctRUx0" onOpenBrochure={onOpenBrochure} />
+      <HeroSection onOpenBrochure={onOpenBrochure} />
 
       <div className="er_main-layout-wrap">
         <div className="er_main-content-col">

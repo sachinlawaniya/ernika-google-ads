@@ -177,6 +177,17 @@ select {
   transform: translateY(-2px) !important;
 }
 
+.gp_desktop-nav-wrap {
+  display: flex !important;
+  align-items: center !important;
+}
+
+@media (max-width: 991px) {
+  .gp_desktop-nav-wrap {
+    display: none !important;
+  }
+}
+
 .gp_menu-toggle {
   display: block !important;
   background: transparent !important;
@@ -191,6 +202,11 @@ select {
 .gp_menu-toggle:hover {
   color: var(--er-gold) !important;
   transform: scale(1.1) !important;
+}
+
+.gp_m-link.active {
+  color: var(--er-gold, #c68a28) !important;
+  font-weight: 700 !important;
 }
 
 /* Backdrop Overlay */
@@ -323,7 +339,7 @@ select {
   margin-left: auto !important;
   margin-right: auto !important;
   box-sizing: border-box !important;
-  
+
 }
 
 #er_page .er_section-head {
@@ -537,19 +553,20 @@ select {
   position: relative;
   border-radius: 8px;
   box-shadow: 20px 20px 0 var(--er-gold);
-  overflow: hidden;
+  overflow: visible;
+  /* Changed from hidden to prevent cutting off shadow if needed */
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
 }
 
 #er_page .er_intro-image img {
   width: 100%;
-  height: 100%;
-  min-height: 100%;
+  height: auto;
   object-fit: cover;
-  object-position: left center !important;
+  object-position: center !important;
+  border-radius: 8px;
   filter: contrast(110%) saturate(105%);
 }
 
@@ -815,7 +832,7 @@ select {
 
 .er_loc-features {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
   margin-top: 12px;
   width: 100%;
@@ -1060,8 +1077,8 @@ select {
   width: 100%;
   background: linear-gradient(135deg, #ffffff 0%, #fdfbf7 100%);
   border: 1px solid rgba(197, 139, 45, 0.2);
-    border-color: var(--er-gold, #C58B2D);
-margin: 10px ;
+  border-color: var(--er-gold, #C58B2D);
+  margin: 10px;
   border-radius: 16px;
   padding: 18px 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
@@ -1199,8 +1216,13 @@ margin: 10px ;
 }
 
 @keyframes erBarShimmer {
-  0% { left: -100%; }
-  100% { left: 200%; }
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 200%;
+  }
 }
 
 /* Proximity Highlights Bar */
@@ -1320,10 +1342,12 @@ margin: 10px ;
 }
 
 @media (max-width: 576px) {
+
   #er_page .er_proximity-iframe-wrap,
   #er_page .er_google-iframe-wrap {
     height: 380px !important;
     min-height: 340px !important;
+    margin-top: -20px !important;
   }
 
   .er_loc-highlights-bar {
@@ -1337,7 +1361,7 @@ margin: 10px ;
   padding: 60px 0;
   position: relative;
   overflow: hidden;
-  margin: 0px auto ;
+  margin: 0px auto;
   border-top: 2px solid var(--er-gold);
   border-bottom: 2px solid var(--er-gold);
   max-width: 90% !important;
@@ -2742,10 +2766,12 @@ margin: 10px ;
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(198, 138, 40, 0.7);
   }
+
   70% {
     transform: scale(1);
     box-shadow: 0 0 0 8px rgba(198, 138, 40, 0);
   }
+
   100% {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(198, 138, 40, 0);
@@ -2827,7 +2853,7 @@ margin: 10px ;
 .er_subpage-content-grid {
   display: grid;
   grid-template-columns: 1fr 380px;
-  gap:0px;
+  gap: 0px;
   margin-bottom: 60px;
 }
 
@@ -2837,7 +2863,7 @@ margin: 10px ;
   }
 }
 
-/* ── VILLA PLOTS PAGE CARDS ── */
+/* ── VILLA plots PAGE CARDS ── */
 .er_plots-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -2852,13 +2878,13 @@ margin: 10px ;
   border-radius: 18px;
   padding: 24px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
 }
 
 .er_plot-card:hover {
   border-color: var(--er-gold, #c68a28);
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
 .er_plot-header {
@@ -3079,7 +3105,7 @@ margin: 10px ;
   background: #ffffff;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   border: 1.5px solid #e2e8f0;
 }
 
@@ -3177,8 +3203,8 @@ margin: 10px ;
 }
 
 .er_phone-chip {
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: #ffffff;
   padding: 8px 16px;
   border-radius: 30px;
@@ -3309,13 +3335,25 @@ margin: 10px ;
 
 
 @keyframes er_fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes er_slideUp {
-  from { opacity: 0; transform: translateY(30px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* ── FLOATING CALL CTA BUTTON (LUXURY MULTI-LAYER ANIMATED) ── */
@@ -3388,12 +3426,10 @@ margin: 10px ;
   left: -120% !important;
   width: 100% !important;
   height: 100% !important;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.65) 50%,
-    transparent 100%
-  ) !important;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.65) 50%,
+      transparent 100%) !important;
   border-radius: 50% !important;
   transform: skewX(-20deg) !important;
   animation: er_shimmer_sweep 3.6s infinite ease-in-out !important;
@@ -3402,23 +3438,63 @@ margin: 10px ;
 }
 
 @keyframes er_float_bob {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-6px);
   }
 }
 
 @keyframes er_phone_ring_jitter {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  6%, 10%, 14%, 18%, 22% { transform: scale(1.16) rotate(16deg); }
-  8%, 12%, 16%, 20%, 24% { transform: scale(1.16) rotate(-16deg); }
-  26% { transform: scale(1) rotate(0deg); }
-  55% { transform: scale(1) rotate(0deg); }
-  60%, 64%, 68% { transform: scale(1.1) rotate(12deg); }
-  62%, 66%, 70% { transform: scale(1.1) rotate(-12deg); }
-  72% { transform: scale(1) rotate(0deg); }
+
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  6%,
+  10%,
+  14%,
+  18%,
+  22% {
+    transform: scale(1.16) rotate(16deg);
+  }
+
+  8%,
+  12%,
+  16%,
+  20%,
+  24% {
+    transform: scale(1.16) rotate(-16deg);
+  }
+
+  26% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  55% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  60%,
+  64%,
+  68% {
+    transform: scale(1.1) rotate(12deg);
+  }
+
+  62%,
+  66%,
+  70% {
+    transform: scale(1.1) rotate(-12deg);
+  }
+
+  72% {
+    transform: scale(1) rotate(0deg);
+  }
 }
 
 @keyframes er_radar_pulse {
@@ -3426,9 +3502,11 @@ margin: 10px ;
     transform: scale(0.9);
     opacity: 0.9;
   }
+
   50% {
     opacity: 0.5;
   }
+
   100% {
     transform: scale(1.75);
     opacity: 0;
@@ -3436,9 +3514,22 @@ margin: 10px ;
 }
 
 @keyframes er_shimmer_sweep {
-  0%, 55% { left: -120%; opacity: 0; }
-  70% { opacity: 1; }
-  85%, 100% { left: 220%; opacity: 0; }
+
+  0%,
+  55% {
+    left: -120%;
+    opacity: 0;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  85%,
+  100% {
+    left: 220%;
+    opacity: 0;
+  }
 }
 
 @media (max-width: 768px) {
@@ -3448,4 +3539,123 @@ margin: 10px ;
     width: 54px !important;
     height: 54px !important;
   }
-}
+}
+
+/* Premium Plot Card Styles */
+.er_premium-plot-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  margin-top: 2rem;
+  border: 1px solid #eaeaea;
+}
+
+@media (min-width: 992px) {
+  .er_premium-plot-card {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+
+.er_premium-plot-image-container {
+  position: relative;
+  flex: 1.2;
+  min-height: 350px;
+  background: #000;
+}
+
+.er_premium-plot-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.er_premium-image-toggles {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+}
+
+.er_toggle-btn {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+}
+
+.er_toggle-btn.active,
+.er_toggle-btn:hover {
+  background: var(--primary-color, #1e3c2f);
+  border-color: var(--primary-color, #1e3c2f);
+}
+
+.er_premium-image-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: #fff;
+  font-size: 0.9rem;
+  z-index: 2;
+}
+
+.er_premium-plot-content {
+  flex: 1;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Location Responsive Fixes */
+@media (max-width: 991px) {
+  .er_loc-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .er_loc-features {
+    grid-template-columns: 1fr;
+  }
+
+  .er_loc-map-tabs {
+    flex-wrap: wrap;
+  }
+
+  .er_loc-tab-btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* Dynamic Proximity Map Margins */
+#er_page .er_proximity-iframe-wrap {
+  margin-top: var(--margin-desktop, 0px);
+}
+
+@media (max-width: 991px) {
+  #er_page .er_proximity-iframe-wrap {
+    margin-top: var(--margin-tablet, 0px);
+  }
+}
+
+@media (max-width: 768px) {
+  #er_page .er_proximity-iframe-wrap {
+    margin-top: var(--margin-mobile, 0px) !important;
+  }
+}

@@ -4,7 +4,7 @@ export default function FloatingCta({ onOpenBrochure }) {
   return (
     <div className="er_floating-cta">
       <div className="er_floating-text">
-        <span>Ernika Villa Plots</span> — Amazon Forest Theme in Anekal, Bengaluru
+        <span>Ernika Villa Plots </span> — Amazon Forest Theme in Anekal, Bengaluru
       </div>
       <button className="er_floating-btn" onClick={() => onOpenBrochure && onOpenBrochure('Floating Bottom Banner - Download Brochure')}>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

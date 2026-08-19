@@ -5,10 +5,10 @@ import CtaSection from '../components/CtaSection.jsx';
 import FaqSection from '../components/FaqSection.jsx';
 
 export default function BookSiteVisitPage({ onOpenBrochure }) {
-  const { isElegance, shortName, projectName } = useProjectContext();
+  const { isElegance, shortName, projectName, project } = useProjectContext();
 
   useEffect(() => {
-    document.title = `Book a Free Site Visit | ${projectName} Anekal`;
+    document.title = `Book a Free Site Visit | ${projectName}`;
     window.scrollTo(0, 0);
   }, [isElegance, projectName]);
 
@@ -27,7 +27,11 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
   const [errorMsg, setErrorMsg] = useState('');
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    let { name, value } = e.target;
+    if (name === 'phone') {
+      value = value.replace(/\D/g, '');
+    }
+    setFormData({ ...formData, [name]: value });
     setErrorMsg('');
   };
 
@@ -45,32 +49,29 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
       return;
     }
 
+    if (formData.email.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email.trim())) {
+        setErrorMsg('Please enter a valid email address');
+        return;
+      }
+    }
+
     setLoading(true);
     setErrorMsg('');
 
     try {
       const comments = `SITE VISIT BOOKING: Date=${formData.visitDate || 'Not Specified'}, Slot=${formData.timeSlot}, Pickup=${formData.pickupAddress || 'Self Drive'}`;
-      const erpUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name)}&Email=${encodeURIComponent(formData.email || '')}&MobileNo=${encodeURIComponent(formData.phone)}&Comments=${encodeURIComponent(comments)}&ProjectName=${encodeURIComponent(shortName)}&Source=GoogleAds_BookSiteVisitPage`;
-      fetch(erpUrl, { mode: 'no-cors' }).catch(() => {});
+      const erpUrl = `https://24.strategicerpcloud.com/strategicerp/SaveFormField.do?actn=SaveData&id=873&globalvar=0&cloudcode=gurupunvaanii&idselected=0&idhidden=0&mobileform=yes&editids=15715/15800/31227/15730/state//31228/31229/31230/33937/15713/30754/34785/15716/37710/37710/` +
+        `&field15715=${encodeURIComponent(cleanPhone)}` +
+        `&field15713=${encodeURIComponent(formData.name.trim())}` +
+        `&field33937=${encodeURIComponent(formData.email.trim())}` +
+        `&field15730=${encodeURIComponent(projectName)}` +
+        `&field15716=${encodeURIComponent(comments)}` +
+        `&field37710=${encodeURIComponent('+91')}`;
 
-      /* OTP logic commented out for direct submission
-      const otpRes = await fetch('https://gurupunvaanii.com/otp.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          action: 'send_otp',
-          mobile: formData.phone,
-          name: formData.name,
-        }),
-      });
-
-      const data = await otpRes.json().catch(() => ({ success: true }));
-      if (data && data.success === false) {
-        setErrorMsg(data.message || 'Failed to send OTP. Please try again.');
-        setLoading(false);
-        return;
-      }
-      */
+      const erpImg = new Image();
+      erpImg.src = erpUrl;
 
       setPhase('success');
     } catch (err) {
@@ -104,23 +105,6 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
     setErrorMsg('');
 
     try {
-      const verifyRes = await fetch('https://gurupunvaanii.com/otp.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          action: 'verify_otp',
-          mobile: formData.phone,
-          otp: enteredOtp,
-        }),
-      });
-
-      const data = await verifyRes.json().catch(() => ({ success: true }));
-      if (data && data.success === false) {
-        setErrorMsg(data.message || 'Invalid OTP. Please check and re-enter.');
-        setLoading(false);
-        return;
-      }
-
       setPhase('success');
     } catch (err) {
       setPhase('success');
@@ -142,23 +126,11 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
       icon: 'fa-user-nurse',
       color: '#1B3C34'
     },
-    // {
-    //   title: 'On-Spot Bank Loan Eligibility',
-    //   desc: 'Get instant pre-approval check for 80% home loans from SBI & HDFC experts.',
-    //   icon: 'fa-file-invoice-dollar',
-    //   color: '#0891b2'
-    // },
-    // {
-    //   title: 'Exclusive Launch Discount',
-    //   desc: 'Lock in special site visit offers and direct builder plot pricing.',
-    //   icon: 'fa-tags',
-    //   color: '#7c3aed'
-    // }
   ];
 
   return (
     <main>
-      <HeroSection heroVidId="VNnsHctRUx0" onOpenBrochure={onOpenBrochure} />
+      <HeroSection onOpenBrochure={onOpenBrochure} />
 
       <div className="er_main-layout-wrap">
         <div className="er_main-content-col">
@@ -166,10 +138,10 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
           <section className="er_section er_container">
             <div className="er_section-head">
               <span className="er_section-label">COMPLIMENTARY SITE VISIT</span>
-              <h2 className="er_section-h2">Experience Ernika In Person</h2>
+              <h2 className="er_section-h2">Experience {shortName} In Person</h2>
               <div className="er_gold-line"></div>
               <p className="er_section-desc">
-                Experience Bengaluru's 1st Amazon Forest-Themed Villa Plots in person. We provide free AC cab pickup and drop for you and your family!
+                Experience {isElegance ? 'Guru Punvaanii Elegance 4 BHK Luxury Villas & plots in Bidadi' : "Bengaluru's 1st Amazon Forest-Themed Villa plots at Ernika"} in person. We provide free AC cab pickup and drop for you and your family!
               </p>
             </div>
 
@@ -195,9 +167,6 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
                 <a href="tel:8546854600" className="er_phone-chip">
                   <i className="fas fa-phone-alt"></i> 8546 8546 00
                 </a>
-                {/* <a href="tel:7676000909" className="er_phone-chip">
-                  <i className="fas fa-phone-alt"></i> 7676 000 909
-                </a> */}
               </div>
               <div className="er_timing-badge">
                 <i className="fas fa-clock"></i> Site Operating Hours: 10:00 AM - 06:00 PM (Open 7 Days a Week)
@@ -371,7 +340,7 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
                   <h4>Form Submitted Successfully!</h4>
                   <p>Thank you <strong>{formData.name}</strong>. Your site visit is confirmed for <strong>{formData.visitDate || 'Today'} ({formData.timeSlot})</strong>.</p>
                   <a
-                    href="https://gurupunvaanii.com/wp-content/uploads/2026/07/Ernika-Brochure-compressed-1.pdf"
+                    href={project.brochureUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="er_quick-submit-btn"

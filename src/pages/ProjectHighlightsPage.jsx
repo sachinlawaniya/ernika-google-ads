@@ -19,7 +19,7 @@ export default function ProjectHighlightsPage({ onOpenBrochure }) {
 
   return (
     <main>
-      <HeroSection heroVidId="VNnsHctRUx0" onOpenBrochure={onOpenBrochure} />
+      <HeroSection onOpenBrochure={onOpenBrochure} />
 
       <div className="er_main-layout-wrap">
         <div className="er_main-content-col">
@@ -30,7 +30,7 @@ export default function ProjectHighlightsPage({ onOpenBrochure }) {
           <AmenitiesSection />
 
           {/* Video Walkthrough */}
-          <VideoSection sectionVidId="sLBAywF0k44" />
+          <VideoSection />
 
           {/* Visual Gallery Showcase */}
           <GallerySection />

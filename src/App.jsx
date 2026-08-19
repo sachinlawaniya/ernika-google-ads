@@ -11,6 +11,7 @@ import VillaPlotsPage from './pages/VillaPlotsPage.jsx';
 import ProjectHighlightsPage from './pages/ProjectHighlightsPage.jsx';
 import LocationPage from './pages/LocationPage.jsx';
 import BookSiteVisitPage from './pages/BookSiteVisitPage.jsx';
+import { PROJECTS_DATA } from './utils/useProjectContext.js';
 
 function ScrollToTopOrHash() {
   const { pathname, hash } = useLocation();
@@ -31,10 +32,6 @@ function ScrollToTopOrHash() {
 
   return null;
 }
-
-const getBasename = () => {
-  return window.location.pathname.startsWith('/ernika') ? '/ernika' : '/';
-};
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -77,6 +74,20 @@ export default function App() {
     };
   }, []);
 
+  // Generate dynamic routes for all projects in PROJECTS_DATA
+  const renderProjectRoutes = () => {
+    return Object.values(PROJECTS_DATA).map((project) => (
+      <React.Fragment key={project.id}>
+        <Route path={`${project.basePath}/`} element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
+        <Route path={`${project.basePath}`} element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
+        <Route path={`${project.basePath}/villa-Plots `} element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
+        <Route path={`${project.basePath}/project-highlights`} element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} />} />
+        <Route path={`${project.basePath}/location`} element={<LocationPage onOpenBrochure={handleOpenBrochure} />} />
+        <Route path={`${project.basePath}/book-site-visit`} element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} />} />
+      </React.Fragment>
+    ));
+  };
+
   return (
     <Router>
       <ScrollToTopOrHash />
@@ -84,25 +95,11 @@ export default function App() {
         <Header onOpenModal={handleOpenBrochure} />
 
         <Routes>
-          {/* Main /ernika/ sitelink routes */}
-          <Route path="/ernika/" element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
-          <Route path="/ernika" element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
-          <Route path="/ernika/villa-plots" element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
-          <Route path="/ernika/project-highlights" element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} />} />
-          <Route path="/ernika/location" element={<LocationPage onOpenBrochure={handleOpenBrochure} />} />
-          <Route path="/ernika/book-site-visit" element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} />} />
-
-          {/* New /elegance/ sitelink routes */}
-          <Route path="/elegance/" element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
-          <Route path="/elegance" element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
-          <Route path="/elegance/villa-plots" element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
-          <Route path="/elegance/project-highlights" element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} />} />
-          <Route path="/elegance/location" element={<LocationPage onOpenBrochure={handleOpenBrochure} />} />
-          <Route path="/elegance/book-site-visit" element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} />} />
+          {renderProjectRoutes()}
 
           {/* Fallback routes */}
           <Route path="/" element={<Navigate to="/ernika/" replace />} />
-          <Route path="/villa-plots" element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/villa-Plots " element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
           <Route path="/project-highlights" element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} />} />
           <Route path="/location" element={<LocationPage onOpenBrochure={handleOpenBrochure} />} />
           <Route path="/book-site-visit" element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} />} />

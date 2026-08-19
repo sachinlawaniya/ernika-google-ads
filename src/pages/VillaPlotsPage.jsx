@@ -8,16 +8,18 @@ import CtaSection from '../components/CtaSection.jsx';
 import FaqSection from '../components/FaqSection.jsx';
 
 export default function VillaPlotsPage({ onOpenBrochure }) {
-  const { isElegance, projectName } = useProjectContext();
+  const { isElegance, projectName, shortName } = useProjectContext();
 
   useEffect(() => {
-    document.title = `Premium Villa Plots in Anekal Bangalore | ${projectName}`;
+    document.title = isElegance
+      ? `Premium 4 BHK Villas & plots in Bidadi | ${projectName}`
+      : `Premium Villa plots in Anekal Bangalore | ${projectName}`;
     window.scrollTo(0, 0);
   }, [isElegance, projectName]);
 
   return (
     <main>
-      <HeroSection heroVidId="VNnsHctRUx0" onOpenBrochure={onOpenBrochure} />
+      <HeroSection onOpenBrochure={onOpenBrochure} />
 
       <div className="er_main-layout-wrap">
         <div className="er_main-content-col">

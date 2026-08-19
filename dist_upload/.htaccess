@@ -7,7 +7,7 @@
   RewriteCond %{REQUEST_URI} ^$
   RewriteRule ^$ /ernika/ [R=301,L]
 
-  # 2. SPA Rewrite Rule for /ernika/ sub-routes (e.g. /ernika/villa-plots)
+  # 2. SPA Rewrite Rule for /ernika/ sub-routes (e.g. /ernika/villa-Plots )
   RewriteBase /ernika/
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f

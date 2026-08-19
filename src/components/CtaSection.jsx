@@ -1,19 +1,25 @@
 import React from 'react';
+import { useProjectContext } from '../utils/useProjectContext.js';
 
 export default function CtaSection({ onOpenBrochure }) {
+  const { project } = useProjectContext();
+  const cta = project.cta;
+
+  if (!cta) return null;
+
   return (
     <section className="er_cta-section">
       <div className="er_cta-bg-pattern"></div>
       <div className="er_container er_cta-container">
         <div className="er_cta-content">
           <span className="er_cta-badge">
-            <i className="fas fa-crown"></i> BMRDA &amp; RERA APPROVED VILLA PLOTS
+            <i className="fas fa-crown"></i> {project.approvalBadge}
           </span>
           <h2 className="er_cta-title">
-            Ready to Own Bengaluru’s 1<sup>st</sup> Amazon-Themed Villa Plot?
+            {cta.title}
           </h2>
           <p className="er_cta-desc">
-            Explore 12.5 acres of green corridors, 26+ world-class amenities, and prime connectivity in Anekal. Get instant access to plot layouts, phase pricing, and site visit assistance.
+            {cta.desc}
           </p>
 
           <div className="er_cta-actions">
@@ -28,15 +34,11 @@ export default function CtaSection({ onOpenBrochure }) {
           </div>
 
           <div className="er_cta-trust-tags">
-            <div className="er_cta-tag">
-              <i className="fas fa-shield-alt"></i> 100% Clear Title &amp; Approved
-            </div>
-            <div className="er_cta-tag">
-              <i className="fas fa-tree"></i> 26+ World Class Amenities
-            </div>
-            <div className="er_cta-tag">
-              <i className="fas fa-hand-holding-usd"></i> High Appreciation Growth
-            </div>
+            {cta.tags && cta.tags.map((tag, idx) => (
+              <div className="er_cta-tag" key={idx}>
+                <i className={tag.icon}></i> {tag.text}
+              </div>
+            ))}
           </div>
         </div>
       </div>

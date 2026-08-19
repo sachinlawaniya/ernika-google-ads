@@ -1,59 +1,102 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
+import { useProjectContext } from '../utils/useProjectContext.js';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 export default function LocationSection() {
-  const [activeTab, setActiveTab] = useState('proximity');
+  const { isElegance, project } = useProjectContext();
+  const [activeTab, setActiveTab] = useState('map');
   const [animateBars, setAnimateBars] = useState(false);
   const containerRef = useRef(null);
 
-  const rawCategories = [
-    {
-      category: 'Educational Institutions',
-      icon: 'fa-graduation-cap',
-      items: [
-        { name: 'Alliance University', time: '10 Min', minutes: 10, itemIcon: 'fa-school' },
-        { name: 'Vishwa Chetana Degree College', time: '1 Min', minutes: 1, itemIcon: 'fa-school' },
-        { name: 'Saraswathi Vidya Mandira', time: '5 Mins', minutes: 5, itemIcon: 'fa-school' },
-        { name: 'National Public School', time: '5 Mins', minutes: 5, itemIcon: 'fa-school' },
-        { name: 'Akshara College', time: '5 Mins', minutes: 5, itemIcon: 'fa-school' },
-        { name: 'New Baldwin International School', time: '5 Mins', minutes: 5, itemIcon: 'fa-school' },
-      ]
-    },
-    {
-      category: 'Healthcare & Hospitals',
-      icon: 'fa-hospital-user',
-      items: [
-        { name: 'Narayana Hrudayalaya', time: '20 Mins', minutes: 20, itemIcon: 'fa-user-md' },
-        { name: 'Ganga Multi Specialty Hospital', time: '5 Mins', minutes: 5, itemIcon: 'fa-user-md' },
-        { name: 'Aditi Hospital', time: '10 Mins', minutes: 10, itemIcon: 'fa-user-md' },
-        { name: 'Vijaya Nursing Home', time: '5 Mins', minutes: 5, itemIcon: 'fa-user-md' },
-      ]
-    },
-    {
-      category: 'Tech & Industrial Hubs',
-      icon: 'fa-laptop-house',
-      items: [
-        { name: 'Velankani Tech Park', time: '25 Mins', minutes: 25, itemIcon: 'fa-building' },
-        { name: 'Electronic City Industrial Township', time: '25 Mins', minutes: 25, itemIcon: 'fa-building' },
-        { name: 'HCL Campus', time: '20 Mins', minutes: 20, itemIcon: 'fa-building' },
-        { name: 'Jigani-Bommasandra Industrial', time: '15 Mins', minutes: 15, itemIcon: 'fa-building' },
-        { name: 'Hosur Industrial Area SIPCOT', time: '20 Mins', minutes: 20, itemIcon: 'fa-building' },
-      ]
-    },
-    {
-      category: 'Shopping & Lifestyle',
-      icon: 'fa-shopping-bag',
-      items: [
-        { name: 'M5 Mall', time: '25 Mins', minutes: 25, itemIcon: 'fa-shopping-cart' },
-        { name: 'TRENDS', time: '5 Mins', minutes: 5, itemIcon: 'fa-shopping-cart' },
-        { name: 'Reliance Smart Store', time: '5 Mins', minutes: 5, itemIcon: 'fa-shopping-cart' },
-      ]
-    }
-  ];
+  const rawCategories = isElegance
+    ? [
+      {
+        category: 'Educational Institutions',
+        icon: 'fa-graduation-cap',
+        items: [
+          { name: 'Christ University Kengeri Campus', time: '15 Mins', minutes: 15, itemIcon: 'fa-school' },
+          { name: 'Rajarajeswari Engineering College', time: '12 Mins', minutes: 12, itemIcon: 'fa-school' },
+          { name: 'Don Bosco Institute of Technology', time: '10 Mins', minutes: 10, itemIcon: 'fa-school' },
+          { name: 'St. John\'s School Bidadi', time: '5 Mins', minutes: 5, itemIcon: 'fa-school' },
+        ]
+      },
+      {
+        category: 'Healthcare & Hospitals',
+        icon: 'fa-hospital-user',
+        items: [
+          { name: 'Rajarajeswari Medical College & Hospital', time: '15 Mins', minutes: 15, itemIcon: 'fa-user-md' },
+          { name: 'Subbaiah Hospital Bidadi', time: '5 Mins', minutes: 5, itemIcon: 'fa-user-md' },
+          { name: 'BGS GIMS Hospital', time: '18 Mins', minutes: 18, itemIcon: 'fa-user-md' },
+        ]
+      },
+      {
+        category: 'Tech & Industrial Hubs',
+        icon: 'fa-laptop-house',
+        items: [
+          { name: 'Toyota Kirloskar Motor Plant', time: '5 Mins', minutes: 5, itemIcon: 'fa-building' },
+          { name: 'Bidadi Industrial Area (KIADB)', time: '5 Mins', minutes: 5, itemIcon: 'fa-building' },
+          { name: 'Bosch Bidadi Plant', time: '8 Mins', minutes: 8, itemIcon: 'fa-building' },
+          { name: 'Global Tech Park Kengeri', time: '20 Mins', minutes: 20, itemIcon: 'fa-building' },
+        ]
+      },
+      {
+        category: 'Shopping & Lifestyle',
+        icon: 'fa-shopping-bag',
+        items: [
+          { name: 'Decathlon Mysore Road', time: '15 Mins', minutes: 15, itemIcon: 'fa-shopping-cart' },
+          { name: 'Gopalan Arcade Mall', time: '22 Mins', minutes: 22, itemIcon: 'fa-shopping-cart' },
+          { name: 'Wonderla Amusement Park', time: '10 Mins', minutes: 10, itemIcon: 'fa-shopping-cart' },
+        ]
+      }
+    ]
+    : [
+      {
+        category: 'Educational Institutions',
+        icon: 'fa-graduation-cap',
+        items: [
+          { name: 'Alliance University', time: '10 Min', minutes: 10, itemIcon: 'fa-school' },
+          { name: 'Vishwa Chetana Degree College', time: '1 Min', minutes: 1, itemIcon: 'fa-school' },
+          { name: 'Saraswathi Vidya Mandira', time: '5 Mins', minutes: 5, itemIcon: 'fa-school' },
+          { name: 'National Public School', time: '5 Mins', minutes: 5, itemIcon: 'fa-school' },
+          { name: 'Akshara College', time: '5 Mins', minutes: 5, itemIcon: 'fa-school' },
+          { name: 'New Baldwin International School', time: '5 Mins', minutes: 5, itemIcon: 'fa-school' },
+        ]
+      },
+      {
+        category: 'Healthcare & Hospitals',
+        icon: 'fa-hospital-user',
+        items: [
+          { name: 'Narayana Hrudayalaya', time: '20 Mins', minutes: 20, itemIcon: 'fa-user-md' },
+          { name: 'Ganga Multi Specialty Hospital', time: '5 Mins', minutes: 5, itemIcon: 'fa-user-md' },
+          { name: 'Aditi Hospital', time: '10 Mins', minutes: 10, itemIcon: 'fa-user-md' },
+          { name: 'Vijaya Nursing Home', time: '5 Mins', minutes: 5, itemIcon: 'fa-user-md' },
+        ]
+      },
+      {
+        category: 'Tech & Industrial Hubs',
+        icon: 'fa-laptop-house',
+        items: [
+          { name: 'Velankani Tech Park', time: '25 Mins', minutes: 25, itemIcon: 'fa-building' },
+          { name: 'Electronic City Industrial Township', time: '25 Mins', minutes: 25, itemIcon: 'fa-building' },
+          { name: 'HCL Campus', time: '20 Mins', minutes: 20, itemIcon: 'fa-building' },
+          { name: 'Jigani-Bommasandra Industrial', time: '15 Mins', minutes: 15, itemIcon: 'fa-building' },
+          { name: 'Hosur Industrial Area SIPCOT', time: '20 Mins', minutes: 20, itemIcon: 'fa-building' },
+        ]
+      },
+      {
+        category: 'Shopping & Lifestyle',
+        icon: 'fa-shopping-bag',
+        items: [
+          { name: 'M5 Mall', time: '25 Mins', minutes: 25, itemIcon: 'fa-shopping-cart' },
+          { name: 'TRENDS', time: '5 Mins', minutes: 5, itemIcon: 'fa-shopping-cart' },
+          { name: 'Reliance Smart Store', time: '5 Mins', minutes: 5, itemIcon: 'fa-shopping-cart' },
+        ]
+      }
+    ];
 
   // Sort items inside each category in ascending order by minutes
   const nearbyCategories = rawCategories.map(cat => ({
@@ -104,11 +147,17 @@ export default function LocationSection() {
           <div className="er_loc-gold-line"></div>
 
           <p className="er_loc-desc">
-            While you explore the plots for sale in Anekal, Bengaluru, you must consider the value of the location. For years, Anekal sat at the edge of the conversation. It has been close enough to Bengaluru’s bloom, yet far enough for a peaceful life.
+            {isElegance
+              ? 'While exploring villas and Plots for sale in Bidadi, Bengaluru, you must consider the immense strategic value of the Bengaluru-Mysuru Expressway growth corridor. Bidadi offers quiet suburban serenity combined with rapid urban connectivity.'
+              : 'While you explore the Plots for sale in Anekal, Bengaluru, you must consider the value of the location. For years, Anekal sat at the edge of the conversation. It has been close enough to Bengaluru’s bloom, yet far enough for a peaceful life.'
+            }
           </p>
 
           <p className="er_loc-desc">
-            Today, Electronic City, one of Asia's largest IT hubs, is located on this road. While thousands seek jobs in this corridor, many also come for the institutions and connectivity of the metros. All these changes make the land worth more than ever. That is the nature of the moment. The infrastructure is arriving, and the families are settling in.
+            {isElegance
+              ? 'With major industrial powerhouses like Toyota, Bosch, and KIADB Industrial hub nearby, plus Challaghatta metro station and Mysuru expressway, Bidadi is fast becoming the premier residential destination.'
+              : 'Today, Electronic City, one of Asia\'s largest IT hubs, is located on this road. While thousands seek jobs in this corridor, many also come for the institutions and connectivity of the metros.'
+            }
           </p>
 
           <div className="er_loc-features">
@@ -117,8 +166,8 @@ export default function LocationSection() {
                 <i className="fas fa-map-marker-alt"></i>
               </div>
               <div className="er_loc-feature-text">
-                <h4>Strategic Road Link</h4>
-                <p>Located directly on Anekal-Hosur Main Road</p>
+                <h4>Strategic Highway Link</h4>
+                <p>{isElegance ? 'Direct access via 10-Lane Mysuru Expressway' : 'Located directly on Anekal-Hosur Main Road'}</p>
               </div>
             </div>
 
@@ -127,8 +176,8 @@ export default function LocationSection() {
                 <i className="fas fa-building"></i>
               </div>
               <div className="er_loc-feature-text">
-                <h4>Tech Corridor</h4>
-                <p>Quick and easy access to Electronic City</p>
+                <h4>Industrial &amp; Tech Hub</h4>
+                <p>{isElegance ? 'Near Toyota Kirloskar, Bosch & KIADB' : 'Quick and easy access to Electronic City'}</p>
               </div>
             </div>
 
@@ -137,8 +186,8 @@ export default function LocationSection() {
                 <i className="fas fa-train"></i>
               </div>
               <div className="er_loc-feature-text">
-                <h4>Metro &amp; Rails</h4>
-                <p>Conveniently connected to metro links &amp; railway stations</p>
+                <h4>Metro &amp; Express Trains</h4>
+                <p>{isElegance ? 'Minutes from Challaghatta Metro & Bidadi Railway Station' : 'Conveniently connected to metro links & railway stations'}</p>
               </div>
             </div>
           </div>
@@ -148,6 +197,13 @@ export default function LocationSection() {
         <div className="er_location-map-column">
           <div className="er_location-map-card-wrapper">
             <div className="er_loc-map-tabs">
+              <button
+                type="button"
+                className={`er_loc-tab-btn ${activeTab === 'map' ? 'active' : ''}`}
+                onClick={() => setActiveTab('map')}
+              >
+                <i className="fas fa-map-marked-alt"></i> Google Map
+              </button>
               <button
                 type="button"
                 className={`er_loc-tab-btn ${activeTab === 'proximity' ? 'active' : ''}`}
@@ -162,27 +218,27 @@ export default function LocationSection() {
               >
                 <i className="fas fa-location-dot"></i> Nearby Locations
               </button>
-              <button
-                type="button"
-                className={`er_loc-tab-btn ${activeTab === 'map' ? 'active' : ''}`}
-                onClick={() => setActiveTab('map')}
-              >
-                <i className="fas fa-map-marked-alt"></i> Google Map
-              </button>
             </div>
 
             <div className="er_loc-map-container" ref={containerRef}>
               {activeTab === 'proximity' && (
-                <div className="er_proximity-iframe-wrap">
+                <div
+                  className="er_proximity-iframe-wrap"
+                  style={{
+                    '--margin-desktop': project.proximityMargins?.desktop || '0px',
+                    '--margin-tablet': project.proximityMargins?.tablet || '0px',
+                    '--margin-mobile': project.proximityMargins?.mobile || '0px'
+                  }}
+                >
                   <iframe
-                    src="https://ernika-proximities.gurupunvaanii.com/"
+                    src={project.proximityMapUrl}
                     scrolling="no"
                     allowFullScreen
                     loading="lazy"
-                    title="Ernika Proximity Map"
+                    title={`${project.shortName} Proximity Map`}
                   ></iframe>
                   <a
-                    href="https://ernika-proximities.gurupunvaanii.com/"
+                    href={project.proximityMapUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="er_proximity-open-btn"
@@ -260,10 +316,10 @@ export default function LocationSection() {
               {activeTab === 'map' && (
                 <div className="er_google-iframe-wrap">
                   <iframe
-                    src="https://maps.google.com/maps?q=Guru%20Punvaanii%20Ernika%20Anekal&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    src={project.googleMapUrl}
                     allowFullScreen
                     loading="lazy"
-                    title="Ernika Google Map"
+                    title={`${project.shortName} Google Map`}
                   ></iframe>
                 </div>
               )}
@@ -274,5 +330,3 @@ export default function LocationSection() {
     </section>
   );
 }
-
-

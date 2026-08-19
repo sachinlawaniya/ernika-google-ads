@@ -14,18 +14,18 @@ import QuickEnquiryForm from '../components/QuickEnquiryForm.jsx';
 import PlotSizesSection from '../components/PlotSizesSection.jsx';
 
 export default function HomePage({ onOpenBrochure }) {
-  const { isElegance } = useProjectContext();
+  const { isElegance, project } = useProjectContext();
 
   useEffect(() => {
     document.title = isElegance
-      ? 'Guru Punvaanii Elegance | Premium Villa Plots in Anekal Bangalore'
-      : 'Guru Punvaanii Ernika | Amazon Forest-Themed Villa Plots in Anekal Bengaluru';
+      ? 'Guru Punvaanii Elegance | Premium 4 BHK Villas & plots in Bidadi, Bengaluru'
+      : 'Guru Punvaanii Ernika | Amazon Forest-Themed Villa plots in Anekal Bengaluru';
     window.scrollTo(0, 0);
   }, [isElegance]);
 
   return (
     <main>
-      <HeroSection heroVidId="VNnsHctRUx0" onOpenBrochure={onOpenBrochure} />
+      <HeroSection onOpenBrochure={onOpenBrochure} />
       <div className="er_main-layout-wrap">
         <div className="er_main-content-col">
           <AboutSection onOpenBrochure={onOpenBrochure} />
@@ -33,7 +33,7 @@ export default function HomePage({ onOpenBrochure }) {
           <GallerySection />
           <AmenitiesSection />
           <PlotSizesSection onOpenBrochure={onOpenBrochure} />
-          <VideoSection sectionVidId="sLBAywF0k44" />
+          <VideoSection />
           <SpecificationsSection />
           <LocationSection />
           <CtaSection onOpenBrochure={onOpenBrochure} />

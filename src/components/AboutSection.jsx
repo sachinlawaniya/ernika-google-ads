@@ -1,24 +1,25 @@
 import React from 'react';
+import { useProjectContext } from '../utils/useProjectContext.js';
 
 export default function AboutSection({ onOpenBrochure }) {
+  const { project } = useProjectContext();
+
   return (
     <section id="er_about" className="er_intro er_section">
       <div className="er_container er_intro-grid">
-       
         <div className="er_intro-text">
-          <h2>Ernika: Amazon-Themed Villa Plots in Anekal</h2>
-          <p>
-            Guru Punvaanii brings you Bengaluru's first Amazon Forest-themed premium villa plots in Anekal, Bengaluru. With 220 BMRDA-approved plots across 12.5 acres, the layout here was designed around trees and open corridors, so you can share the same air as the forest.
-          </p>
-          <p>
-            At Ernika by <a href="#er_about">Guru Punvaanii</a>, we believe that you should not have to choose between calm and convenience. Keeping that in mind, this neighbourhood keeps you close to schools, hospitals, and everyday city life. This way, you will be surrounded by the greens for quiet and peace, while also connected to the main city for your everyday needs.
-          </p>
+          <h2>{project.shortName}: {project.tagline}</h2>
+          
+          {project.about?.paragraphs?.map((para, idx) => (
+            <p key={idx}>{para}</p>
+          ))}
+
           <ul className="er_feature-bullets">
-            <li><i className="fas fa-check-circle"></i> 220 BMRDA-approved villa plots across 12.5 acres</li>
-            <li><i className="fas fa-check-circle"></i> Bengaluru's First Amazon Forest-Themed Project</li>
-            <li><i className="fas fa-check-circle"></i> A to Z Amenities - (26+ Amenities)</li>
-            <li><i className="fas fa-check-circle"></i> RC Roads &amp; Underground Utilities</li>
-            <li><i className="fas fa-check-circle"></i> Prime Location in Anekal, Bengaluru</li>
+            <li><i className="fas fa-check-circle"></i> {project.approvalText}</li>
+            <li><i className="fas fa-check-circle"></i> {project.badge}</li>
+            <li><i className="fas fa-check-circle"></i> A to Z Amenities &amp; Clubhouse</li>
+            <li><i className="fas fa-check-circle"></i> Concrete Roads &amp; Underground Utilities</li>
+            <li><i className="fas fa-check-circle"></i> Prime Location in {project.location}</li>
           </ul>
           <div>
             <button className="er_btn-sm" type="button" onClick={() => onOpenBrochure && onOpenBrochure('About Section - Download Brochure')}>
@@ -29,10 +30,10 @@ export default function AboutSection({ onOpenBrochure }) {
             </button>
           </div>
         </div>
-         <div className="er_intro-image">
+        <div className="er_intro-image">
           <img
-            src="https://gurupunvaanii.com/wp-content/uploads/2026/08/ernika_img-1.webp"
-            alt="Ernika entrance arch"
+            src={project.entranceArch || project.elevationDayImg}
+            alt={`${project.shortName} elevation`}
             loading="lazy"
             decoding="async"
           />

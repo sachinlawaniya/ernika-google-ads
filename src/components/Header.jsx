@@ -1,10 +1,30 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useProjectContext } from '../utils/useProjectContext.js';
 
 export default function Header({ onOpenModal }) {
   const [menuActive, setMenuActive] = useState(false);
-  const { basePath } = useProjectContext();
+  const { pathname } = useLocation();
+  const { shortName, basePath } = useProjectContext();
+
+  const navLinks = [
+    { label: 'About Us', path: `${basePath}/` },
+    { label: `${shortName} Plots `, path: `${basePath}/villa-Plots ` },
+    { label: 'Project Highlights', path: `${basePath}/project-highlights` },
+    { label: 'Location & Connectivity', path: `${basePath}/location` },
+    { label: 'Book Site Visit', path: `${basePath}/book-site-visit` },
+  ];
+
+  const isLinkActive = (targetPath) => {
+    const cleanTarget = targetPath.replace(/\/$/, '');
+    const cleanPathname = pathname.replace(/\/$/, '');
+    const cleanBase = basePath.replace(/\/$/, '');
+
+    if (cleanTarget === cleanBase) {
+      return cleanPathname === cleanBase;
+    }
+    return cleanPathname === cleanTarget || cleanPathname.startsWith(cleanTarget + '/');
+  };
 
   return (
     <>
@@ -18,6 +38,22 @@ export default function Header({ onOpenModal }) {
               />
             </Link>
           </div>
+
+          {/* Desktop Navigation Links */}
+          {/* <nav className="gp_desktop-nav-wrap">
+            <ul className="gp_menu">
+              {navLinks.map((item, idx) => (
+                <li key={idx}>
+                  <Link
+                    to={item.path}
+                    className={`gp_menu-link ${isLinkActive(item.path) ? 'active' : ''}`}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav> */}
 
           <button
             className="gp_menu-toggle"
@@ -35,7 +71,7 @@ export default function Header({ onOpenModal }) {
         onClick={() => setMenuActive(false)}
       ></div>
 
-      {/* Compact Right Side Menu Drawer */}
+      {/* Mobile Drawer Menu */}
       <div className={`gp_mobile-modal ${menuActive ? 'active' : ''}`}>
         <button
           className="gp_mobile-close"
@@ -46,11 +82,17 @@ export default function Header({ onOpenModal }) {
         </button>
         <div className="gp_mobile-modal-inner">
           <ul className="gp_mobile-menu">
-            <li><Link to={`${basePath}/`} className="gp_m-link" onClick={() => setMenuActive(false)}>About Us</Link></li>
-            <li><Link to={`${basePath}/villa-plots`} className="gp_m-link" onClick={() => setMenuActive(false)}>Villa &amp; Plots</Link></li>
-            <li><Link to={`${basePath}/project-highlights`} className="gp_m-link" onClick={() => setMenuActive(false)}>Project Highlights</Link></li>
-            <li><Link to={`${basePath}/location`} className="gp_m-link" onClick={() => setMenuActive(false)}>Location &amp; Connectivity</Link></li>
-            <li><Link to={`${basePath}/book-site-visit`} className="gp_m-link" onClick={() => setMenuActive(false)}>Book Free Site Visit</Link></li>
+            {navLinks.map((item, idx) => (
+              <li key={idx}>
+                <Link
+                  to={item.path}
+                  className={`gp_m-link ${isLinkActive(item.path) ? 'active' : ''}`}
+                  onClick={() => setMenuActive(false)}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
           <div className="gp_mobile-social">
             <span aria-label="Instagram">

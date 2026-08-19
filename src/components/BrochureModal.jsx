@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useProjectContext } from '../utils/useProjectContext.js';
 
-const BROCHURE_URL = 'https://gurupunvaanii.com/wp-content/uploads/2026/07/Ernika-Brochure-compressed-1.pdf';
-
 export default function BrochureModal({ isOpen, onClose, sourceComment }) {
-  const { shortName, projectName } = useProjectContext();
+  const { isElegance, shortName, projectName, project } = useProjectContext();
+  const brochurePdfUrl = project.brochureUrl;
 
   const [step, setStep] = useState('input'); // 'input' | 'success'
   const [name, setName] = useState('');
@@ -133,10 +132,10 @@ export default function BrochureModal({ isOpen, onClose, sourceComment }) {
             <span>GURU PUNVAANII &nbsp;|&nbsp; {shortName.toUpperCase()}</span>
           </div>
           <h2 id="er_brochureTitle">
-            Get the <em>{shortName.toUpperCase()}</em><br />layout & brochure
+            Get the <em>{shortName}</em><br />layout & brochure
           </h2>
           <p>
-            Share a few details and we’ll send the full brochure — plot layouts, phase-wise pricing and RERA documents — straight to your phone.
+            {project.brochureDesc}
           </p>
         </div>
 
@@ -214,7 +213,7 @@ export default function BrochureModal({ isOpen, onClose, sourceComment }) {
                 Thank you <strong>{name}</strong>! Your enquiry has been received. Click below to download the official {shortName} brochure PDF.
               </p>
               <a
-                href={BROCHURE_URL}
+                href={brochurePdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '10px', background: 'var(--er-gold, #C58B2D)', color: '#ffffff', fontWeight: 700, fontSize: '14px', padding: '14px 28px', borderRadius: '8px', textDecoration: 'none', boxShadow: '0 4px 16px rgba(198,138,40,0.35)', transition: 'all 0.3s ease' }}
@@ -247,7 +246,7 @@ export default function BrochureModal({ isOpen, onClose, sourceComment }) {
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               <polyline points="9 12 11 14 15 10" />
             </svg>
-            <span>RERA<br />APPROVED</span>
+            <span>{project.trustBadges?.[0] ? project.trustBadges[0].split(' ')[0] : '100%'}<br />{project.trustBadges?.[0] ? project.trustBadges[0].split(' ')[1] : 'SECURE'}</span>
           </div>
           <div className="er_trust-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
@@ -256,7 +255,7 @@ export default function BrochureModal({ isOpen, onClose, sourceComment }) {
               <line x1="8" y1="2" x2="8" y2="6" />
               <line x1="3" y1="10" x2="21" y2="10" />
             </svg>
-            <span>BMRDA<br />LAYOUT</span>
+            <span>{project.trustBadges?.[1] ? project.trustBadges[1].split(' ')[0] : 'SITE'}<br />{project.trustBadges?.[1] ? project.trustBadges[1].split(' ')[1] : 'VISIT'}</span>
           </div>
         </div>
       </div>

@@ -1,18 +1,31 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
+import { useProjectContext } from '../utils/useProjectContext.js';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
 export default function HighlightsSection() {
-  const highlights = [
-    { icon: 'fas fa-map-marked-alt', title: '12.5 Acres', desc: 'Land Area' },
-    { icon: 'fas fa-border-all', title: '220', desc: 'Villa Plots' },
-    { icon: 'fas fa-swimming-pool', title: '26+', desc: 'Amenities' },
-    { icon: 'fas fa-file-signature', title: 'BMRDA', desc: 'Approved' },
-    { icon: 'fas fa-file-signature', title: 'RERA', desc: 'Approved' },
-    { icon: 'fas fa-location-dot', title: 'Anekal', desc: 'Bengaluru' },
-  ];
+  const { isElegance, project } = useProjectContext();
+
+  const highlights = isElegance
+    ? [
+      { icon: 'fas fa-map-marked-alt', title: '6.12 Acres', desc: 'Land Area' },
+      { icon: 'fas fa-home', title: '101', desc: 'Villas' },
+      { icon: 'fas fa-bed', title: '4 BHK', desc: 'Villa' },
+      { icon: 'fas fa-file-signature', title: 'RERA', desc: 'Approved' },
+      { icon: 'fas fa-award', title: 'BMICAPA', desc: 'Approved' },
+      { icon: 'fas fa-swimming-pool', title: '45+', desc: 'Amenities' },
+      { icon: 'fas fa-location-dot', title: 'Bidadi', desc: 'Bengaluru' },
+    ]
+    : [
+      { icon: 'fas fa-map-marked-alt', title: '12.5 Acres', desc: 'Land Area' },
+      { icon: 'fas fa-border-all', title: '220', desc: 'Villa Plots ' },
+      { icon: 'fas fa-swimming-pool', title: '26+', desc: 'Amenities' },
+      { icon: 'fas fa-file-signature', title: 'BMRDA', desc: 'Approved' },
+      { icon: 'fas fa-file-signature', title: 'RERA', desc: 'Approved' },
+      { icon: 'fas fa-location-dot', title: 'Anekal', desc: 'Bengaluru' },
+    ];
 
   const slides = [...highlights, ...highlights];
 
@@ -21,7 +34,7 @@ export default function HighlightsSection() {
       <div className="er_container">
         <div className="er_section-head">
           <span className="er_section-label">PROJECT AT A GLANCE</span>
-          <h2 className="er_section-h2">Project Highlights</h2>
+          <h2 className="er_section-h2">{project.shortName} Highlights</h2>
           <div className="er_gold-line"></div>
         </div>
 
@@ -38,7 +51,6 @@ export default function HighlightsSection() {
             breakpoints={{
               480: { slidesPerView: 2, spaceBetween: 16 },
               768: { slidesPerView: 3, spaceBetween: 20 },
-              // 1024: { slidesPerView: 5, spaceBetween: 20 },
             }}
             className="er_highlights-slider"
           >

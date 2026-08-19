@@ -5,6 +5,10 @@ import { useProjectContext } from '../utils/useProjectContext.js';
 export default function Footer() {
   const { basePath } = useProjectContext();
 
+  const handleLinkClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className="gp_footer">
       <div className="gp_footer-top">
@@ -15,7 +19,7 @@ export default function Footer() {
         {/* Column 1: Brand Info */}
         <div className="gp_footer-col gp_footer-brand">
           <div className="gp_footer-logo">
-            <Link to={`${basePath}/`}>
+            <Link to={`${basePath}/`} onClick={handleLinkClick}>
               <img
                 src="https://gurupunvaanii.com/wp-content/uploads/2026/03/Guru-Punvaanii-Logo-300x172.png"
                 alt="Guru Punvaanii Logo"
@@ -37,11 +41,11 @@ export default function Footer() {
         <div className="gp_footer-col">
           <h3 className="gp_footer-title">Quick Links</h3>
           <ul className="gp_footer-links">
-            <li><Link to={`${basePath}/`}>Overview</Link></li>
-            <li><Link to={`${basePath}/villa-plots`}>Premium Villa Plots</Link></li>
-            <li><Link to={`${basePath}/project-highlights`}>Project Highlights</Link></li>
-            <li><Link to={`${basePath}/location`}>Location &amp; Connectivity</Link></li>
-            <li><Link to={`${basePath}/book-site-visit`}>Book Free Site Visit</Link></li>
+            <li><Link to={`${basePath}/`} onClick={handleLinkClick}>Overview</Link></li>
+            <li><Link to={`${basePath}/villa-Plots `} onClick={handleLinkClick}>Premium Villa Plots </Link></li>
+            <li><Link to={`${basePath}/project-highlights`} onClick={handleLinkClick}>Project Highlights</Link></li>
+            <li><Link to={`${basePath}/location`} onClick={handleLinkClick}>Location &amp; Connectivity</Link></li>
+            <li><Link to={`${basePath}/book-site-visit`} onClick={handleLinkClick}>Book Free Site Visit</Link></li>
           </ul>
         </div>
 

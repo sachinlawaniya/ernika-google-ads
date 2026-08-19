@@ -1,6 +1,10 @@
 import React from 'react';
+import { useProjectContext } from '../utils/useProjectContext.js';
 
-export default function VideoSection({ sectionVidId = 'sLBAywF0k44' }) {
+export default function VideoSection({ sectionVidId }) {
+  const { project } = useProjectContext();
+  const vidId = sectionVidId || project.walkthroughVideoId;
+
   return (
     <section id="er_videos" className="er_section er_container">
       <div className="er_section-head">
@@ -12,8 +16,8 @@ export default function VideoSection({ sectionVidId = 'sLBAywF0k44' }) {
       <div className="er_video-wrap">
         <div className="er_video-frame">
           <iframe
-            src={`https://www.youtube.com/embed/${sectionVidId}?mute=1`}
-            title="Ernika Project Walkthrough"
+            src={`https://www.youtube.com/embed/${vidId}?mute=1`}
+            title={`${project.shortName} Project Walkthrough`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
           ></iframe>

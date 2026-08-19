@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useProjectContext } from '../utils/useProjectContext.js';
 
 export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
-  const { isElegance, shortName, projectName } = useProjectContext();
+  const { project, shortName, projectName } = useProjectContext();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -16,7 +16,11 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
   const [errorMsg, setErrorMsg] = useState('');
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    let { name, value } = e.target;
+    if (name === 'phone') {
+      value = value.replace(/\D/g, '');
+    }
+    setFormData({ ...formData, [name]: value });
     setErrorMsg('');
   };
 
@@ -33,6 +37,14 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
     if (!phoneRegex.test(cleanPhone)) {
       setErrorMsg('Please enter a valid 10-digit mobile number');
       return;
+    }
+
+    if (formData.email.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email.trim())) {
+        setErrorMsg('Please enter a valid email address');
+        return;
+      }
     }
 
     setLoading(true);
@@ -82,10 +94,10 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
           </button>
         )}
         <span className="er_quick-badge">
-          <i className="fas fa-tree"></i> {isElegance ? 'PREMIUM VILLA PLOTS' : 'AMAZON THEMED VILLA PLOTS'}
+          <i className="fas fa-tree"></i> {project.badge}
         </span>
-        <h3 className="er_quick-title">{shortName} Villa Plots - Anekal</h3>
-        <p className="er_quick-sub">{isElegance ? 'Luxury Approved Villa Plots Community' : '220 BMRDA Approved Plots across 12.5 Acres'}</p>
+        <h3 className="er_quick-title">{project.formHeading}</h3>
+        <p className="er_quick-sub">{project.formSubHeading}</p>
       </div>
 
       <div className="er_quick-card-body">
@@ -165,7 +177,7 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
                 <span><i className="fas fa-spinner fa-spin"></i> Submitting...</span>
               ) : (
                 <>
-                  <span>Get Price List &amp; Details</span>
+                  <span>Submit </span>
                   <i className="fas fa-arrow-right"></i>
                 </>
               )}
@@ -179,7 +191,7 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
             <h4>Form Submitted Successfully!</h4>
             <p>Thank you for your enquiry. Your details have been received. Click below to download the official brochure.</p>
             <a
-              href="https://gurupunvaanii.com/wp-content/uploads/2026/07/Ernika-Brochure-compressed-1.pdf"
+              href={project.brochureUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="er_quick-submit-btn"
@@ -203,7 +215,7 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
         )}
 
         <div className="er_quick-trust-footer">
-          <span><i className="fas fa-shield-alt"></i> BMRDA Approved</span>
+          <span><i className="fas fa-shield-alt"></i> {project.approvalBadge}</span>
           <span><i className="fas fa-tag"></i> Direct Builder Price</span>
         </div>
       </div>

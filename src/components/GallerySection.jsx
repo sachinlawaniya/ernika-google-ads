@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { useProjectContext } from '../utils/useProjectContext.js';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -20,7 +21,9 @@ import imgAerialViewAlt from '../assets/gallery/ernika_Aerial-View.webp';
 import imgOverview from '../assets/gallery/ernika_img.webp';
 
 export default function GallerySection() {
-  const galleryImages = [
+  const { isElegance, project } = useProjectContext();
+
+  const ernikaImages = [
     { src: imgEntrance, title: 'Ernika Amazon-themed entrance & layout' },
     { src: imgStreetView, title: 'Ernika 30ft concrete street view & tree lines' },
     { src: imgSkatingRink, title: 'Ernika community skating rink' },
@@ -35,6 +38,56 @@ export default function GallerySection() {
     { src: imgAerialViewAlt, title: 'Ernika masterplan aerial perspective' },
     { src: imgOverview, title: 'Ernika villa plots community layout' },
   ];
+
+  const eleganceImages = [
+    // { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Villa-Entrance-Arch-Night-View.webp', title: 'Elegance Villa Entrance Arch' },
+    // { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-villa-Elevation-Day-view.webp', title: 'Elegance Villa Elevation Day View' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Villa-Elevation-Night-View.webp', title: 'Elegance Villa Elevation Night View' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Entrance-Hall.webp', title: 'Elegance Entrance Hall' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/balcony-space-scaled-1.webp', title: 'Elegance Balcony Space' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Living-Room-Second-Floor-1.webp', title: 'Elegance Living Room' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Living-Room-Third.webp', title: 'Elegance Living Room Upper Level' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Kitchen-1.webp', title: 'Elegance Modular Kitchen' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Dinning.webp', title: 'Elegance Dining Hall' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Bedroom-1.webp', title: 'Elegance Master Bedroom' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Work-Space-1.webp', title: 'Elegance Home Office / Work Space' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Bedroom-Room-2.webp', title: 'Elegance Premium Bedroom' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Co-Working-Space.webp', title: 'Elegance Co-Working Space' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Rooftop.webp', title: 'Elegance Rooftop Terrace' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Private-Garden.webp', title: 'Elegance Private Villa Garden' },
+  ];
+  const ekaImages = [
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Entrance-Arch-1.webp', title: 'EKA Entrance Arch' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Aerial-View.webp', title: 'EKA Aerial View' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Gazebo.webp', title: 'EKA Gazebo' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Jogging-Track.webp', title: 'EKA Jogging Track' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Kids-Play-Area.webp', title: 'EKA Kids Play Area' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Street-View.webp', title: 'EKA Street View' },
+  ];
+
+  const eurekaImages = [
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Entrance-Arch-2.webp', title: 'Eureka Entrance Arch' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Amphitheatre.webp', title: 'Eureka Amphitheatre' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Aerial-Amphitheatre.webp', title: 'Eureka Aerial Amphitheatre' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Aerial-View-1.webp', title: 'Eureka Aerial View' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Basket-Ball-Court.webp', title: 'Eureka Basket Ball Court' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Kids-Play-Area-1.webp', title: 'Eureka Kids Play Area' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Peaceful-Environment.webp', title: 'Eureka Peaceful Environment' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Sunset-View-Point.webp', title: 'Eureka Sunset View Point' },
+  ];
+
+  const shyamResidencyImages = [
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/Arial-View.jpeg', title: 'Shyam Residency Aerial View' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/Arial-View-2.jpeg', title: 'Shyam Residency Aerial View 2' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/Park-Stone-Pathway-scaled.jpg', title: 'Shyam Residency Park Stone Pathway' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/Street-View-scaled.jpg', title: 'Shyam Residency Street View' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/Drone-Arial-View-Garden-scaled.jpg', title: 'Shyam Residency Drone Aerial Garden View' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/Drone-Arial-View-Garden-2.png', title: 'Shyam Residency Drone Aerial Garden View 2' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/elementor/thumbs/DSC02347-1-scaled-rkhq2zqkwzro01c4ttvhyjw8mxae7zekhnn6dn8flo.jpg', title: 'Shyam Residency Entrance' }
+  ];
+
+  const galleryImages = isElegance ? eleganceImages : project.id === 'eka' ? ekaImages : project.id === 'eureka' ? eurekaImages : project.id === 'shyam_residency' ? shyamResidencyImages : ernikaImages;
+
 
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
@@ -55,10 +108,13 @@ export default function GallerySection() {
     <section id="er_gallery" className="er_section er_container">
       <div className="er_section-head">
         <span className="er_section-label">VISUAL SHOWCASE</span>
-        <h2 className="er_section-h2">Project Gallery</h2>
+        <h2 className="er_section-h2">{project.shortName} Gallery</h2>
         <div className="er_gold-line"></div>
         <p className="er_section-desc">
-          Here you can have a closer look at the life we have built around Ernika. These are the spaces that your family will grow up calling home. Take your time to look around and see all the reasons why Ernika is worth it.
+          {isElegance
+            ? 'Take a visual tour of Elegance Villas & plots in Bidadi. Explore the entrance arch, elevation views, entrance hall, living spaces, dining, bedrooms, rooftop, and private gardens.'
+            : 'Here you can have a closer look at the life we have built around Ernika. These are the spaces that your family will grow up calling home. Take your time to look around and see all the reasons why Ernika is worth it.'
+          }
         </p>
       </div>
 
@@ -67,7 +123,7 @@ export default function GallerySection() {
           modules={[Autoplay, Pagination, Navigation]}
           slidesPerView={1}
           spaceBetween={16}
-          loop={false}
+          loop={true}
           grabCursor={true}
           speed={800}
           autoplay={{ delay: 3500, disableOnInteraction: false }}

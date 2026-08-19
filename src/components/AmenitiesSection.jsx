@@ -3,36 +3,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { useProjectContext } from '../utils/useProjectContext.js';
 
 export default function AmenitiesSection() {
-  const amenities = [
-    { icon: 'fas fa-tree', title: 'Aerobics' },
-    { icon: 'fas fa-baseball-ball', title: 'Baseball Court' },
-    { icon: 'fas fa-chess', title: 'Chess | Carrom | Cafeteria' },
-    { icon: 'fas fa-bullseye', title: 'Dart' },
-    { icon: 'fas fa-briefcase-medical', title: 'Emergency Medical Room' },
-    { icon: 'far fa-futbol', title: 'Foosball' },
-    { icon: 'fas fa-umbrella-beach', title: 'Gazebo' },
-    { icon: 'fas fa-dumbbell', title: 'Health & Fitness Space (Gym)' },
-    { icon: 'fas fa-laptop-house', title: 'Innovation Incubator (Co-working Space)' },
-    { icon: 'fas fa-running', title: 'Jenga | Jogging' },
-    { icon: 'fas fa-child', title: 'Kids Play Area' },
-    { icon: 'fas fa-book', title: 'Library' },
-    { icon: 'fas fa-tree', title: 'Miyawaki Forest (Amazon Forest)' },
-    { icon: 'fas fa-leaf', title: 'Nature Trail' },
-    { icon: 'fas fa-bicycle', title: 'Outdoor Gym' },
-    { icon: 'fas fa-glass-cheers', title: 'Party Hall | Playing Cards' },
-    { icon: 'fas fa-ring', title: 'Quoits' },
-    { icon: 'fas fa-football-ball', title: 'Rugby Court' },
-    { icon: 'fas fa-swimmer', title: 'Swimming Pool | Skating Rink' },
-    { icon: 'fas fa-table-tennis', title: 'Table Tennis' },
-    { icon: 'fas fa-clone', title: 'Uno' },
-    { icon: 'fas fa-gamepad', title: 'Video Game' },
-    { icon: 'fas fa-weight-hanging', title: 'Weight Lifting' },
-    { icon: 'fas fa-chess', title: 'Xianqi' },
-    { icon: 'fas fa-spa', title: 'Yoga' },
-    { icon: 'fas fa-fist-raised', title: 'Zourkhaneh' },
-  ];
+  const { project } = useProjectContext();
+  const amenities = project.amenities || [];
 
   return (
     <section id="er_amenities" className="er_section er_amenities">
@@ -42,7 +17,7 @@ export default function AmenitiesSection() {
           <h2 className="er_section-h2">Amenities</h2>
           <div className="er_gold-line"></div>
           <p className="er_section-desc">
-            From A to Z, every amenity at Ernika is designed with your family in mind. It covers a range of amenities like spaces to be active, areas to gather, and corners for the quiet. Each element is intentionally put to make your daily life, your dream life.
+            {project.amenitiesDesc}
           </p>
         </div>
 
