@@ -8,8 +8,8 @@ import 'swiper/css/navigation';
 export default function HighlightsSection() {
   const { isElegance, project } = useProjectContext();
 
-  const highlights = isElegance
-    ? [
+  const allHighlights = {
+    elegance: [
       { icon: 'fas fa-map-marked-alt', title: '6.12 Acres', desc: 'Land Area' },
       { icon: 'fas fa-home', title: '101', desc: 'Villas' },
       { icon: 'fas fa-bed', title: '4 BHK', desc: 'Villa' },
@@ -17,15 +17,40 @@ export default function HighlightsSection() {
       { icon: 'fas fa-award', title: 'BMICAPA', desc: 'Approved' },
       { icon: 'fas fa-swimming-pool', title: '45+', desc: 'Amenities' },
       { icon: 'fas fa-location-dot', title: 'Bidadi', desc: 'Bengaluru' },
-    ]
-    : [
+    ],
+    ernika: [
       { icon: 'fas fa-map-marked-alt', title: '12.5 Acres', desc: 'Land Area' },
-      { icon: 'fas fa-border-all', title: '220', desc: 'Villa Plots ' },
+      { icon: 'fas fa-border-all', title: '220', desc: 'Villa Plots' },
       { icon: 'fas fa-swimming-pool', title: '26+', desc: 'Amenities' },
       { icon: 'fas fa-file-signature', title: 'BMRDA', desc: 'Approved' },
       { icon: 'fas fa-file-signature', title: 'RERA', desc: 'Approved' },
       { icon: 'fas fa-location-dot', title: 'Anekal', desc: 'Bengaluru' },
-    ];
+    ],
+    eka: [
+      { icon: 'fas fa-map-marked-alt', title: '50 Acres', desc: 'Land Area' },
+      { icon: 'fas fa-border-all', title: '657', desc: 'Plots' },
+      { icon: 'fas fa-swimming-pool', title: '13+', desc: 'Amenities' },
+      { icon: 'fas fa-file-signature', title: 'BMRDA', desc: 'Approved' },
+      { icon: 'fas fa-file-signature', title: 'RERA', desc: 'Approved' },
+      { icon: 'fas fa-location-dot', title: 'Anekal', desc: 'Bengaluru' },
+    ],
+    eureka: [
+      { icon: 'fas fa-map-marked-alt', title: '17.5 Acres', desc: 'Land Area' },
+      { icon: 'fas fa-border-all', title: '243', desc: 'Plots' },
+      { icon: 'fas fa-swimming-pool', title: '12+', desc: 'Amenities' },
+      { icon: 'fas fa-file-signature', title: 'BMRDA', desc: 'Approved' },
+      { icon: 'fas fa-location-dot', title: 'Bidadi', desc: 'Bengaluru' },
+    ],
+    shyam_residency: [
+      { icon: 'fas fa-map-marked-alt', title: '7.5 Acres', desc: 'Land Area' },
+      { icon: 'fas fa-border-all', title: '115', desc: 'Plots' },
+      { icon: 'fas fa-swimming-pool', title: '15+', desc: 'Amenities' },
+      { icon: 'fas fa-file-signature', title: 'BDA', desc: 'Approved' },
+      { icon: 'fas fa-location-dot', title: 'Magadi Road', desc: 'Bengaluru' },
+    ]
+  };
+
+  const highlights = allHighlights[project.id] || allHighlights.ernika;
 
   const slides = [...highlights, ...highlights];
 
@@ -34,7 +59,7 @@ export default function HighlightsSection() {
       <div className="er_container">
         <div className="er_section-head">
           <span className="er_section-label">PROJECT AT A GLANCE</span>
-          <h2 className="er_section-h2">{project.shortName} Highlights</h2>
+          <h2 className="er_section-h2">Highlights</h2>
           <div className="er_gold-line"></div>
         </div>
 

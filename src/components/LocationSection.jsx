@@ -12,8 +12,8 @@ export default function LocationSection() {
   const [animateBars, setAnimateBars] = useState(false);
   const containerRef = useRef(null);
 
-  const rawCategories = isElegance
-    ? [
+  const allCategories = {
+    elegance: [
       {
         category: 'Educational Institutions',
         icon: 'fa-graduation-cap',
@@ -52,8 +52,8 @@ export default function LocationSection() {
           { name: 'Wonderla Amusement Park', time: '10 Mins', minutes: 10, itemIcon: 'fa-shopping-cart' },
         ]
       }
-    ]
-    : [
+    ],
+    ernika: [
       {
         category: 'Educational Institutions',
         icon: 'fa-graduation-cap',
@@ -96,7 +96,194 @@ export default function LocationSection() {
           { name: 'Reliance Smart Store', time: '5 Mins', minutes: 5, itemIcon: 'fa-shopping-cart' },
         ]
       }
-    ];
+    ],
+    eka: [
+      {
+        category: 'Schools',
+        icon: 'fa-school',
+        items: [
+          { name: 'New Baldwin International Residential School', time: '2 Mins', minutes: 2, itemIcon: 'fa-school' },
+          { name: 'St. Joseph\'s School', time: '5 Mins', minutes: 5, itemIcon: 'fa-school' },
+          { name: 'Swami Vivekananda School', time: '10 Mins', minutes: 10, itemIcon: 'fa-school' },
+          { name: 'Oxford English School Anekal', time: '15 Mins', minutes: 15, itemIcon: 'fa-school' },
+          { name: 'Lorven Public School', time: '15 Mins', minutes: 15, itemIcon: 'fa-school' },
+          { name: 'Green Dot International School', time: '15 Mins', minutes: 15, itemIcon: 'fa-school' },
+        ]
+      },
+      {
+        category: 'Colleges',
+        icon: 'fa-graduation-cap',
+        items: [
+          { name: 'Sri Sairam College of Engineering', time: '5 Mins', minutes: 5, itemIcon: 'fa-university' },
+          { name: 'Government First Grade College Anekal', time: '10 Mins', minutes: 10, itemIcon: 'fa-university' },
+          { name: 'Alliance University', time: '10 Mins', minutes: 10, itemIcon: 'fa-university' },
+          { name: 'Oxford College of Engineering', time: '30 Mins', minutes: 30, itemIcon: 'fa-university' },
+          { name: 'AMC Engineering College', time: '30 Mins', minutes: 30, itemIcon: 'fa-university' },
+          { name: 'Dayananda Sagar University', time: '40 Mins', minutes: 40, itemIcon: 'fa-university' },
+        ]
+      },
+      {
+        category: 'Healthcare & Hospitals',
+        icon: 'fa-hospital-user',
+        items: [
+          { name: 'Anekal Government Hospital', time: '5 Mins', minutes: 5, itemIcon: 'fa-user-md' },
+          { name: 'Athreya Hospital', time: '15 Mins', minutes: 15, itemIcon: 'fa-user-md' },
+          { name: 'Narayana Health City', time: '20 Mins', minutes: 20, itemIcon: 'fa-user-md' },
+          { name: 'Mazumdar Shaw Medical Center', time: '20 Mins', minutes: 20, itemIcon: 'fa-user-md' },
+        ]
+      },
+      {
+        category: 'Nearby Landmarks',
+        icon: 'fa-map-marker-alt',
+        items: [
+          { name: 'Anekal Town Center', time: '5 Mins', minutes: 5, itemIcon: 'fa-building' },
+          { name: 'Anekal Bus Stand', time: '5 Mins', minutes: 5, itemIcon: 'fa-bus' },
+          { name: 'Anekal Taluk Office', time: '5 Mins', minutes: 5, itemIcon: 'fa-building' },
+          { name: 'Anekal Post Office', time: '5 Mins', minutes: 5, itemIcon: 'fa-envelope' },
+          { name: 'Anekal Town Municipal Council', time: '8 Mins', minutes: 8, itemIcon: 'fa-building' },
+          { name: 'Anekal Road Railway Station', time: '10 Mins', minutes: 10, itemIcon: 'fa-train' },
+        ]
+      },
+      {
+        category: 'Tourist Spot',
+        icon: 'fa-camera-retro',
+        items: [
+          { name: 'Muthyala Maduvu', time: '15 Mins', minutes: 15, itemIcon: 'fa-tree' },
+          { name: 'Pearl Valley Forest Area', time: '15 Mins', minutes: 15, itemIcon: 'fa-tree' },
+          { name: 'Anekal Hill View Point', time: '15 Mins', minutes: 15, itemIcon: 'fa-mountain' },
+          { name: 'Thattekere Lake', time: '30 Mins', minutes: 30, itemIcon: 'fa-water' },
+        ]
+      },
+      {
+        category: 'Shopping & Daily Needs',
+        icon: 'fa-shopping-bag',
+        items: [
+          { name: 'Anekal Main Market', time: '5 Mins', minutes: 5, itemIcon: 'fa-shopping-cart' },
+          { name: 'More Supermarket Anekal', time: '8 Mins', minutes: 8, itemIcon: 'fa-shopping-cart' },
+          { name: 'Anekal Shopping Complex', time: '10 Mins', minutes: 10, itemIcon: 'fa-shopping-cart' },
+          { name: 'Local Vegetable & Farmers Market', time: '10 Mins', minutes: 10, itemIcon: 'fa-carrot' },
+          { name: 'Reliance Smart Point', time: '12 Mins', minutes: 12, itemIcon: 'fa-shopping-cart' },
+        ]
+      }
+    ],
+    shyam_residency: [
+      {
+        category: 'Educational Institutions',
+        icon: 'fa-school',
+        items: [
+          { name: 'Sidhartha International School', time: '5 Mins', minutes: 5, itemIcon: 'fa-school' },
+          { name: 'Jindal Public School', time: '10 Mins', minutes: 10, itemIcon: 'fa-school' },
+          { name: 'Chaitanya Techno School', time: '10 Mins', minutes: 10, itemIcon: 'fa-school' },
+          { name: 'Arvind International School', time: '15 Mins', minutes: 15, itemIcon: 'fa-school' },
+          { name: 'Delhi Public School', time: '20 Mins', minutes: 20, itemIcon: 'fa-school' },
+          { name: 'Kendriya Vidyalaya', time: '20 Mins', minutes: 20, itemIcon: 'fa-school' },
+        ]
+      },
+      {
+        category: 'Colleges & Institutions',
+        icon: 'fa-graduation-cap',
+        items: [
+          { name: 'Christ University', time: '10 Mins', minutes: 10, itemIcon: 'fa-university' },
+          { name: 'National Institute of Design (NID)', time: '10 Mins', minutes: 10, itemIcon: 'fa-university' },
+          { name: 'ABBS Autonomous College', time: '15 Mins', minutes: 15, itemIcon: 'fa-university' },
+          { name: 'Acharya Institute', time: '20 Mins', minutes: 20, itemIcon: 'fa-university' },
+          { name: 'Indian Institute of Science (IISC)', time: '20 Mins', minutes: 20, itemIcon: 'fa-university' },
+          { name: 'City College Jayanagar', time: '30 Mins', minutes: 30, itemIcon: 'fa-university' },
+        ]
+      },
+      {
+        category: 'Healthcare & Hospitals',
+        icon: 'fa-hospital-user',
+        items: [
+          { name: 'Jindal Nature Cure Institute', time: '5 Mins', minutes: 5, itemIcon: 'fa-user-md' },
+          { name: 'Atharv Hospital', time: '5 Mins', minutes: 5, itemIcon: 'fa-user-md' },
+          { name: 'People Tree Hospital', time: '10 Mins', minutes: 10, itemIcon: 'fa-user-md' },
+          { name: 'Sparsh Hospital', time: '10 Mins', minutes: 10, itemIcon: 'fa-user-md' },
+          { name: 'Columbia Asia Hospital', time: '20 Mins', minutes: 20, itemIcon: 'fa-user-md' },
+          { name: 'Ramiah Hospital', time: '20 Mins', minutes: 20, itemIcon: 'fa-user-md' },
+        ]
+      },
+      {
+        category: 'Nearby Landmarks',
+        icon: 'fa-map-marker-alt',
+        items: [
+          { name: 'Bangalore International Exhibition Centre', time: '10 Mins', minutes: 10, itemIcon: 'fa-building' },
+          { name: 'Radha Swamy Satsang Centre', time: '10 Mins', minutes: 10, itemIcon: 'fa-om' },
+          { name: 'Hotel Taj Vivanta', time: '20 Mins', minutes: 20, itemIcon: 'fa-hotel' },
+          { name: 'Golden Palm Resort', time: '20 Mins', minutes: 20, itemIcon: 'fa-hotel' },
+          { name: 'Country Clue Coconut Grove', time: '25 Mins', minutes: 25, itemIcon: 'fa-tree' },
+        ]
+      },
+      {
+        category: 'Shopping & Daily Needs',
+        icon: 'fa-shopping-bag',
+        items: [
+          { name: 'IKEA C1', time: '10 Mins', minutes: 10, itemIcon: 'fa-shopping-cart' },
+          { name: 'Orion Mall', time: '20 Mins', minutes: 20, itemIcon: 'fa-shopping-cart' },
+          { name: 'Vaishnavi Mall', time: '20 Mins', minutes: 20, itemIcon: 'fa-shopping-cart' },
+          { name: 'Metro Cash and Carry', time: '20 Mins', minutes: 20, itemIcon: 'fa-shopping-cart' },
+          { name: 'Dmart', time: '20 Mins', minutes: 20, itemIcon: 'fa-shopping-cart' },
+        ]
+      }
+    ]
+  };
+
+  const rawCategories = allCategories[project.id] || allCategories.ernika;
+
+  const locationContent = {
+    elegance: {
+      p1: 'While exploring villas and Plots for sale in Bidadi, Bengaluru, you must consider the immense strategic value of the Bengaluru-Mysuru Expressway growth corridor. Bidadi offers quiet suburban serenity combined with rapid urban connectivity.',
+      p2: 'With major industrial powerhouses like Toyota, Bosch, and KIADB Industrial hub nearby, plus Challaghatta metro station and Mysuru expressway, Bidadi is fast becoming the premier residential destination.',
+      f1_title: 'Strategic Highway Link',
+      f1_desc: 'Direct access via 10-Lane Mysuru Expressway',
+      f2_title: 'Industrial & Tech Hub',
+      f2_desc: 'Near Toyota Kirloskar, Bosch & KIADB',
+      f3_title: 'Metro & Express Trains',
+      f3_desc: 'Minutes from Challaghatta Metro & Bidadi Railway Station',
+    },
+    eureka: {
+      p1: 'While exploring plots for sale in Bidadi, Bengaluru, you must consider the immense strategic value of the Bengaluru-Mysuru Expressway growth corridor. Bidadi offers quiet suburban serenity combined with rapid urban connectivity.',
+      p2: 'With major industrial powerhouses like Toyota, Bosch, and KIADB Industrial hub nearby, plus Challaghatta metro station and Mysuru expressway, Bidadi is fast becoming the premier residential destination.',
+      f1_title: 'Strategic Highway Link',
+      f1_desc: 'Direct access via 10-Lane Mysuru Expressway',
+      f2_title: 'Industrial & Tech Hub',
+      f2_desc: 'Near Toyota Kirloskar, Bosch & KIADB',
+      f3_title: 'Metro & Express Trains',
+      f3_desc: 'Minutes from Challaghatta Metro & Bidadi Railway Station',
+    },
+    shyam_residency: {
+      p1: 'While exploring plots for sale in Magadi Road, Bengaluru, you must consider the value of the location. Magadi Road sits quietly between affordability, accessibility, and infrastructure growth.',
+      p2: 'Today, the area is booming with industrial growth. Considering that Peenya Industrial Area is just 3 km away and Bengaluru-Tumkur Expressway is 5 minutes away, it makes up a great investment opportunity.',
+      f1_title: 'Strategic Highway Link',
+      f1_desc: 'Direct access to Bengaluru-Tumkur Expressway',
+      f2_title: 'Industrial & Tech Hub',
+      f2_desc: 'Near Peenya Industrial Area',
+      f3_title: 'Metro & Express Trains',
+      f3_desc: 'Conveniently connected to metro links & railway stations',
+    },
+    ernika: {
+      p1: 'While you explore the Plots for sale in Anekal, Bengaluru, you must consider the value of the location. For years, Anekal sat at the edge of the conversation. It has been close enough to Bengaluru’s bloom, yet far enough for a peaceful life.',
+      p2: 'Today, Electronic City, one of Asia\'s largest IT hubs, is located on this road. While thousands seek jobs in this corridor, many also come for the institutions and connectivity of the metros.',
+      f1_title: 'Strategic Highway Link',
+      f1_desc: 'Located directly on Anekal-Hosur Main Road',
+      f2_title: 'Industrial & Tech Hub',
+      f2_desc: 'Quick and easy access to Electronic City',
+      f3_title: 'Metro & Express Trains',
+      f3_desc: 'Conveniently connected to metro links & railway stations',
+    },
+    eka: {
+      p1: 'While you explore the Plots for sale in Anekal, Bengaluru, you must consider the value of the location. For years, Anekal sat at the edge of the conversation. It has been close enough to Bengaluru’s bloom, yet far enough for a peaceful life.',
+      p2: 'Today, Electronic City, one of Asia\'s largest IT hubs, is located on this road. While thousands seek jobs in this corridor, many also come for the institutions and connectivity of the metros.',
+      f1_title: 'Strategic Highway Link',
+      f1_desc: 'Located directly on Anekal-Hosur Main Road',
+      f2_title: 'Industrial & Tech Hub',
+      f2_desc: 'Quick and easy access to Electronic City',
+      f3_title: 'Metro & Express Trains',
+      f3_desc: 'Conveniently connected to metro links & railway stations',
+    }
+  };
+
+  const currentLocContent = locationContent[project.id] || locationContent.ernika;
 
   // Sort items inside each category in ascending order by minutes
   const nearbyCategories = rawCategories.map(cat => ({
@@ -147,17 +334,11 @@ export default function LocationSection() {
           <div className="er_loc-gold-line"></div>
 
           <p className="er_loc-desc">
-            {isElegance
-              ? 'While exploring villas and Plots for sale in Bidadi, Bengaluru, you must consider the immense strategic value of the Bengaluru-Mysuru Expressway growth corridor. Bidadi offers quiet suburban serenity combined with rapid urban connectivity.'
-              : 'While you explore the Plots for sale in Anekal, Bengaluru, you must consider the value of the location. For years, Anekal sat at the edge of the conversation. It has been close enough to Bengaluru’s bloom, yet far enough for a peaceful life.'
-            }
+            {currentLocContent.p1}
           </p>
 
           <p className="er_loc-desc">
-            {isElegance
-              ? 'With major industrial powerhouses like Toyota, Bosch, and KIADB Industrial hub nearby, plus Challaghatta metro station and Mysuru expressway, Bidadi is fast becoming the premier residential destination.'
-              : 'Today, Electronic City, one of Asia\'s largest IT hubs, is located on this road. While thousands seek jobs in this corridor, many also come for the institutions and connectivity of the metros.'
-            }
+            {currentLocContent.p2}
           </p>
 
           <div className="er_loc-features">
@@ -166,8 +347,8 @@ export default function LocationSection() {
                 <i className="fas fa-map-marker-alt"></i>
               </div>
               <div className="er_loc-feature-text">
-                <h4>Strategic Highway Link</h4>
-                <p>{isElegance ? 'Direct access via 10-Lane Mysuru Expressway' : 'Located directly on Anekal-Hosur Main Road'}</p>
+                <h4>{currentLocContent.f1_title}</h4>
+                <p>{currentLocContent.f1_desc}</p>
               </div>
             </div>
 
@@ -176,8 +357,8 @@ export default function LocationSection() {
                 <i className="fas fa-building"></i>
               </div>
               <div className="er_loc-feature-text">
-                <h4>Industrial &amp; Tech Hub</h4>
-                <p>{isElegance ? 'Near Toyota Kirloskar, Bosch & KIADB' : 'Quick and easy access to Electronic City'}</p>
+                <h4>{currentLocContent.f2_title}</h4>
+                <p>{currentLocContent.f2_desc}</p>
               </div>
             </div>
 
@@ -186,8 +367,8 @@ export default function LocationSection() {
                 <i className="fas fa-train"></i>
               </div>
               <div className="er_loc-feature-text">
-                <h4>Metro &amp; Express Trains</h4>
-                <p>{isElegance ? 'Minutes from Challaghatta Metro & Bidadi Railway Station' : 'Conveniently connected to metro links & railway stations'}</p>
+                <h4>{currentLocContent.f3_title}</h4>
+                <p>{currentLocContent.f3_desc}</p>
               </div>
             </div>
           </div>

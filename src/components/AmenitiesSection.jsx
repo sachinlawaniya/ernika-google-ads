@@ -41,7 +41,7 @@ export default function AmenitiesSection() {
           >
             {amenities.map((item, idx) => (
               <SwiperSlide key={idx}>
-                <div className="er_amenity-item">
+                <div className="er_amenity-item" title={item.title}>
                   <span className="er_amenity-icon">
                     <i className={item.icon}></i>
                   </span>

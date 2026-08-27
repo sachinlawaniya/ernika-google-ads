@@ -164,8 +164,8 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
               <h3><i className="fas fa-headset"></i> Direct Customer Helpline</h3>
               <p>Prefer talking directly? Call our site visit coordinators now:</p>
               <div className="er_phone-numbers">
-                <a href="tel:8546854600" className="er_phone-chip">
-                  <i className="fas fa-phone-alt"></i> 8546 8546 00
+                <a href="tel:9008347898" className="er_phone-chip">
+                  <i className="fas fa-phone-alt"></i> 9008 3478 98
                 </a>
               </div>
               <div className="er_timing-badge">

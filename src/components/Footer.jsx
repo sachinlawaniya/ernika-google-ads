@@ -42,7 +42,7 @@ export default function Footer() {
           <h3 className="gp_footer-title">Quick Links</h3>
           <ul className="gp_footer-links">
             <li><Link to={`${basePath}/`} onClick={handleLinkClick}>Overview</Link></li>
-            <li><Link to={`${basePath}/villa-Plots `} onClick={handleLinkClick}>Premium Villa Plots </Link></li>
+            <li><Link to={`${basePath}/villa-plots`} onClick={handleLinkClick}>Premium Villa Plots</Link></li>
             <li><Link to={`${basePath}/project-highlights`} onClick={handleLinkClick}>Project Highlights</Link></li>
             <li><Link to={`${basePath}/location`} onClick={handleLinkClick}>Location &amp; Connectivity</Link></li>
             <li><Link to={`${basePath}/book-site-visit`} onClick={handleLinkClick}>Book Free Site Visit</Link></li>
@@ -58,7 +58,7 @@ export default function Footer() {
           </div>
           <div className="gp_footer-info-item">
             <i className="fas fa-phone-alt"></i>
-            <span>8546 8546 00</span>
+            <span>9008 3478 98</span>
           </div>
           <div className="gp_footer-info-item">
             <i className="fas fa-clock"></i>

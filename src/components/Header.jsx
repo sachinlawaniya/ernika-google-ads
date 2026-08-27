@@ -9,7 +9,7 @@ export default function Header({ onOpenModal }) {
 
   const navLinks = [
     { label: 'About Us', path: `${basePath}/` },
-    { label: `${shortName} Plots `, path: `${basePath}/villa-Plots ` },
+    { label: `${shortName} Plots`, path: `${basePath}/villa-plots` },
     { label: 'Project Highlights', path: `${basePath}/project-highlights` },
     { label: 'Location & Connectivity', path: `${basePath}/location` },
     { label: 'Book Site Visit', path: `${basePath}/book-site-visit` },

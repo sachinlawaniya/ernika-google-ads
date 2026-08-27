@@ -30,7 +30,7 @@ export const PROJECTS_DATA = {
     basePath: '/ernika',
     about: {
       paragraphs: [
-        'Guru Punvaanii brings you Bengaluru\'s first Amazon Forest-themed premium villa plots in Anekal, Bengaluru. With 220 BMRDA & REAR approved plots across 12.5 acres, the layout here was designed around trees and open corridors, so you can share the same air as the forest.',
+        'Guru Punvaanii brings you Bengaluru\'s first Amazon Forest-themed premium villa plots in Anekal, Bengaluru. With 220 BMRDA & RERA approved plots across 12.5 acres, the layout here was designed around trees and open corridors, so you can share the same air as the forest.',
         'At Ernika by Guru Punvaanii, we believe that you should not have to choose between calm and convenience. Keeping that in mind, this neighbourhood keeps you close to schools, hospitals, and everyday city life.'
       ]
     },
@@ -219,11 +219,11 @@ export const PROJECTS_DATA = {
     tagline: 'Premium plots for Sale in Anekal, Bangalore',
     badge: 'PREMIUM LAYOUT',
     formHeading: 'EKA Premium Plots - Anekal',
-    formSubHeading: '656 BMRDA & RERA Approved Plots across 48 Acres',
+    formSubHeading: '657 BMRDA & RERA Approved Plots across 50 Acres',
     heroVideoDesktop: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Website-Eka-3.mp4',
     heroVideoMobile: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Mobile-Version-3.mp4',
     walkthroughVideoId: 'ARZu54DqhVM',
-    approvalText: '656 BMRDA & RERA Approved Plots across 48 Acres',
+    approvalText: '657 BMRDA & RERA Approved Plots across 50 Acres',
     approvalBadge: 'BMRDA & RERA APPROVED',
     elevationDayImg: 'https://gurupunvaanii.com/wp-content/uploads/2026/07/Entrance-Arch.png',
     elevationNightImg: 'https://gurupunvaanii.com/wp-content/uploads/2026/07/Entrance-Arch.png',
@@ -438,7 +438,7 @@ export const PROJECTS_DATA = {
     approvalBadge: 'BDA APPROVED',
     elevationDayImg: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/Street-View-scaled.jpg',
     elevationNightImg: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/Street-View-scaled.jpg',
-    proximityMapUrl: '',
+    proximityMapUrl: 'https://shyam-residency-proximity.gurupunvaanii.com/',
     googleMapUrl: 'https://maps.google.com/maps?q=13.0231875,77.4785625&t=&z=15&ie=UTF8&iwloc=&output=embed',
     brochureUrl: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Shyam-Residency-brochure.pdf',
     brochureDesc: 'Share a few details and we’ll send the full brochure — plot layouts, phase-wise pricing and BDA documents — straight to your phone and inbox.',
@@ -458,11 +458,19 @@ export const PROJECTS_DATA = {
     },
     amenitiesDesc: 'Our clients trust us because we understand the lifestyle one needs for a good quality of life. Below, you can explore how the amenities we bring are planned to make your everyday moments feel special and unique.',
     amenities: [
-      { icon: 'fas fa-tree', title: 'Lush Parks' },
-      { icon: 'fas fa-walking', title: 'Walking Paths' },
-      { icon: 'fas fa-road', title: '30 to 50 Feet Wide Roads' },
-      { icon: 'fas fa-bolt', title: 'Underground Utilities' },
-      { icon: 'fas fa-leaf', title: 'Landscaped Gardens' }
+      { icon: 'fas fa-dog', title: 'Pet Park' },
+      // { icon: 'fas fa-bolt', title: 'Transformer' },
+      // { icon: 'fas fa-recycle', title: 'STP' },
+      { icon: 'fas fa-seedling', title: 'Open Sitout & Garden Area' },
+      { icon: 'fas fa-dumbbell', title: 'Outdoor GYM Equipments' },
+      { icon: 'fas fa-chair', title: 'Open Sitting' },
+      { icon: 'fas fa-child', title: 'Kids Play Area' },
+      { icon: 'fas fa-volleyball-ball', title: 'Multipurpose Court' },
+      { icon: 'fas fa-theater-masks', title: 'Amphitheatre' },
+      { icon: 'fas fa-umbrella-beach', title: 'Gazebo' },
+      { icon: 'fas fa-water', title: 'Lily Pond' },
+      { icon: 'fas fa-water', title: 'Fountain' },
+      { icon: 'fas fa-leaf', title: 'Forest Miyawaki' }
     ],
     cta: {
       title: 'Get the Shyam Residency layout & brochure',

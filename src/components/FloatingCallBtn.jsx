@@ -3,10 +3,10 @@ import React from 'react';
 export default function FloatingCallBtn() {
   return (
     <a
-      href="tel:8546854600"
+      href="tel:9008347898"
       className="er_floating-call-btn"
-      aria-label="Call 8546854600"
-      title="Call Us: 8546854600"
+      aria-label="Call 9008347898"
+      title="Call Us: 9008347898"
     >
       <span className="er_call-pulse-ring er_ring-1"></span>
       <span className="er_call-pulse-ring er_ring-2"></span>

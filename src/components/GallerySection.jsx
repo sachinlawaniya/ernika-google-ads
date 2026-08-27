@@ -108,12 +108,22 @@ export default function GallerySection() {
     <section id="er_gallery" className="er_section er_container">
       <div className="er_section-head">
         <span className="er_section-label">VISUAL SHOWCASE</span>
-        <h2 className="er_section-h2">{project.shortName} Gallery</h2>
+        <h2 className="er_section-h2">Gallery</h2>
         <div className="er_gold-line"></div>
         <p className="er_section-desc">
           {isElegance
             ? 'Take a visual tour of Elegance Villas & plots in Bidadi. Explore the entrance arch, elevation views, entrance hall, living spaces, dining, bedrooms, rooftop, and private gardens.'
-            : 'Here you can have a closer look at the life we have built around Ernika. These are the spaces that your family will grow up calling home. Take your time to look around and see all the reasons why Ernika is worth it.'
+            : project.id === 'eka'
+              ? 'When you see a place, perhaps, a home with your eyes, you realize the kind of life you can create for yourself and your family. The roads, open space, and the neighborhood all become one. Explore EKA’s world and let the place speak for itself.'
+              : project.id === 'eureka'
+                ? 'Discover Eureka, a thoughtfully crafted villa plot community where convenience meets tranquility. From the welcoming entrance arch to the modern clubhouse, kids play area, and scenic viewpoints, every element is designed to enhance your lifestyle. Take a walk through the well-planned spaces and imagine the life you can build here.'
+                : project.id === 'shyam_residency'
+                  ? 'Shyam Residency looks as good as it sounds. There are spaces designed for your peace, convenience, and comfort, so you can live your dream life. Everything you see is built keeping you and your family in mind.'
+                  : project.id === 'ernika'
+                    ? 'Here you can have a closer look at the life we have built around Ernika. These are the spaces that your family will grow up calling home. Take your time to look around and see all the reasons why Ernika is worth it.'
+                    : project.id === 'puneeth'
+                      ? 'Here you can have a closer look at the life we have built around Puneeth. These are the spaces that your family will grow up calling home. Take your time to look around and see all the reasons why Puneeth is worth it.'
+                      : 'Here you can have a closer look at the life we have built around Puneeth. These are the spaces that your family will grow up calling home. Take your time to look around and see all the reasons why Puneeth is worth it.'
           }
         </p>
       </div>

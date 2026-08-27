@@ -80,7 +80,7 @@ export default function App() {
       <React.Fragment key={project.id}>
         <Route path={`${project.basePath}/`} element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
         <Route path={`${project.basePath}`} element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
-        <Route path={`${project.basePath}/villa-Plots `} element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
+        <Route path={`${project.basePath}/villa-plots`} element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
         <Route path={`${project.basePath}/project-highlights`} element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} />} />
         <Route path={`${project.basePath}/location`} element={<LocationPage onOpenBrochure={handleOpenBrochure} />} />
         <Route path={`${project.basePath}/book-site-visit`} element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} />} />
@@ -99,7 +99,7 @@ export default function App() {
 
           {/* Fallback routes */}
           <Route path="/" element={<Navigate to="/ernika/" replace />} />
-          <Route path="/villa-Plots " element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/villa-plots" element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
           <Route path="/project-highlights" element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} />} />
           <Route path="/location" element={<LocationPage onOpenBrochure={handleOpenBrochure} />} />
           <Route path="/book-site-visit" element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} />} />
