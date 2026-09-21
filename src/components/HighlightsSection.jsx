@@ -44,7 +44,7 @@ export default function HighlightsSection() {
     shyam_residency: [
       { icon: 'fas fa-map-marked-alt', title: '7.5 Acres', desc: 'Land Area' },
       { icon: 'fas fa-border-all', title: '115', desc: 'Plots' },
-      { icon: 'fas fa-swimming-pool', title: '15+', desc: 'Amenities' },
+      { icon: 'fas fa-swimming-pool', title: '12+', desc: 'Amenities' },
       { icon: 'fas fa-file-signature', title: 'BDA', desc: 'Approved' },
       { icon: 'fas fa-location-dot', title: 'Magadi Road', desc: 'Bengaluru' },
     ]

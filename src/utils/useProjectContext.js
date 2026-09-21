@@ -5,7 +5,7 @@ export const PROJECTS_DATA = {
     id: 'ernika',
     shortName: 'Ernika',
     projectName: 'Guru Punvaanii Ernika',
-    title: 'Ernika Villa plots | Amazon Forest-Themed in Anekal, Bengaluru',
+    title: 'Guru Punvaanii Ernika | Amazon Forest-Themed Villa plots in Anekal, Bengaluru',
     location: 'Anekal, Netaji Road',
     tagline: 'Amazon Forest-Themed Villa plots at Ernika, Anekal, Bengaluru',
     badge: 'AMAZON THEMED VILLA Plots ',
@@ -28,6 +28,14 @@ export const PROJECTS_DATA = {
     brochureDesc: 'Share a few details and we’ll send the full brochure — plot layouts, phase-wise pricing and BMRDA & RERA documents — straight to your phone.',
     trustBadges: ['RERA APPROVED', 'BMRDA LAYOUT'],
     basePath: '/ernika',
+    featureBullets: [
+      '220 BMRDA & RERA Approved plots across 12.5 Acres',
+      // 'AMAZON THEMED VILLA Plots ',
+      'Amazon Forest Themed Villa Plots',
+      'A to Z Amenities & Clubhouse',
+      'Concrete Roads & Underground Utilities',
+      'Prime Location in Anekal, Netaji Road'
+    ],
     about: {
       paragraphs: [
         'Guru Punvaanii brings you Bengaluru\'s first Amazon Forest-themed premium villa plots in Anekal, Bengaluru. With 220 BMRDA & RERA approved plots across 12.5 acres, the layout here was designed around trees and open corridors, so you can share the same air as the forest.',
@@ -130,14 +138,14 @@ export const PROJECTS_DATA = {
     id: 'elegance',
     shortName: 'Elegance',
     projectName: 'Guru Punvaanii Elegance',
-    title: 'Elegance Villas | Crafted for Modern Luxury in Bidadi, Bengaluru',
+    title: 'Guru Punvaanii Elegance | Premium 4 BHK Villas & Plots in Bidadi, Bengaluru',
     location: 'Bidadi, Bengaluru',
     tagline: 'Experience Premium 4 BHK Villas & plots in Bidadi, Bengaluru',
     badge: 'PREMIUM 4 BHK VILLAS & Plots ',
     formHeading: 'Elegance - Greater Bengaluru',
     formSubHeading: 'RERA & BMICAPA Approved Luxury Villas & Plots Community in Bidadi',
     heroVideoId: 'OfP_mLfh4kE',
-    walkthroughVideoId: 'OfP_mLfh4kE',
+    walkthroughVideoId: 'Ry91N2Y-DLw',
     approvalText: 'RERA & BMICAPA Approved Luxury Plots Community in Bidadi',
     approvalBadge: 'RERA & BMICAPA APPROVED',
     entranceArch: "https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Villa-Entrance-Arch-Night-View-2048x938.webp",
@@ -154,6 +162,13 @@ export const PROJECTS_DATA = {
     brochureDesc: 'Share a few details and we’ll send the full brochure — plot layouts, phase-wise pricing and RERA & BMICAPA documents — straight to your phone.',
     trustBadges: ['RERA APPROVED', 'BMICAPA LAYOUT'],
     basePath: '/elegance',
+    featureBullets: [
+      'RERA & BMICAPA Approved Luxury Plots Community in Bidadi',
+      'PREMIUM 4 BHK VILLAS & Plots ',
+      'A to Z Amenities & Clubhouse',
+      'Concrete Roads & Underground Utilities',
+      'Prime Location in Bidadi, Bengaluru'
+    ],
     about: {
       paragraphs: [
         'Guru Punvaanii brings you Elegance Villas & Villa plots in Bidadi, Bengaluru. Featuring RERA & BMICAPA approved luxury 4 BHK villas and Plots , crafted for modern lifestyle with lush green landscapes and seamless connectivity.',
@@ -204,8 +219,17 @@ export const PROJECTS_DATA = {
       type: 'premium-card',
       imageNight: 'https://gurupunvaanii.com/wp-content/uploads/elementor/thumbs/Elegance-Villa-Elevation-Night-View-rrp67ttdqxmbmjhvsen13kt6gla0xbnx8ls538rpxc.webp',
       imageDay: 'https://gurupunvaanii.com/wp-content/uploads/elementor/thumbs/Elegance-villa-Elevation-Day-view-rrp67svjk3l1axj8xw8ej31pv7enpmk6wh4nlyt43k.webp',
-      cardTitle: 'Exclusive 4 BHK Luxury Villas',
-      cardDesc: 'Experience the ultimate luxury with our meticulously designed 4 BHK villas. Enjoy expansive living spaces, private lawns, and premium architecture tailored for a modern lifestyle.',
+      cardTitle: 'Elegance',
+      location: 'Bheemenahalli, Bidadi (Mysuru Road)',
+      sizeArea: '6 Acres 12 Guntas',
+      units: '101 Units',
+      cardDesc: 'Spacious 4 BHK luxury villas with RERA & BMICAPA approval, 45% open space, and premium clubhouse amenities.',
+      features: [
+        'RERA & BMICAPA Approved',
+        '101 Luxury 4 BHK Villas',
+        '45+ Amenities & Clubhouse',
+        '45% Lush Green Open Space'
+      ],
       badge: 'Premium Edition',
       icon: 'fa-crown'
     }
@@ -214,7 +238,7 @@ export const PROJECTS_DATA = {
     id: 'eka',
     shortName: 'EKA',
     projectName: 'Guru Punvaanii EKA',
-    title: 'EKA: Premium plots for Sale in Anekal, Bangalore',
+    title: 'Guru Punvaanii EKA | Premium Plots for Sale in Anekal, Bengaluru',
     location: 'Anekal, Hosur Road',
     tagline: 'Premium plots for Sale in Anekal, Bangalore',
     badge: 'PREMIUM LAYOUT',
@@ -238,6 +262,13 @@ export const PROJECTS_DATA = {
       tablet: '-20px',
       mobile: '-20px'
     },
+    featureBullets: [
+      '657 BMRDA & RERA Approved Plots across 50 Acres',
+      'PREMIUM LAYOUT',
+      'A to Z Amenities & Clubhouse',
+      'Concrete Roads & Underground Utilities',
+      'Prime Location in Anekal, Hosur Road'
+    ],
     about: {
       paragraphs: [
         'EKA means One, and that is exactly what this project stands for: One Vision, one promise, and one address that changes the way you live.',
@@ -317,7 +348,7 @@ export const PROJECTS_DATA = {
     id: 'eureka',
     shortName: 'Eureka',
     projectName: 'Guru Punvaanii Eureka',
-    title: 'Eureka - Premium plots in Bidadi for Smart Living',
+    title: 'Guru Punvaanii Eureka | 243 BMRDA Approved Plots in Bidadi, Bengaluru',
     location: 'Dharapura, Bidadi',
     tagline: 'Premium plots in Bidadi for Smart Living',
     badge: 'BMRDA APPROVED Plots ',
@@ -341,6 +372,13 @@ export const PROJECTS_DATA = {
       tablet: '-36px',
       mobile: '-36px'
     },
+    featureBullets: [
+      '243 BMRDA-approved plots across 17.5 acres',
+      'BMRDA APPROVED Plots ',
+      'A to Z Amenities & Clubhouse',
+      'Concrete Roads & Underground Utilities',
+      'Prime Location in Dharapura, Bidadi'
+    ],
     about: {
       paragraphs: [
         'Between the city\'s relentless pace and the quiet of open skies lies Eureka. This is 17.5 acres of thoughtfully planned living in Bidadi, Greater Bengaluru. Here, you will find 243 BMRDA-approved plots that are designed for those who believe that their home should feel peaceful.',
@@ -425,12 +463,22 @@ export const PROJECTS_DATA = {
     id: 'shyam_residency',
     shortName: 'Shyam Residency',
     projectName: 'Guru Punvaanii Shyam Residency',
-    title: 'Shyam Residency: Premium Sites in Magadi Road',
+    title: 'Guru Punvaanii Shyam Residency | BDA Approved Sites in Magadi Road, Bengaluru',
     location: 'Off Andhrahalli, Magadi Road',
     tagline: 'Premium Sites in Magadi Road',
     badge: 'BDA APPROVED',
     formHeading: 'Shyam Residency - Magadi Road',
     formSubHeading: '115 plots spread across 7.5 acres. BDA Approved.',
+    priceHighlight: {
+      tag: 'STARTING AT',
+      currency: '₹',
+      amount: '1.8',
+      crUnit: 'Cr',
+      star: '*',
+      unit: 'ONWARDS',
+      reraTitle: 'RERA APPROVED',
+      reraNumber: 'P-RERA-Regd.-RAJ/A/2024/3189'
+    },
     heroVideoDesktop: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Shyam-Residency-Desktop-1.mp4',
     heroVideoMobile: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Shyam-Residency-Mobile-1.mp4',
     walkthroughVideoId: 'W6vr7qiTabo',
@@ -449,28 +497,33 @@ export const PROJECTS_DATA = {
       tablet: '-20px',
       mobile: '-20px'
     },
+    featureBullets: [
+      'BDA-approved project with 115 plots across 7.5 acres',
+      'Pet Park, Amphitheatre, Kids Play Area & Miyawaki Forest',
+      'Concrete Roads & Underground Utilities',
+      'Prime Location in Off Andhrahalli, Magadi Road'
+    ],
     about: {
       paragraphs: [
         'Amidst the hustle and bustle of Bengaluru city, Shyam Residency brings 115 plots spread across peaceful and carefully planned 7 acres and 20 guntas of land. This is a BDA-approved project that comes with wide roads, lush parks, walking paths, and a kind of community that makes your life enjoyable beyond the four walls.',
-        'There is no denying that Magadi Road has become one of Bengaluru’s most sought-after residential corridors. These sites in Magadi Road sit quietly between affordability, accessibility, and infrastructure growth. This way, you get what most crowded neighbourhoods don’t: room to breathe, build, and grow.',
+        'There is no denying that Magadi Road has become one of Bengaluru’s most sought-after residential corridors. These sites in Magadi Road sit quietly between affordability, accessibility, and infrastructure growth. This way, you get what crowded neighbourhoods rarely offer: space to breathe, build, and grow..',
         'Shyam Residency is a natural extension of the legacy at Guru Punvaanii, and now we bring it to you in the city’s most promising growth corridors of Bengaluru.'
       ]
     },
     amenitiesDesc: 'Our clients trust us because we understand the lifestyle one needs for a good quality of life. Below, you can explore how the amenities we bring are planned to make your everyday moments feel special and unique.',
     amenities: [
-      { icon: 'fas fa-dog', title: 'Pet Park' },
-      // { icon: 'fas fa-bolt', title: 'Transformer' },
-      // { icon: 'fas fa-recycle', title: 'STP' },
-      { icon: 'fas fa-seedling', title: 'Open Sitout & Garden Area' },
-      { icon: 'fas fa-dumbbell', title: 'Outdoor GYM Equipments' },
-      { icon: 'fas fa-chair', title: 'Open Sitting' },
-      { icon: 'fas fa-child', title: 'Kids Play Area' },
-      { icon: 'fas fa-volleyball-ball', title: 'Multipurpose Court' },
-      { icon: 'fas fa-theater-masks', title: 'Amphitheatre' },
-      { icon: 'fas fa-umbrella-beach', title: 'Gazebo' },
+      { icon: 'fas fa-chair', title: 'Open Sitting Area' },
       { icon: 'fas fa-water', title: 'Lily Pond' },
+      { icon: 'fas fa-dumbbell', title: 'Outdoor Gym' },
+      { icon: 'fas fa-theater-masks', title: 'Mini Amphitheatre' },
+      { icon: 'fas fa-volleyball-ball', title: 'Multipurpose Court' },
+      { icon: 'fas fa-dog', title: 'Pet Area' },
       { icon: 'fas fa-water', title: 'Fountain' },
-      { icon: 'fas fa-leaf', title: 'Forest Miyawaki' }
+      { icon: 'fas fa-tree', title: 'Miyawaki Forest' },
+      { icon: 'fas fa-child', title: 'Children’s Play Area' },
+      { icon: 'fas fa-seedling', title: 'Parks' },
+      { icon: 'fas fa-walking', title: 'Walking Paths' },
+      { icon: 'fas fa-umbrella-beach', title: 'Gazebo' }
     ],
     cta: {
       title: 'Get the Shyam Residency layout & brochure',
@@ -483,7 +536,7 @@ export const PROJECTS_DATA = {
     faqs: [
       {
         q: 'What plot sizes are available at Shyam Residency?',
-        a: 'Shyam Residency brings 115 plots spread across peaceful and carefully planned 7 acres and 20 guntas of land.'
+        a: 'We offer plot sizes of 30×40, 30×50, and 40×60. These plot options provide flexibility for different construction requirements and future customization plans.'
       },
       {
         q: 'Is Shyam Residency a BDA-approved project?',
@@ -503,15 +556,28 @@ export const PROJECTS_DATA = {
       }
     ],
     plots: {
-      description: 'Build your dream home in a carefully planned BDA-approved community. Featuring premium plots spread across 7+ acres, surrounded by lush gardens, wide roads, and superior infrastructure.',
+      description: 'Build your dream home in a carefully planned BDA-approved community. Featuring 115 premium plots spread across 7+ acres, surrounded by lush gardens, 30–50 ft wide roads, and superior infrastructure.',
       type: 'grid',
       list: [
         {
-          size: 'Premium Plots',
-          sqft: 'Various Sizes',
-          desc: 'Ideal for building a spacious and comfortable family home in a peaceful, secure community.',
-          badge: 'Popular Choice',
-          icon: 'fa-vector-square'
+          size: '30×40 ft, 30×50 ft, 40×60 ft & Unique Plots',
+          sqft: '1,200 – 2,400+ Sq.Ft. Plots',
+          desc: 'Build your custom dream home in a secure, BDA-approved gated plotted layout. Multiple dimension configurations tailored for 3BHK, 4BHK duplex villas, and executive luxury residences.',
+          badge: 'BDA APPROVED PLOTS',
+          icon: 'fa-vector-square',
+          dimensionChips: [
+            { size: '30 × 40 FT', sqft: '1,200 SqFt (3BHK Villa)' },
+            { size: '30 × 50 FT', sqft: '1,500 SqFt (3BHK Duplex)' },
+            { size: '40 × 60 FT', sqft: '2,400 SqFt (Grand Villa)' },
+            { size: 'UNIQUE SIZE PLOTS', sqft: 'Custom Dimensions' }
+          ],
+          features: [
+            'BDA Approved Layout & 100% Clear Legal Title',
+            'Ready for Immediate Registration & Construction',
+            'Wide Concrete Asphalted Roads (30 to 50 Ft)',
+            'Lush Green Parks, Pet Park & Miyawaki Forest',
+
+          ]
         }
       ]
     }
@@ -520,13 +586,20 @@ export const PROJECTS_DATA = {
     id: 'exotica',
     shortName: 'Exotica',
     projectName: 'Guru Punvaanii Exotica',
-    title: 'Exotica entrance with premium plots in Attibele',
+    title: 'Guru Punvaanii Exotica | Premium Residential Plots in Attibele, Bengaluru',
     location: 'Off Anekal, Attibele Road',
     tagline: 'Residential Plots',
     formHeading: 'Exotica - Attibele Road',
     formSubHeading: '266 Plots across 16.75 Acres',
     approvalText: '266 Plots across 16.75 Acres',
     basePath: '/exotica',
+    featureBullets: [
+      '266 Plots across 16.75 Acres',
+      'Residential Plots',
+      'A to Z Amenities & Clubhouse',
+      'Concrete Roads & Underground Utilities',
+      'Prime Location in Off Anekal, Attibele Road'
+    ],
     about: { paragraphs: [] },
     amenities: [],
     faqs: [],
@@ -536,13 +609,20 @@ export const PROJECTS_DATA = {
     id: 'etasha',
     shortName: 'Etasha',
     projectName: 'Guru Punvaanii Etasha',
-    title: 'Etasha entrance arch of a premium residential sites in tumkur',
+    title: 'Guru Punvaanii Etasha | Premium Residential Plots in Tumkur Road, Bengaluru',
     location: 'Sondekoppa, Off Tumkur Road',
     tagline: 'Residential Plots',
     formHeading: 'Etasha - Tumkur Road',
     formSubHeading: '191 Plots across 13.5 Acres',
     approvalText: '191 Plots across 13.5 Acres',
     basePath: '/etasha',
+    featureBullets: [
+      '191 Plots across 13.5 Acres',
+      'Residential Plots',
+      'A to Z Amenities & Clubhouse',
+      'Concrete Roads & Underground Utilities',
+      'Prime Location in Sondekoppa, Off Tumkur Road'
+    ],
     about: { paragraphs: [] },
     amenities: [],
     faqs: [],
@@ -551,14 +631,21 @@ export const PROJECTS_DATA = {
   spn: {
     id: 'spn',
     shortName: 'SPN',
-    projectName: 'Guru Punvaanii Shyam Residency',
-    title: 'Sankeshwar Padmavathi Nagar residential project entrance of plots for sale in Kolar',
+    projectName: 'Guru Punvaanii SPN',
+    title: 'Guru Punvaanii SPN | Residential Plots in Mulbagal, Kolar',
     location: 'Mulbagal, Kolar',
     tagline: 'Residential Plots',
     formHeading: 'SPN - Kolar',
     formSubHeading: '165 Plots across 14.75 Acres',
     approvalText: '165 Plots across 14.75 Acres',
     basePath: '/spn',
+    featureBullets: [
+      '165 Plots across 14.75 Acres',
+      'Residential Plots',
+      'A to Z Amenities & Clubhouse',
+      'Concrete Roads & Underground Utilities',
+      'Prime Location in Mulbagal, Kolar'
+    ],
     about: { paragraphs: [] },
     amenities: [],
     faqs: [],
@@ -568,13 +655,20 @@ export const PROJECTS_DATA = {
     id: 'ekansh',
     shortName: 'Ekansh',
     projectName: 'Guru Punvaanii Ekansh',
-    title: 'Ekansh entrance arch – residential plots in Mysore',
+    title: 'Guru Punvaanii Ekansh | Premium Residential Plots in Mysuru',
     location: 'Off Hunsur Road, Mysuru',
     tagline: 'Residential Plots',
     formHeading: 'Ekansh - Mysuru',
     formSubHeading: '79 Plots across 5 Acres',
     approvalText: '79 Plots across 5 Acres',
     basePath: '/ekansh',
+    featureBullets: [
+      '79 Plots across 5 Acres',
+      'Residential Plots',
+      'A to Z Amenities & Clubhouse',
+      'Concrete Roads & Underground Utilities',
+      'Prime Location in Off Hunsur Road, Mysuru'
+    ],
     about: { paragraphs: [] },
     amenities: [],
     faqs: [],

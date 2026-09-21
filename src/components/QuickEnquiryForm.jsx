@@ -53,7 +53,7 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
     try {
       // 1. Submit lead to StrategicERP API
       const erpUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name.trim())}&Email=${encodeURIComponent(formData.email.trim() || '')}&MobileNo=${encodeURIComponent(cleanPhone)}&Comments=${encodeURIComponent(formData.message || 'Quick Enquiry Form')}&ProjectName=${encodeURIComponent(shortName)}&Source=GoogleAds_LandingPage`;
-      fetch(erpUrl, { mode: 'no-cors' }).catch(() => {});
+      fetch(erpUrl, { mode: 'no-cors' }).catch(() => { });
 
       // 2. Fire StrategicERP Image Pixel
       const d = new Date();
@@ -79,25 +79,68 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
   };
 
   return (
-    <div className="er_quick-enquiry-card">
+    <div className={`er_quick-enquiry-card ${project.id === 'shyam_residency' ? 'er_theme-shyam' : ''}`}>
       {/* Premium Luxury Header Banner */}
       <div className="er_quick-card-head">
-        {onClose && (
-          <button
-            type="button"
-            className="er_quick-header-close-btn"
-            onClick={onClose}
-            aria-label="Close Enquiry Form"
-            title="Close"
-          >
-            <i className="fas fa-times"></i>
-          </button>
+        <div className="er_quick-head-top">
+          <div className="er_quick-head-text-group">
+            {!project.priceHighlight && (
+              <span className="er_quick-badge">
+                <i className="fas fa-tree"></i> {project.badge}
+              </span>
+            )}
+            <h3 className="er_quick-title">{project.formHeading}</h3>
+          </div>
+          {onClose && (
+            <button
+              type="button"
+              className="er_quick-header-close-btn"
+              onClick={onClose}
+              aria-label="Close Enquiry Form"
+              title="Close"
+            >
+              <i className="fas fa-times"></i>
+            </button>
+          )}
+        </div>
+        {project.priceHighlight ? (
+          <div className="er_quick-price-split">
+            {/* Left Side: Starting At Tag + RERA Approved Badge */}
+            <div className="er_quick-split-left">
+              <div className="er_quick-price-tag">{project.priceHighlight.tag || 'STARTING AT'}</div>
+              {project.priceHighlight.reraNumber && (
+                <div className="er_quick-rera-pill">
+                  <div className="er_quick-rera-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="9.5" stroke="#d4af37" strokeWidth="1.5" strokeDasharray="1.8 1.5" fill="rgba(212, 175, 55, 0.15)" />
+                      <circle cx="12" cy="12" r="7.5" stroke="#d4af37" strokeWidth="1" fill="none" />
+                      <path d="M8.5 12l2.3 2.3 4.7-4.7" stroke="#d4af37" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                  <div className="er_quick-rera-info">
+                    <span className="er_quick-rera-title">{project.priceHighlight.reraTitle || 'RERA APPROVED'}</span>
+                    <span className="er_quick-rera-no">{project.priceHighlight.reraNumber}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Right Side: Rate / Price Display */}
+            <div className="er_quick-split-right">
+              <div className="er_quick-price-val">
+                <span className="er_price-currency">{project.priceHighlight.currency || '₹'}</span>
+                <span className="er_price-amount">{project.priceHighlight.amount || (project.priceHighlight.price ? project.priceHighlight.price.replace(/[₹*]/g, '') : '1.8')}</span>
+                {project.priceHighlight.crUnit && (
+                  <span className="er_price-cr"> {project.priceHighlight.crUnit}</span>
+                )}
+                <span className="er_price-star">{project.priceHighlight.star || '*'}</span>
+              </div>
+              <div className="er_quick-price-unit">{project.priceHighlight.unit || 'ONWARDS'}</div>
+            </div>
+          </div>
+        ) : (
+          <p className="er_quick-sub">{project.formSubHeading}</p>
         )}
-        <span className="er_quick-badge">
-          <i className="fas fa-tree"></i> {project.badge}
-        </span>
-        <h3 className="er_quick-title">{project.formHeading}</h3>
-        <p className="er_quick-sub">{project.formSubHeading}</p>
       </div>
 
       <div className="er_quick-card-body">

@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { useProjectContext } from '../utils/useProjectContext.js';
 
 export default function Footer() {
-  const { basePath } = useProjectContext();
+  const { basePath, isElegance } = useProjectContext();
+  const phoneNumber = isElegance ? '7676000909' : '9008347898';
+  const displayPhone = isElegance ? '7676 000 909' : '9008 3478 98';
 
   const handleLinkClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -58,7 +60,7 @@ export default function Footer() {
           </div>
           <div className="gp_footer-info-item">
             <i className="fas fa-phone-alt"></i>
-            <span>9008 3478 98</span>
+            <span>{displayPhone}</span>
           </div>
           <div className="gp_footer-info-item">
             <i className="fas fa-clock"></i>

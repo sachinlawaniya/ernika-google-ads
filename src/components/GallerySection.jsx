@@ -42,7 +42,8 @@ export default function GallerySection() {
   const eleganceImages = [
     // { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Villa-Entrance-Arch-Night-View.webp', title: 'Elegance Villa Entrance Arch' },
     // { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-villa-Elevation-Day-view.webp', title: 'Elegance Villa Elevation Day View' },
-    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Villa-Elevation-Night-View.webp', title: 'Elegance Villa Elevation Night View' },
+    // { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Villa-Elevation-Night-View.webp', title: 'Elegance Villa Elevation Night View' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/09/Screenshot-2026-09-04-153650.png', title: 'Elegance Villa Elevation Day & Night View' },
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Entrance-Hall.webp', title: 'Elegance Entrance Hall' },
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/balcony-space-scaled-1.webp', title: 'Elegance Balcony Space' },
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Living-Room-Second-Floor-1.webp', title: 'Elegance Living Room' },

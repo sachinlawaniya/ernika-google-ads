@@ -61,17 +61,39 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
     setErrorMsg('');
 
     try {
+      const d = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const nowStr = `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
       const comments = `SITE VISIT BOOKING: Date=${formData.visitDate || 'Not Specified'}, Slot=${formData.timeSlot}, Pickup=${formData.pickupAddress || 'Self Drive'}`;
+
+      // 1. Submit lead to StrategicERP API
+      const apiLeadUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name.trim())}&Email=${encodeURIComponent(formData.email.trim() || '')}&MobileNo=${encodeURIComponent(cleanPhone)}&Comments=${encodeURIComponent(comments)}&ProjectName=${encodeURIComponent(shortName)}&Source=GoogleAds_LandingPage`;
+      fetch(apiLeadUrl, { mode: 'no-cors' }).catch(() => { });
+
+      // 2. Fire StrategicERP Image Pixel with Source & Timestamp
       const erpUrl = `https://24.strategicerpcloud.com/strategicerp/SaveFormField.do?actn=SaveData&id=873&globalvar=0&cloudcode=gurupunvaanii&idselected=0&idhidden=0&mobileform=yes&editids=15715/15800/31227/15730/state//31228/31229/31230/33937/15713/30754/34785/15716/37710/37710/` +
         `&field15715=${encodeURIComponent(cleanPhone)}` +
         `&field15713=${encodeURIComponent(formData.name.trim())}` +
         `&field33937=${encodeURIComponent(formData.email.trim())}` +
         `&field15730=${encodeURIComponent(projectName)}` +
+        `&field15800=${encodeURIComponent(nowStr)}` +
+        `&field31227=${encodeURIComponent(nowStr)}` +
+        `&field31228=${encodeURIComponent('Digital Marketing')}` +
+        `&field31229=${encodeURIComponent('Google Ads')}` +
+        `&field31230=${encodeURIComponent('/ Google Ads /')}` +
+        `&field37710=${encodeURIComponent('+91')}` +
         `&field15716=${encodeURIComponent(comments)}` +
-        `&field37710=${encodeURIComponent('+91')}`;
+        `&field34785=`;
 
       const erpImg = new Image();
       erpImg.src = erpUrl;
+
+      // 3. Trigger Google Ads conversion event
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-CONVERSION_ID/CONVERSION_LABEL',
+        });
+      }
 
       setPhase('success');
     } catch (err) {
@@ -164,8 +186,8 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
               <h3><i className="fas fa-headset"></i> Direct Customer Helpline</h3>
               <p>Prefer talking directly? Call our site visit coordinators now:</p>
               <div className="er_phone-numbers">
-                <a href="tel:9008347898" className="er_phone-chip">
-                  <i className="fas fa-phone-alt"></i> 9008 3478 98
+                <a href={`tel:${isElegance ? '7676000909' : '9008347898'}`} className="er_phone-chip">
+                  <i className="fas fa-phone-alt"></i> {isElegance ? '7676 000 909' : '9008 3478 98'}
                 </a>
               </div>
               <div className="er_timing-badge">

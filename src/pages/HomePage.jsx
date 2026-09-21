@@ -14,14 +14,12 @@ import QuickEnquiryForm from '../components/QuickEnquiryForm.jsx';
 import PlotSizesSection from '../components/PlotSizesSection.jsx';
 
 export default function HomePage({ onOpenBrochure }) {
-  const { isElegance, project } = useProjectContext();
+  const { project, projectName } = useProjectContext();
 
   useEffect(() => {
-    document.title = isElegance
-      ? 'Guru Punvaanii Elegance | Premium 4 BHK Villas & plots in Bidadi, Bengaluru'
-      : 'Guru Punvaanii Ernika | Amazon Forest-Themed Villa plots in Anekal Bengaluru';
+    document.title = project?.title || `${projectName} | Premium Plots & Villas`;
     window.scrollTo(0, 0);
-  }, [isElegance]);
+  }, [project, projectName]);
 
   return (
     <main>

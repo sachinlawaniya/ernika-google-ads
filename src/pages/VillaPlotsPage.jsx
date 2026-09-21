@@ -8,12 +8,12 @@ import CtaSection from '../components/CtaSection.jsx';
 import FaqSection from '../components/FaqSection.jsx';
 
 export default function VillaPlotsPage({ onOpenBrochure }) {
-  const { isElegance, projectName, shortName } = useProjectContext();
+  const { isElegance, projectName } = useProjectContext();
 
   useEffect(() => {
     document.title = isElegance
-      ? `Premium 4 BHK Villas & plots in Bidadi | ${projectName}`
-      : `Premium Villa plots in Anekal Bangalore | ${projectName}`;
+      ? `4 BHK Luxury Villas & Plots | ${projectName}`
+      : `Villa Plots & Layout Plan | ${projectName}`;
     window.scrollTo(0, 0);
   }, [isElegance, projectName]);
 
