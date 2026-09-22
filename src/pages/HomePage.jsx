@@ -38,8 +38,8 @@ export default function HomePage({ onOpenBrochure }) {
           <FaqSection />
         </div>
 
-        <aside className="er_sticky-sidebar-col">
-          <QuickEnquiryForm onOpenBrochure={onOpenBrochure} />
+        <aside id="er_enquiry" className="er_sticky-sidebar-col">
+          <QuickEnquiryForm onOpenBrochure={onOpenBrochure} formId="er_main_enquiry_form" />
         </aside>
       </div>
     </main>

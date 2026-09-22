@@ -11,12 +11,16 @@ export const PROJECTS_DATA = {
     badge: 'AMAZON THEMED VILLA Plots ',
     formHeading: 'Ernika Villa Plots - Anekal',
     formSubHeading: '220 BMRDA & RERA Approved plots across 12.5 Acres',
+    priceHighlight: {
+      reraTitle: 'RERA No.',
+      reraNumber: 'PRM/KA/RERA/1251/308/PR/270125/007446'
+    },
     heroVideoId: 'VNnsHctRUx0',
     walkthroughVideoId: 'sLBAywF0k44',
     approvalText: '220 BMRDA & RERA Approved plots across 12.5 Acres',
     approvalBadge: 'BMRDA  & RERA APPROVED',
-    elevationDayImg: 'https://gurupunvaanii.com/wp-content/uploads/2026/05/ErnikaArch-scaled.jpeg',
-    elevationNightImg: 'https://gurupunvaanii.com/wp-content/uploads/2026/05/ErnikaArch-scaled.jpeg',
+    elevationDayImg: '/images/ernika_overview.png',
+    elevationNightImg: '/images/ernika_overview.png',
     proximityMapUrl: 'https://ernika-proximities.gurupunvaanii.com/',
     proximityMargins: {
       desktop: '-0px',
@@ -470,14 +474,13 @@ export const PROJECTS_DATA = {
     formHeading: 'Shyam Residency - Magadi Road',
     formSubHeading: '115 plots spread across 7.5 acres. BDA Approved.',
     priceHighlight: {
-      tag: 'STARTING AT',
       currency: '₹',
       amount: '1.8',
       crUnit: 'Cr',
       star: '*',
       unit: 'ONWARDS',
-      reraTitle: 'RERA APPROVED',
-      reraNumber: 'P-RERA-Regd.-RAJ/A/2024/3189'
+      reraTitle: 'RERA No.',
+      reraNumber: 'PRM/KA/RERA/1251/309/PR/271023/006355'
     },
     heroVideoDesktop: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Shyam-Residency-Desktop-1.mp4',
     heroVideoMobile: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Shyam-Residency-Mobile-1.mp4',
@@ -678,10 +681,11 @@ export const PROJECTS_DATA = {
 
 export function useProjectContext() {
   const { pathname } = useLocation();
+  const lowerPath = (pathname || '').toLowerCase();
 
   let projectKey = 'ernika';
   for (const key of Object.keys(PROJECTS_DATA)) {
-    if (pathname.startsWith(PROJECTS_DATA[key].basePath)) {
+    if (lowerPath.startsWith(PROJECTS_DATA[key].basePath.toLowerCase())) {
       projectKey = key;
       break;
     }

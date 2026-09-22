@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useProjectContext } from '../utils/useProjectContext.js';
 
-export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
+export default function QuickEnquiryForm({ onOpenBrochure, onClose, formId = 'er_enquiry' }) {
   const { project, shortName, projectName } = useProjectContext();
 
   const [formData, setFormData] = useState({
@@ -79,12 +79,12 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
   };
 
   return (
-    <div className={`er_quick-enquiry-card ${project.id === 'shyam_residency' ? 'er_theme-shyam' : ''}`}>
+    <div id={formId} className={`er_quick-enquiry-card ${project.id === 'shyam_residency' ? 'er_theme-shyam' : ''}`}>
       {/* Premium Luxury Header Banner */}
       <div className="er_quick-card-head">
         <div className="er_quick-head-top">
           <div className="er_quick-head-text-group">
-            {!project.priceHighlight && (
+            {project.badge && (
               <span className="er_quick-badge">
                 <i className="fas fa-tree"></i> {project.badge}
               </span>
@@ -104,10 +104,9 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
           )}
         </div>
         {project.priceHighlight ? (
-          <div className="er_quick-price-split">
-            {/* Left Side: Starting At Tag + RERA Approved Badge */}
+          <div className={`er_quick-price-split ${!project.priceHighlight.amount && !project.priceHighlight.price ? 'er_quick-rera-only' : ''}`}>
+            {/* Left Side: RERA Approved / RERA No Badge */}
             <div className="er_quick-split-left">
-              <div className="er_quick-price-tag">{project.priceHighlight.tag || 'STARTING AT'}</div>
               {project.priceHighlight.reraNumber && (
                 <div className="er_quick-rera-pill">
                   <div className="er_quick-rera-icon">
@@ -126,17 +125,19 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
             </div>
 
             {/* Right Side: Rate / Price Display */}
-            <div className="er_quick-split-right">
-              <div className="er_quick-price-val">
-                <span className="er_price-currency">{project.priceHighlight.currency || '₹'}</span>
-                <span className="er_price-amount">{project.priceHighlight.amount || (project.priceHighlight.price ? project.priceHighlight.price.replace(/[₹*]/g, '') : '1.8')}</span>
-                {project.priceHighlight.crUnit && (
-                  <span className="er_price-cr"> {project.priceHighlight.crUnit}</span>
-                )}
-                <span className="er_price-star">{project.priceHighlight.star || '*'}</span>
+            {(project.priceHighlight.amount || project.priceHighlight.price) && (
+              <div className="er_quick-split-right">
+                <div className="er_quick-price-val">
+                  <span className="er_price-currency">{project.priceHighlight.currency || '₹'}</span>
+                  <span className="er_price-amount">{project.priceHighlight.amount || project.priceHighlight.price.replace(/[₹*]/g, '')}</span>
+                  {project.priceHighlight.crUnit && (
+                    <span className="er_price-cr"> {project.priceHighlight.crUnit}</span>
+                  )}
+                  <span className="er_price-star">{project.priceHighlight.star || '*'}</span>
+                </div>
+                <div className="er_quick-price-unit">{project.priceHighlight.unit || 'ONWARDS'}</div>
               </div>
-              <div className="er_quick-price-unit">{project.priceHighlight.unit || 'ONWARDS'}</div>
-            </div>
+            )}
           </div>
         ) : (
           <p className="er_quick-sub">{project.formSubHeading}</p>
@@ -254,12 +255,21 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose }) {
             >
               Submit Another Inquiry
             </button>
+            {onClose && (
+              <button
+                type="button"
+                className="er_quick-submit-btn"
+                style={{ background: 'transparent', color: '#64748b', border: 'none', marginTop: '4px', textDecoration: 'underline', cursor: 'pointer', boxShadow: 'none' }}
+                onClick={onClose}
+              >
+                Close Form
+              </button>
+            )}
           </div>
         )}
 
         <div className="er_quick-trust-footer">
           <span><i className="fas fa-shield-alt"></i> {project.approvalBadge}</span>
-          <span><i className="fas fa-tag"></i> Direct Builder Price</span>
         </div>
       </div>
     </div>

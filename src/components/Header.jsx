@@ -1,66 +1,103 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useProjectContext } from '../utils/useProjectContext.js';
 
 export default function Header({ onOpenModal }) {
   const [menuActive, setMenuActive] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const { shortName, basePath } = useProjectContext();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 30) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const navLinks = [
-    { label: 'About Us', path: `${basePath}/` },
-    { label: `${shortName} Plots`, path: `${basePath}/villa-plots` },
-    { label: 'Project Highlights', path: `${basePath}/project-highlights` },
-    { label: 'Location & Connectivity', path: `${basePath}/location` },
-    { label: 'Book Site Visit', path: `${basePath}/book-site-visit` },
+    { label: 'Overview', sectionId: 'er_about' },
+    { label: `${shortName} Plots`, sectionId: 'er_plots' },
+    { label: 'Project Highlights', sectionId: 'er_highlights' },
+    { label: 'Amenities', sectionId: 'er_amenities' },
+    { label: 'Location & Connectivity', sectionId: 'er_location' },
+    { label: 'Book Site Visit', sectionId: 'er_enquiry' },
   ];
 
-  const isLinkActive = (targetPath) => {
-    const cleanTarget = targetPath.replace(/\/$/, '');
-    const cleanPathname = pathname.replace(/\/$/, '');
-    const cleanBase = basePath.replace(/\/$/, '');
+  const handleNavClick = (e, sectionId) => {
+    e.preventDefault();
+    setMenuActive(false);
 
-    if (cleanTarget === cleanBase) {
-      return cleanPathname === cleanBase;
+    if (sectionId === 'er_enquiry') {
+      if (window.innerWidth <= 991 && typeof onOpenModal === 'function') {
+        onOpenModal('Header Menu - Book Free Site Visit');
+        return;
+      }
+      const element = document.getElementById('er_enquiry') || document.querySelector('.er_sticky-sidebar-col');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        const input = element.querySelector('input');
+        if (input) setTimeout(() => input.focus(), 500);
+        window.history.replaceState(null, '', `#${sectionId}`);
+        return;
+      }
+      if (typeof onOpenModal === 'function') {
+        onOpenModal('Header Menu - Book Free Site Visit');
+        return;
+      }
     }
-    return cleanPathname === cleanTarget || cleanPathname.startsWith(cleanTarget + '/');
+
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      window.history.replaceState(null, '', `#${sectionId}`);
+    } else {
+      navigate(`${basePath}/#${sectionId}`);
+    }
+  };
+
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    setMenuActive(false);
+    const heroEl = document.getElementById('er_hero') || document.getElementById('er_page');
+    if (heroEl) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.history.replaceState(null, '', `${basePath}/`);
+    } else {
+      navigate(`${basePath}/`);
+    }
   };
 
   return (
     <>
-      <header className="gp_custom-header">
+      <header className={`gp_custom-header ${scrolled ? 'scrolled' : ''}`}>
         <div className="gp_header-inner">
           <div className="gp_logo">
-            <Link to={`${basePath}/`}>
+            <a href={`${basePath}/`} onClick={handleLogoClick}>
               <img
                 src="https://gurupunvaanii.com/wp-content/uploads/2026/03/Guru-Punvaanii-Logo-300x172.png"
                 alt="Guru Punvaanii Logo"
               />
-            </Link>
+            </a>
           </div>
-
-          {/* Desktop Navigation Links */}
-          {/* <nav className="gp_desktop-nav-wrap">
-            <ul className="gp_menu">
-              {navLinks.map((item, idx) => (
-                <li key={idx}>
-                  <Link
-                    to={item.path}
-                    className={`gp_menu-link ${isLinkActive(item.path) ? 'active' : ''}`}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav> */}
 
           <button
             className="gp_menu-toggle"
             aria-label="Menu Toggle"
             onClick={() => setMenuActive(true)}
           >
-            <i className="fas fa-bars"></i>
+            <span className="gp_hamburger-icon">
+              <span className="gp_bar gp_bar-top"></span>
+              <span className="gp_bar gp_bar-mid"></span>
+              <span className="gp_bar gp_bar-bot"></span>
+            </span>
           </button>
         </div>
       </header>
@@ -84,13 +121,13 @@ export default function Header({ onOpenModal }) {
           <ul className="gp_mobile-menu">
             {navLinks.map((item, idx) => (
               <li key={idx}>
-                <Link
-                  to={item.path}
-                  className={`gp_m-link ${isLinkActive(item.path) ? 'active' : ''}`}
-                  onClick={() => setMenuActive(false)}
+                <a
+                  href={`#${item.sectionId}`}
+                  className="gp_m-link"
+                  onClick={(e) => handleNavClick(e, item.sectionId)}
                 >
                   {item.label}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>

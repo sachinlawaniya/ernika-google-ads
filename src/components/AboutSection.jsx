@@ -2,10 +2,12 @@ import React from 'react';
 import { useProjectContext } from '../utils/useProjectContext.js';
 import shyamOverviewDesktop from '../assets/shyam_overview_desktop.png';
 import shyamOverviewMobile from '../assets/shyam_overview_mobile.png';
+import ernikaOverview from '../assets/ernika_overview.png';
 
 export default function AboutSection({ onOpenBrochure }) {
   const { project } = useProjectContext();
   const isShyam = project.id === 'shyam_residency';
+  const isErnika = project.id === 'ernika';
 
   return (
     <section id="er_about" className="er_intro er_section">
@@ -55,6 +57,14 @@ export default function AboutSection({ onOpenBrochure }) {
                 className="er_shyam-about-banner"
               />
             </picture>
+          ) : isErnika ? (
+            <img
+              src={ernikaOverview}
+              alt="Guru Punvaanii Ernika Amazon Theme Villa Plots"
+              loading="lazy"
+              decoding="async"
+              className="er_ernika-about-banner"
+            />
           ) : (
             <img
               src={project.entranceArch || project.elevationDayImg}

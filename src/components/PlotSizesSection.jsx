@@ -9,7 +9,7 @@ export default function PlotSizesSection({ onOpenBrochure }) {
   if (!Plots) return null;
 
   return (
-    <section className="er_section er_container">
+    <section id="er_plots" className="er_section er_container">
       <div className="er_section-head">
         <span className="er_section-label">AVAILABLE PLOT DIMENSIONS</span>
         <h2 className="er_section-h2">{project.shortName} Villa &amp; Plot Sizes</h2>

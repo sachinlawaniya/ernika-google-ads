@@ -1,14 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useProjectContext } from '../utils/useProjectContext.js';
 
-export default function Footer() {
+export default function Footer({ onOpenModal }) {
   const { basePath, isElegance } = useProjectContext();
+  const navigate = useNavigate();
   const phoneNumber = isElegance ? '7676000909' : '9008347898';
   const displayPhone = isElegance ? '7676 000 909' : '9008 3478 98';
 
-  const handleLinkClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const handleNavClick = (e, sectionId) => {
+    e.preventDefault();
+
+    if (sectionId === 'er_enquiry') {
+      if (window.innerWidth <= 991 && typeof onOpenModal === 'function') {
+        onOpenModal('Footer - Book Free Site Visit');
+        return;
+      }
+      const element = document.getElementById('er_enquiry') || document.querySelector('.er_sticky-sidebar-col');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        const input = element.querySelector('input');
+        if (input) setTimeout(() => input.focus(), 500);
+        window.history.replaceState(null, '', `#${sectionId}`);
+        return;
+      }
+      if (typeof onOpenModal === 'function') {
+        onOpenModal('Footer - Book Free Site Visit');
+        return;
+      }
+    }
+
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      window.history.replaceState(null, '', `#${sectionId}`);
+    } else {
+      navigate(`${basePath}/#${sectionId}`);
+    }
+  };
+
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    const heroEl = document.getElementById('er_hero') || document.getElementById('er_page');
+    if (heroEl) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.history.replaceState(null, '', `${basePath}/`);
+    } else {
+      navigate(`${basePath}/`);
+    }
   };
 
   return (
@@ -21,12 +60,12 @@ export default function Footer() {
         {/* Column 1: Brand Info */}
         <div className="gp_footer-col gp_footer-brand">
           <div className="gp_footer-logo">
-            <Link to={`${basePath}/`} onClick={handleLinkClick}>
+            <a href={`${basePath}/`} onClick={handleLogoClick}>
               <img
                 src="https://gurupunvaanii.com/wp-content/uploads/2026/03/Guru-Punvaanii-Logo-300x172.png"
                 alt="Guru Punvaanii Logo"
               />
-            </Link>
+            </a>
           </div>
           <p className="gp_footer-desc">
             We welcome you to visit Guru Punvaanii. We are here to provide clear, honest guidance at every step of your real estate journey.
@@ -43,11 +82,12 @@ export default function Footer() {
         <div className="gp_footer-col">
           <h3 className="gp_footer-title">Quick Links</h3>
           <ul className="gp_footer-links">
-            <li><Link to={`${basePath}/`} onClick={handleLinkClick}>Overview</Link></li>
-            <li><Link to={`${basePath}/villa-plots`} onClick={handleLinkClick}>Premium Villa Plots</Link></li>
-            <li><Link to={`${basePath}/project-highlights`} onClick={handleLinkClick}>Project Highlights</Link></li>
-            <li><Link to={`${basePath}/location`} onClick={handleLinkClick}>Location &amp; Connectivity</Link></li>
-            <li><Link to={`${basePath}/book-site-visit`} onClick={handleLinkClick}>Book Free Site Visit</Link></li>
+            <li><a href="#er_about" onClick={(e) => handleNavClick(e, 'er_about')}>Overview</a></li>
+            <li><a href="#er_plots" onClick={(e) => handleNavClick(e, 'er_plots')}>Premium Villa Plots</a></li>
+            <li><a href="#er_highlights" onClick={(e) => handleNavClick(e, 'er_highlights')}>Project Highlights</a></li>
+            <li><a href="#er_amenities" onClick={(e) => handleNavClick(e, 'er_amenities')}>World-Class Amenities</a></li>
+            <li><a href="#er_location" onClick={(e) => handleNavClick(e, 'er_location')}>Location &amp; Connectivity</a></li>
+            <li><a href="#er_enquiry" onClick={(e) => handleNavClick(e, 'er_enquiry')}>Book Free Site Visit</a></li>
           </ul>
         </div>
 

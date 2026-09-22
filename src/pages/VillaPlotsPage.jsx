@@ -34,8 +34,8 @@ export default function VillaPlotsPage({ onOpenBrochure }) {
         </div>
 
         {/* Sticky Sidebar Form */}
-        <aside className="er_sticky-sidebar-col">
-          <QuickEnquiryForm onOpenBrochure={onOpenBrochure} />
+        <aside id="er_enquiry" className="er_sticky-sidebar-col">
+          <QuickEnquiryForm onOpenBrochure={onOpenBrochure} formId="er_main_enquiry_form" />
         </aside>
       </div>
     </main>

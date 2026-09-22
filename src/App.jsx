@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import BrochureModal from './components/BrochureModal.jsx';
@@ -14,9 +14,16 @@ import BookSiteVisitPage from './pages/BookSiteVisitPage.jsx';
 import { PROJECTS_DATA } from './utils/useProjectContext.js';
 
 function ScrollToTopOrHash() {
-  const { pathname, hash } = useLocation();
+  const { pathname, search, hash } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // Automatically redirect uppercase/capital URLs to clean lowercase slugs
+    if (/[A-Z]/.test(pathname)) {
+      navigate(pathname.toLowerCase() + (search || '') + (hash || ''), { replace: true });
+      return;
+    }
+
     if (hash) {
       setTimeout(() => {
         const id = hash.replace('#', '');
@@ -28,7 +35,7 @@ function ScrollToTopOrHash() {
     } else {
       window.scrollTo(0, 0);
     }
-  }, [pathname, hash]);
+  }, [pathname, search, hash, navigate]);
 
   return null;
 }
@@ -107,7 +114,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/ernika/" replace />} />
         </Routes>
 
-        <Footer />
+        <Footer onOpenModal={handleOpenBrochure} />
         <BrochureModal isOpen={isModalOpen} onClose={handleCloseBrochure} sourceComment={modalSource} />
         <MobileEnquiryPopup onOpenBrochure={handleOpenBrochure} />
         <FloatingCallBtn />

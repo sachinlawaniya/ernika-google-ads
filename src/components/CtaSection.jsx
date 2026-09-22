@@ -33,7 +33,7 @@ export default function CtaSection({ onOpenBrochure }) {
   ];
 
   return (
-    <section className="er_cta-section er_cta-shyam-section">
+    <section id="er_cta" className="er_cta-section er_cta-shyam-section">
       <div className="er_container er_cta-shyam-container">
         <div className="er_cta-shyam-card">
           <div className="er_cta-shyam-content">

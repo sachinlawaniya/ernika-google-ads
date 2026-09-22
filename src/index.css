@@ -78,17 +78,38 @@ select {
   max-width: 100%;
 }
 
+#er_page section,
+#er_page [id^="er_"],
+#er_page .er_section,
+#er_page .er_quick-enquiry-card {
+  scroll-margin-top: 80px !important;
+}
+
 /* ── HEADER ── */
 .gp_custom-header {
-  position: absolute !important;
+  position: fixed !important;
   top: 0 !important;
   left: 0 !important;
   right: 0 !important;
   width: 100% !important;
   z-index: 9999 !important;
-  padding: 26px 0 16px 0 !important;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%) !important;
+  padding: 20px 0 16px 0 !important;
+  /* background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.3) 45%, rgba(0, 0, 0, 0) 65%) !important; */
   box-sizing: border-box !important;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.gp_custom-header.scrolled {
+  background: rgba(13, 23, 20, 0.358) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  padding: 10px 0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
+  border-bottom: 1px solid rgba(197, 139, 45, 0.25) !important;
+}
+
+.gp_custom-header.scrolled .gp_logo img {
+  height: 52px !important;
 }
 
 .gp_header-inner {
@@ -103,10 +124,11 @@ select {
 }
 
 .gp_logo img {
-  height: 70px !important;
+  height: 64px !important;
   width: auto !important;
   display: block !important;
   object-fit: contain !important;
+  transition: height 0.3s ease !important;
 }
 
 .gp_menu {
@@ -189,19 +211,59 @@ select {
 }
 
 .gp_menu-toggle {
-  display: block !important;
-  background: transparent !important;
-  border: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--er-gold, #c58b2d) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 8px !important;
   color: #ffffff !important;
-  font-size: 24px !important;
   cursor: pointer !important;
-  padding: 8px !important;
-  transition: transform 0.3s ease, color 0.3s ease !important;
+  padding: 10px 12px !important;
+  transition: all 0.3s ease !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
 }
 
 .gp_menu-toggle:hover {
-  color: var(--er-gold) !important;
-  transform: scale(1.1) !important;
+  background: var(--er-gold, #c58b2d) !important;
+  border-color: var(--er-gold, #c58b2d) !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 4px 15px rgba(197, 139, 45, 0.45) !important;
+}
+
+.gp_hamburger-icon {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  width: 24px !important;
+  height: 16px !important;
+}
+
+.gp_hamburger-icon .gp_bar {
+  display: block !important;
+  height: 2.5px !important;
+  background-color: #ffffff !important;
+  border-radius: 4px !important;
+  transition: all 0.3s ease !important;
+}
+
+.gp_hamburger-icon .gp_bar-top {
+  width: 100% !important;
+}
+
+.gp_hamburger-icon .gp_bar-mid {
+  width: 62% !important;
+  margin-left: auto !important;
+}
+
+.gp_hamburger-icon .gp_bar-bot {
+  width: 100% !important;
+}
+
+.gp_menu-toggle:hover .gp_bar-mid {
+  width: 100% !important;
 }
 
 .gp_m-link.active {
@@ -551,14 +613,13 @@ select {
 
 #er_page .er_intro-image {
   position: relative;
-  border-radius: 8px;
-  box-shadow: 20px 20px 0 var(--er-gold);
-  overflow: visible;
-  /* Changed from hidden to prevent cutting off shadow if needed */
+  border-radius: 12px;
+  box-shadow: 16px 16px 0 var(--er-gold);
+  overflow: hidden;
   width: 100%;
   height: auto;
-  display: flex;
-  flex-direction: column;
+  display: block;
+  background: transparent;
 }
 
 #er_page .er_clickable-intro-image {
@@ -568,7 +629,7 @@ select {
 
 #er_page .er_clickable-intro-image:hover {
   transform: translateY(-4px);
-  box-shadow: 20px 24px 0 var(--er-gold), 0 16px 32px rgba(0, 0, 0, 0.18);
+  box-shadow: 16px 20px 0 var(--er-gold), 0 16px 32px rgba(0, 0, 0, 0.18);
 }
 
 #er_page .er_intro-image picture {
@@ -577,13 +638,24 @@ select {
 }
 
 #er_page .er_intro-image img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  object-position: center !important;
-  border-radius: 8px;
-  filter: contrast(110%) saturate(105%);
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  object-fit: cover !important;
+  border-radius: 12px !important;
+  filter: contrast(105%) saturate(105%);
   transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  #er_page .er_intro-image {
+    box-shadow: 10px 10px 0 var(--er-gold);
+    border-radius: 10px;
+  }
+
+  #er_page .er_intro-image img {
+    border-radius: 10px !important;
+  }
 }
 
 #er_page .er_clickable-intro-image:hover img {
@@ -2430,7 +2502,11 @@ select {
   }
 
   .gp_custom-header {
-    padding: 14px 16px !important;
+    padding: 12px 14px !important;
+  }
+
+  .gp_custom-header.scrolled {
+    padding: 8px 14px !important;
   }
 
   .gp_header-inner {
@@ -2439,6 +2515,10 @@ select {
 
   .gp_logo img {
     height: 44px !important;
+  }
+
+  .gp_custom-header.scrolled .gp_logo img {
+    height: 38px !important;
   }
 }
 
@@ -2848,6 +2928,11 @@ select {
   box-sizing: border-box !important;
 }
 
+.er_sticky-sidebar-col,
+#er_enquiry {
+  scroll-margin-top: 95px !important;
+}
+
 .er_sticky-sidebar-col {
   width: 390px;
   flex-shrink: 0;
@@ -2859,7 +2944,7 @@ select {
 /* Quick Enquiry Card Styles - Luxury Redesign */
 .er_quick-enquiry-card {
   position: sticky !important;
-  top: 60px !important;
+  top: 95px !important;
   z-index: 999 !important;
   background: #ffffff;
   border: 1.5px solid rgba(197, 139, 45, 0.4);
@@ -2969,6 +3054,15 @@ select {
   box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35) !important;
 }
 
+#er_page .er_quick-price-split.er_quick-rera-only {
+  justify-content: center !important;
+  padding: 7px 10px !important;
+}
+
+#er_page .er_quick-price-split.er_quick-rera-only .er_quick-split-left {
+  width: 100% !important;
+}
+
 #er_page .er_quick-split-left {
   display: flex !important;
   flex-direction: column !important;
@@ -3039,14 +3133,16 @@ select {
 
 #er_page .er_quick-rera-no {
   font-family: 'Inter', -apple-system, sans-serif !important;
-  font-size: 8.5px !important;
-  font-weight: 500 !important;
+  font-size: 8px !important;
+  font-weight: 600 !important;
   color: #cbd5e1 !important;
   letter-spacing: 0.2px !important;
-  line-height: 1.2 !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+  line-height: 1.3 !important;
+  white-space: normal !important;
+  word-break: break-all !important;
+  overflow-wrap: anywhere !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
 }
 
 #er_page .er_quick-price-val {
@@ -3277,14 +3373,16 @@ select {
 
 #er_page .er_theme-shyam .er_quick-rera-no {
   font-family: 'Inter', -apple-system, sans-serif !important;
-  font-size: 8.5px !important;
-  font-weight: 500 !important;
+  font-size: 8px !important;
+  font-weight: 600 !important;
   color: #CBD5E1 !important;
   letter-spacing: 0.2px !important;
-  line-height: 1.2 !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+  line-height: 1.3 !important;
+  white-space: normal !important;
+  word-break: break-all !important;
+  overflow-wrap: anywhere !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
 }
 
 #er_page .er_theme-shyam .er_price-currency {
@@ -3375,6 +3473,7 @@ select {
 
 /* ── COMPACT MOBILE STYLING FOR QUICK PRICE SPLIT TAB ── */
 @media (max-width: 768px) {
+
   #er_page .er_quick-enquiry-card,
   #er_page .er_theme-shyam {
     position: static !important;
@@ -3500,6 +3599,7 @@ select {
 }
 
 @media (max-width: 480px) {
+
   #er_page .er_quick-card-head,
   #er_page .er_theme-shyam .er_quick-card-head {
     padding: 14px 12px 10px !important;
@@ -3550,6 +3650,9 @@ select {
   #er_page .er_quick-rera-no,
   #er_page .er_theme-shyam .er_quick-rera-no {
     font-size: 7.5px !important;
+    white-space: normal !important;
+    word-break: break-all !important;
+    overflow-wrap: anywhere !important;
   }
 
   #er_page .er_price-currency,
@@ -3767,20 +3870,30 @@ select {
 }
 
 .er_quick-trust-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid #f1f5f9;
-  font-size: 11px;
-  color: #64748b;
-  font-weight: 500;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 10px !important;
+  margin-top: 14px !important;
+  padding-top: 12px !important;
+  border-top: 1px solid #f1f5f9 !important;
+  font-size: 11.5px !important;
+  color: #475569 !important;
+  font-weight: 600 !important;
+  width: 100% !important;
+}
+
+.er_quick-trust-footer span {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
 }
 
 .er_quick-trust-footer i {
-  color: var(--er-gold, #c68a28);
+  color: var(--er-gold, #c68a28) !important;
+  font-size: 12px !important;
 }
 
 @media (max-width: 1024px) {
@@ -5372,4 +5485,182 @@ select {
   #er_page .er_plot-dimension-chips {
     grid-template-columns: 1fr;
   }
+}
+
+/* ── DESKTOP HERO FLOATING ENQUIRY FORM (SCROLLS WITH HERO & SEMI-TRANSPARENT) ── */
+.er_hero_desktop_form_container {
+  display: block;
+}
+
+@media (max-width: 991px) {
+  .er_hero_desktop_form_container {
+    display: none !important;
+  }
+}
+
+.er_hero_floating_wrap {
+  position: absolute !important;
+  top: 50% !important;
+  right: 32px !important;
+  width: 380px !important;
+  max-width: calc(100vw - 40px) !important;
+  max-height: 90vh !important;
+  z-index: 25 !important;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, visibility 0.45s !important;
+  box-sizing: border-box !important;
+}
+
+.er_hero_floating_wrap.active {
+  transform: translateY(-50%) translateX(0) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+.er_hero_floating_wrap.slid-out {
+  transform: translateY(-50%) translateX(calc(100% + 50px)) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Luxury clean card on hero */
+.er_hero_floating_card.er_hero_glass_card {
+  width: 100% !important;
+  border-radius: 20px !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45) !important;
+  overflow: hidden !important;
+}
+
+.er_hero_glass_card .er_quick-enquiry-card {
+  position: static !important;
+  top: auto !important;
+  width: 100% !important;
+  background: #ffffff !important;
+  border: 1.5px solid rgba(197, 139, 45, 0.45) !important;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25) !important;
+}
+
+.er_hero_glass_card .er_quick-card-head,
+#er_page .er_hero_glass_card .er_quick-card-head {
+  background: linear-gradient(135deg, #1B3C34 0%, #0F2520 100%) !important;
+  border-bottom: 2px solid var(--er-gold, #c68a28) !important;
+}
+
+.er_hero_glass_card .er_theme-shyam .er_quick-card-head,
+#er_page .er_hero_glass_card .er_theme-shyam .er_quick-card-head {
+  background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%) !important;
+}
+
+.er_hero_glass_card .er_quick-card-body {
+  background: #ffffff !important;
+}
+
+.er_hero_glass_card .er_quick-field label {
+  color: #334155 !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+}
+
+.er_hero_glass_card .er_quick-input-icon input,
+.er_hero_glass_card .er_quick-input-icon textarea {
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  color: #1e293b !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.er_hero_glass_card .er_quick-input-icon input::placeholder,
+.er_hero_glass_card .er_quick-input-icon textarea::placeholder {
+  color: #94a3b8 !important;
+  font-weight: 400 !important;
+}
+
+.er_hero_glass_card .er_quick-input-icon input:focus,
+.er_hero_glass_card .er_quick-input-icon textarea:focus {
+  background: #ffffff !important;
+  border-color: var(--er-gold, #c68a28) !important;
+  box-shadow: 0 0 0 3px rgba(198, 138, 40, 0.15) !important;
+}
+
+.er_hero_glass_card .er_quick-trust-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  margin-top: 10px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #334155 !important;
+}
+
+.er_hero_glass_card .er_quick-trust-footer i {
+  color: var(--er-gold, #c68a28) !important;
+}
+
+/* Side Tab Trigger when closed */
+.er_hero_side_tab_trigger {
+  position: absolute !important;
+  top: 50% !important;
+  right: 0 !important;
+  transform: translateY(-50%) translateX(110%) !important;
+  z-index: 25 !important;
+  /* background: linear-gradient(135deg, rgba(27, 60, 52, 0.95) 0%, rgba(15, 37, 32, 0.95) 100%) !important; */
+  background: #c68a28 !important;
+  backdrop-filter: blur(8px) !important;
+  color: #ffffff !important;
+  border: 1.5px solid var(--er-gold, #c68a28) !important;
+  border-right: none !important;
+  border-radius: 12px 0 0 12px !important;
+  padding: 14px 14px 14px 12px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: -6px 8px 25px rgba(0, 0, 0, 0.4) !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease !important;
+  writing-mode: vertical-rl !important;
+  text-orientation: mixed !important;
+}
+
+.er_hero_side_tab_trigger i {
+  writing-mode: horizontal-tb !important;
+  font-size: 16px !important;
+  color: var(--er-gold, #c68a28) !important;
+  margin-bottom: 4px !important;
+}
+
+.er_hero_side_tab_trigger.visible {
+  transform: translateY(-50%) translateX(0) !important;
+}
+
+.er_hero_side_tab_trigger:hover {
+  /* background: linear-gradient(135deg, #244f45 0%, #15342d 100%) !important; */
+  background: #c68a28 !important;
+  box-shadow: -8px 10px 30px rgba(197, 139, 45, 0.45) !important;
+}
+
+/* Background video non-interactive overlay suppression */
+.er_hero video,
+.er_hero-video {
+  pointer-events: none !important;
+  user-select: none !important;
+  outline: none !important;
+}
+
+.er_hero video::-webkit-media-controls,
+.er_hero video::-webkit-media-controls-enclosure,
+.er_hero video::-webkit-media-controls-panel,
+.er_hero video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none !important;
+  opacity: 0 !important;
 }

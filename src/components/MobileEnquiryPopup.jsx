@@ -5,7 +5,7 @@ export default function MobileEnquiryPopup({ onOpenBrochure }) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Only auto-trigger on mobile screens (width <= 768px)
+    // Only auto-trigger modal on mobile screens (width <= 768px)
     const isMobile = window.innerWidth <= 768;
     if (!isMobile) return;
 
@@ -38,6 +38,7 @@ export default function MobileEnquiryPopup({ onOpenBrochure }) {
             <QuickEnquiryForm
               onOpenBrochure={onOpenBrochure}
               onClose={() => setIsOpen(false)}
+              formId="er_mobile_enquiry"
             />
           </div>
         </div>
@@ -45,4 +46,3 @@ export default function MobileEnquiryPopup({ onOpenBrochure }) {
     </>
   );
 }
-
