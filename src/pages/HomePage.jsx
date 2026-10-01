@@ -23,9 +23,9 @@ export default function HomePage({ onOpenBrochure }) {
 
   return (
     <main>
-      <HeroSection onOpenBrochure={onOpenBrochure} />
       <div className="er_main-layout-wrap">
         <div className="er_main-content-col">
+          <HeroSection onOpenBrochure={onOpenBrochure} />
           <AboutSection onOpenBrochure={onOpenBrochure} />
           <HighlightsSection />
           <GallerySection />

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavig
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import BrochureModal from './components/BrochureModal.jsx';
+import SiteVisitModal from './components/SiteVisitModal.jsx';
 import MobileEnquiryPopup from './components/MobileEnquiryPopup.jsx';
 import FloatingCallBtn from './components/FloatingCallBtn.jsx';
 
@@ -44,11 +45,20 @@ export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalSource, setModalSource] = useState('');
 
+  const [isSiteVisitOpen, setIsSiteVisitOpen] = useState(false);
+  const [siteVisitSource, setSiteVisitSource] = useState('');
+
   const handleOpenBrochure = (source = '') => {
     setModalSource(typeof source === 'string' ? source : '');
     setIsModalOpen(true);
   };
   const handleCloseBrochure = () => setIsModalOpen(false);
+
+  const handleOpenSiteVisit = (source = '') => {
+    setSiteVisitSource(typeof source === 'string' ? source : '');
+    setIsSiteVisitOpen(true);
+  };
+  const handleCloseSiteVisit = () => setIsSiteVisitOpen(false);
 
   useEffect(() => {
     // Disable right click context menu (preserving text selection)
@@ -85,12 +95,12 @@ export default function App() {
   const renderProjectRoutes = () => {
     return Object.values(PROJECTS_DATA).map((project) => (
       <React.Fragment key={project.id}>
-        <Route path={`${project.basePath}/`} element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
-        <Route path={`${project.basePath}`} element={<HomePage onOpenBrochure={handleOpenBrochure} />} />
-        <Route path={`${project.basePath}/villa-plots`} element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
-        <Route path={`${project.basePath}/project-highlights`} element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} />} />
-        <Route path={`${project.basePath}/location`} element={<LocationPage onOpenBrochure={handleOpenBrochure} />} />
-        <Route path={`${project.basePath}/book-site-visit`} element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} />} />
+        <Route path={`${project.basePath}/`} element={<HomePage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
+        <Route path={`${project.basePath}`} element={<HomePage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
+        <Route path={`${project.basePath}/villa-plots`} element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
+        <Route path={`${project.basePath}/project-highlights`} element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
+        <Route path={`${project.basePath}/location`} element={<LocationPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
+        <Route path={`${project.basePath}/book-site-visit`} element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
       </React.Fragment>
     ));
   };
@@ -99,23 +109,24 @@ export default function App() {
     <Router>
       <ScrollToTopOrHash />
       <div id="er_page">
-        <Header onOpenModal={handleOpenBrochure} />
+        <Header onOpenModal={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />
 
         <Routes>
           {renderProjectRoutes()}
 
           {/* Fallback routes */}
           <Route path="/" element={<Navigate to="/ernika/" replace />} />
-          <Route path="/villa-plots" element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} />} />
-          <Route path="/project-highlights" element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} />} />
-          <Route path="/location" element={<LocationPage onOpenBrochure={handleOpenBrochure} />} />
-          <Route path="/book-site-visit" element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} />} />
+          <Route path="/villa-plots" element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
+          <Route path="/project-highlights" element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
+          <Route path="/location" element={<LocationPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
+          <Route path="/book-site-visit" element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
 
           <Route path="*" element={<Navigate to="/ernika/" replace />} />
         </Routes>
 
-        <Footer onOpenModal={handleOpenBrochure} />
+        <Footer onOpenModal={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />
         <BrochureModal isOpen={isModalOpen} onClose={handleCloseBrochure} sourceComment={modalSource} />
+        <SiteVisitModal isOpen={isSiteVisitOpen} onClose={handleCloseSiteVisit} sourceComment={siteVisitSource} />
         <MobileEnquiryPopup onOpenBrochure={handleOpenBrochure} />
         <FloatingCallBtn />
       </div>

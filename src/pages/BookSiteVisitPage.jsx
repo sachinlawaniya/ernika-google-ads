@@ -18,7 +18,7 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
     email: '',
     visitDate: '',
     timeSlot: '10:00 AM - 01:00 PM',
-    pickupAddress: '',
+    message: '',
   });
 
   const [phase, setPhase] = useState('input'); // 'input' | 'otp' | 'success'
@@ -64,7 +64,7 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
       const d = new Date();
       const pad = (n) => String(n).padStart(2, '0');
       const nowStr = `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-      const comments = `SITE VISIT BOOKING: Date=${formData.visitDate || 'Not Specified'}, Slot=${formData.timeSlot}, Pickup=${formData.pickupAddress || 'Self Drive'}`;
+      const comments = `SITE VISIT BOOKING: Date=${formData.visitDate || 'Not Specified'}, Slot=${formData.timeSlot}, Message=${formData.message || 'None'}`;
 
       // 1. Submit lead to StrategicERP API
       const apiLeadUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name.trim())}&Email=${encodeURIComponent(formData.email.trim() || '')}&MobileNo=${encodeURIComponent(cleanPhone)}&Comments=${encodeURIComponent(comments)}&ProjectName=${encodeURIComponent(shortName)}&Source=GoogleAds_LandingPage`;

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useProjectContext } from '../utils/useProjectContext.js';
+import logo from "../assets/logo.png";
 
-export default function Header({ onOpenModal }) {
+export default function Header({ onOpenModal, onOpenSiteVisit }) {
   const [menuActive, setMenuActive] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { pathname } = useLocation();
@@ -36,16 +37,8 @@ export default function Header({ onOpenModal }) {
     setMenuActive(false);
 
     if (sectionId === 'er_enquiry') {
-      if (window.innerWidth <= 991 && typeof onOpenModal === 'function') {
-        onOpenModal('Header Menu - Book Free Site Visit');
-        return;
-      }
-      const element = document.getElementById('er_enquiry') || document.querySelector('.er_sticky-sidebar-col');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        const input = element.querySelector('input');
-        if (input) setTimeout(() => input.focus(), 500);
-        window.history.replaceState(null, '', `#${sectionId}`);
+      if (typeof onOpenSiteVisit === 'function') {
+        onOpenSiteVisit('Header Drawer Menu - Book Free Site Visit');
         return;
       }
       if (typeof onOpenModal === 'function') {
@@ -82,7 +75,7 @@ export default function Header({ onOpenModal }) {
           <div className="gp_logo">
             <a href={`${basePath}/`} onClick={handleLogoClick}>
               <img
-                src="https://gurupunvaanii.com/wp-content/uploads/2026/03/Guru-Punvaanii-Logo-300x172.png"
+                src={logo}
                 alt="Guru Punvaanii Logo"
               />
             </a>

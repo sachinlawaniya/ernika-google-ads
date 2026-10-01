@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProjectContext } from '../utils/useProjectContext.js';
 
-export default function Footer({ onOpenModal }) {
+export default function Footer({ onOpenModal, onOpenSiteVisit }) {
   const { basePath, isElegance } = useProjectContext();
   const navigate = useNavigate();
   const phoneNumber = isElegance ? '7676000909' : '9008347898';
@@ -12,16 +12,8 @@ export default function Footer({ onOpenModal }) {
     e.preventDefault();
 
     if (sectionId === 'er_enquiry') {
-      if (window.innerWidth <= 991 && typeof onOpenModal === 'function') {
-        onOpenModal('Footer - Book Free Site Visit');
-        return;
-      }
-      const element = document.getElementById('er_enquiry') || document.querySelector('.er_sticky-sidebar-col');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        const input = element.querySelector('input');
-        if (input) setTimeout(() => input.focus(), 500);
-        window.history.replaceState(null, '', `#${sectionId}`);
+      if (typeof onOpenSiteVisit === 'function') {
+        onOpenSiteVisit('Footer - Book Free Site Visit');
         return;
       }
       if (typeof onOpenModal === 'function') {
@@ -85,7 +77,7 @@ export default function Footer({ onOpenModal }) {
             <li><a href="#er_about" onClick={(e) => handleNavClick(e, 'er_about')}>Overview</a></li>
             <li><a href="#er_plots" onClick={(e) => handleNavClick(e, 'er_plots')}>Premium Villa Plots</a></li>
             <li><a href="#er_highlights" onClick={(e) => handleNavClick(e, 'er_highlights')}>Project Highlights</a></li>
-            <li><a href="#er_amenities" onClick={(e) => handleNavClick(e, 'er_amenities')}>World-Class Amenities</a></li>
+            <li><a href="#er_amenities" onClick={(e) => handleNavClick(e, 'er_amenities')}>Amenities</a></li>
             <li><a href="#er_location" onClick={(e) => handleNavClick(e, 'er_location')}>Location &amp; Connectivity</a></li>
             <li><a href="#er_enquiry" onClick={(e) => handleNavClick(e, 'er_enquiry')}>Book Free Site Visit</a></li>
           </ul>

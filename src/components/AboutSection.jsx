@@ -13,7 +13,7 @@ export default function AboutSection({ onOpenBrochure }) {
     <section id="er_about" className="er_intro er_section">
       <div className="er_container er_intro-grid">
         <div className="er_intro-text">
-          <h2>{project.shortName}: {project.tagline}</h2>
+          <h1 className="er_intro-title">{project.shortName}: {project.tagline}</h1>
 
           {project.about?.paragraphs?.map((para, idx) => (
             <p key={idx}>{para}</p>
@@ -41,37 +41,25 @@ export default function AboutSection({ onOpenBrochure }) {
             </button>
           </div>
         </div>
-        <div
-          className="er_intro-image er_clickable-intro-image"
-          onClick={() => onOpenBrochure && onOpenBrochure(`${project.shortName} Overview Image - Download Brochure`)}
-          title="Click to Download Brochure / Enquiry"
-        >
-          {isShyam ? (
-            <picture>
-              <source media="(max-width: 768px)" srcSet={shyamOverviewMobile} />
-              <img
-                src={shyamOverviewDesktop}
-                alt="Shyam Residency Overview"
-                loading="lazy"
-                decoding="async"
-                className="er_shyam-about-banner"
-              />
-            </picture>
-          ) : isErnika ? (
-            <img
-              src={ernikaOverview}
-              alt="Guru Punvaanii Ernika Amazon Theme Villa Plots"
-              loading="lazy"
-              decoding="async"
-              className="er_ernika-about-banner"
-            />
+        <div className="er_intro-image er_intro-video-frame-box">
+          {project.heroVideoDesktop ? (
+            <video
+              className="er_intro-video-element"
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+            >
+              <source src={project.heroVideoDesktop} type="video/mp4" />
+            </video>
           ) : (
-            <img
-              src={project.entranceArch || project.elevationDayImg}
-              alt={`${project.shortName} overview`}
-              loading="lazy"
-              decoding="async"
-            />
+            <iframe
+              src={`https://www.youtube.com/embed/${project.heroVideoId || project.walkthroughVideoId}?autoplay=1&mute=1&controls=1&loop=1&playlist=${project.heroVideoId || project.walkthroughVideoId}&playsinline=1&rel=0`}
+              title={`${project.shortName} Project Video`}
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowFullScreen
+            ></iframe>
           )}
         </div>
       </div>

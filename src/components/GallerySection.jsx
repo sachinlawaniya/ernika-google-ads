@@ -35,7 +35,6 @@ export default function GallerySection() {
     { src: imgAmphitheater, title: 'Ernika open air amphitheater' },
     { src: imgAerialView, title: 'Ernika 12.5-acre aerial view layout' },
     { src: imgModernVilla, title: 'Ernika modern luxury villa architecture' },
-    { src: imgAerialViewAlt, title: 'Ernika masterplan aerial perspective' },
     { src: imgOverview, title: 'Ernika villa plots community layout' },
   ];
 

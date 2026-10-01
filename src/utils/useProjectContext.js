@@ -1,4 +1,8 @@
 import { useLocation } from 'react-router-dom';
+import ernikaHeroDesktop from '../assets/ernika_hero.jpg';
+import ernikaHeroMobile from '../assets/ernika_hero_mobile.jpg';
+import shyamHeroDesktop from '../assets/shyam_overview_desktop.png';
+import shyamHeroMobile from '../assets/shyam_overview_mobile.png';
 
 export const PROJECTS_DATA = {
   ernika: {
@@ -12,6 +16,11 @@ export const PROJECTS_DATA = {
     formHeading: 'Ernika Villa Plots - Anekal',
     formSubHeading: '220 BMRDA & RERA Approved plots across 12.5 Acres',
     priceHighlight: {
+      currency: '₹',
+      amount: '4,100',
+      crUnit: '/sq.ft',
+      star: '*',
+      unit: 'ONWARDS',
       reraTitle: 'RERA No.',
       reraNumber: 'PRM/KA/RERA/1251/308/PR/270125/007446'
     },
@@ -19,8 +28,9 @@ export const PROJECTS_DATA = {
     walkthroughVideoId: 'sLBAywF0k44',
     approvalText: '220 BMRDA & RERA Approved plots across 12.5 Acres',
     approvalBadge: 'BMRDA  & RERA APPROVED',
-    elevationDayImg: '/images/ernika_overview.png',
-    elevationNightImg: '/images/ernika_overview.png',
+    elevationDayImg: ernikaHeroDesktop,
+    elevationNightImg: ernikaHeroDesktop,
+    elevationMobileImg: ernikaHeroMobile,
     proximityMapUrl: 'https://ernika-proximities.gurupunvaanii.com/',
     proximityMargins: {
       desktop: '-0px',
@@ -33,7 +43,7 @@ export const PROJECTS_DATA = {
     trustBadges: ['RERA APPROVED', 'BMRDA LAYOUT'],
     basePath: '/ernika',
     featureBullets: [
-      '220 BMRDA & RERA Approved plots across 12.5 Acres',
+      '220 BMRDA & RERA Approved Plots Across 12.5 Acres',
       // 'AMAZON THEMED VILLA Plots ',
       'Amazon Forest Themed Villa Plots',
       'A to Z Amenities & Clubhouse',
@@ -77,7 +87,7 @@ export const PROJECTS_DATA = {
     ],
     cta: {
       title: 'Ready to Own Bengaluru’s 1st Amazon-Themed Villa Plot?',
-      desc: 'Explore 12.5 acres of green corridors, 26+ world-class amenities, and prime connectivity in Anekal. Get instant access to plot layouts, phase pricing, and site visit assistance.',
+      desc: 'Explore 12.5 acres of green corridors, 26+ Amenities, and prime connectivity in Anekal. Get instant access to plot layouts, phase pricing, and site visit assistance.',
       tags: [
         { icon: 'fas fa-shield-alt', text: '100% Clear Title & Approved' },
         { icon: 'fas fa-tree', text: '26+ World Class Amenities' },
@@ -189,7 +199,7 @@ export const PROJECTS_DATA = {
     ],
     cta: {
       title: 'Ready to Own a Premium Villa in Bidadi?',
-      desc: 'Discover luxury living with RERA & BMICAPA approved 4 BHK villas and Plots . Enjoy world-class amenities and seamless connectivity to Bengaluru.',
+      desc: 'Discover luxury living with RERA & BMICAPA approved 4 BHK villas and Plots . Enjoy Amenities and seamless connectivity to Bengaluru.',
       tags: [
         { icon: 'fas fa-shield-alt', text: 'RERA & BMICAPA Approved' },
         { icon: 'fas fa-tree', text: 'Lush Green Landscapes' },
@@ -487,8 +497,9 @@ export const PROJECTS_DATA = {
     walkthroughVideoId: 'W6vr7qiTabo',
     approvalText: 'BDA-approved project with 115 plots across 7.5 acres',
     approvalBadge: 'BDA APPROVED',
-    elevationDayImg: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/Street-View-scaled.jpg',
-    elevationNightImg: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/Street-View-scaled.jpg',
+    elevationDayImg: shyamHeroDesktop,
+    elevationNightImg: shyamHeroDesktop,
+    elevationMobileImg: shyamHeroMobile,
     proximityMapUrl: 'https://shyam-residency-proximity.gurupunvaanii.com/',
     googleMapUrl: 'https://maps.google.com/maps?q=13.0231875,77.4785625&t=&z=15&ie=UTF8&iwloc=&output=embed',
     brochureUrl: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Shyam-Residency-brochure.pdf',
