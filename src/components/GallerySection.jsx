@@ -58,11 +58,11 @@ export default function GallerySection() {
   ];
   const ekaImages = [
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Entrance-Arch-1.webp', title: 'EKA Entrance Arch' },
-    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Aerial-View.webp', title: 'EKA Aerial View' },
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Gazebo.webp', title: 'EKA Gazebo' },
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Jogging-Track.webp', title: 'EKA Jogging Track' },
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Kids-Play-Area.webp', title: 'EKA Kids Play Area' },
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Street-View.webp', title: 'EKA Street View' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Aerial-View.webp', title: 'EKA Aerial View' },
   ];
 
   const eurekaImages = [

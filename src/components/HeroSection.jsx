@@ -11,7 +11,7 @@ export default function HeroSection({ onOpenBrochure }) {
         <picture className="er_hero-picture">
           {project.elevationMobileImg && (
             <source
-              media="(max-width: 991px)"
+              media="(max-width: 1024px)"
               srcSet={project.elevationMobileImg}
             />
           )}

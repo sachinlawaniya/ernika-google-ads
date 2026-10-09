@@ -1,6 +1,8 @@
 import { useLocation } from 'react-router-dom';
 import ernikaHeroDesktop from '../assets/ernika_hero.jpg';
 import ernikaHeroMobile from '../assets/ernika_hero_mobile.jpg';
+import ekaHeroDesktop from '../assets/EKA Landscape.jpg.jpeg';
+import ekaHeroMobile from '../assets/EKA Post.jpg.jpeg';
 import shyamHeroDesktop from '../assets/shyam_overview_desktop.png';
 import shyamHeroMobile from '../assets/shyam_overview_mobile.png';
 
@@ -263,8 +265,9 @@ export const PROJECTS_DATA = {
     walkthroughVideoId: 'ARZu54DqhVM',
     approvalText: '657 BMRDA & RERA Approved Plots across 50 Acres',
     approvalBadge: 'BMRDA & RERA APPROVED',
-    elevationDayImg: 'https://gurupunvaanii.com/wp-content/uploads/2026/07/Entrance-Arch.png',
-    elevationNightImg: 'https://gurupunvaanii.com/wp-content/uploads/2026/07/Entrance-Arch.png',
+    elevationDayImg: ekaHeroDesktop,
+    elevationNightImg: ekaHeroDesktop,
+    elevationMobileImg: ekaHeroMobile,
     proximityMapUrl: 'https://eka-proximities.gurupunvaanii.com/',
     googleMapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3522.346747484302!2d77.7166015!3d12.692526599999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae65bd20f41b95%3A0xc7061951b8d0aeb0!2sGuru%20Punvaanii%20EKA!5e1!3m2!1sen!2sin!4v1787041561165!5m2!1sen!2sin',
     brochureUrl: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/EKA-Brochure.pdf',

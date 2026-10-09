@@ -2606,12 +2606,12 @@ select {
     width: 96% !important;
   }
 
-  .gp_logo img {
-    height: 36px !important;
+  .gp_custom-header .gp_logo img {
+    height: 80px !important;
   }
 
   .gp_custom-header.scrolled .gp_logo img {
-    height: 30px !important;
+    height: 70px !important;
   }
 }
 
@@ -5736,8 +5736,8 @@ select {
 .er_main-content-col .er_hero-media-img {
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;
-  object-position: center top !important;
+  object-fit: 100% !important;
+  /* object-position: center top !important; */
   display: block !important;
 }
 
@@ -5795,13 +5795,14 @@ select {
   box-shadow: 0 6px 18px rgba(198, 138, 40, 0.45) !important;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1024px) {
   .er_main-content-col .er_hero {
     height: auto !important;
     min-height: unset !important;
     max-height: none !important;
-    aspect-ratio: 900 / 700 !important;
+    aspect-ratio: 900 / 600 !important;
     border-radius: 12px !important;
+
   }
 
   .er_main-content-col .er_hero-bottom-bar {
