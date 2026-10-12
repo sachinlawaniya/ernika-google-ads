@@ -3,15 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { useProjectContext } from '../utils/useProjectContext.js';
 
 export default function Footer({ onOpenModal, onOpenSiteVisit }) {
-  const { basePath, isElegance } = useProjectContext();
+  const { basePath, isElegance, isMainLanding } = useProjectContext();
   const navigate = useNavigate();
   const phoneNumber = isElegance ? '7676000909' : '9008347898';
   const displayPhone = isElegance ? '7676 000 909' : '9008 3478 98';
 
-  const handleNavClick = (e, sectionId) => {
+  const handleNavClick = (e, sectionId, path) => {
     e.preventDefault();
 
-    if (sectionId === 'er_enquiry') {
+    if (path) {
+      navigate(path);
+      return;
+    }
+
+    if (sectionId === 'er_enquiry' || sectionId === 'gp_promo') {
       if (typeof onOpenSiteVisit === 'function') {
         onOpenSiteVisit('Footer - Book Free Site Visit');
         return;
@@ -27,18 +32,21 @@ export default function Footer({ onOpenModal, onOpenSiteVisit }) {
       element.scrollIntoView({ behavior: 'smooth' });
       window.history.replaceState(null, '', `#${sectionId}`);
     } else {
-      navigate(`${basePath}/#${sectionId}`);
+      if (isMainLanding) {
+        navigate(`/#${sectionId}`);
+      } else {
+        navigate(`${basePath}/#${sectionId}`);
+      }
     }
   };
 
   const handleLogoClick = (e) => {
     e.preventDefault();
-    const heroEl = document.getElementById('er_hero') || document.getElementById('er_page');
-    if (heroEl) {
+    if (isMainLanding) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      window.history.replaceState(null, '', `${basePath}/`);
+      window.history.replaceState(null, '', '/');
     } else {
-      navigate(`${basePath}/`);
+      navigate('/');
     }
   };
 
@@ -52,7 +60,7 @@ export default function Footer({ onOpenModal, onOpenSiteVisit }) {
         {/* Column 1: Brand Info */}
         <div className="gp_footer-col gp_footer-brand">
           <div className="gp_footer-logo">
-            <a href={`${basePath}/`} onClick={handleLogoClick}>
+            <a href="/" onClick={handleLogoClick}>
               <img
                 src="https://gurupunvaanii.com/wp-content/uploads/2026/03/Guru-Punvaanii-Logo-300x172.png"
                 alt="Guru Punvaanii Logo"
@@ -60,7 +68,7 @@ export default function Footer({ onOpenModal, onOpenSiteVisit }) {
             </a>
           </div>
           <p className="gp_footer-desc">
-            We welcome you to visit Guru Punvaanii. We are here to provide clear, honest guidance at every step of your real estate journey.
+            We welcome you to visit Guru Punvaanii Properties. We are here to provide clear, honest guidance at every step of your real estate journey.
           </p>
           <div className="gp_footer-socials">
             <span aria-label="Facebook"><i className="fab fa-facebook-f"></i></span>
@@ -70,16 +78,41 @@ export default function Footer({ onOpenModal, onOpenSiteVisit }) {
           </div>
         </div>
 
-        {/* Column 2: Google Ads Sitelinks */}
+        {/* Column 2: Projects Sitelinks */}
+        <div className="gp_footer-col">
+          <h3 className="gp_footer-title">Our Projects</h3>
+          <ul className="gp_footer-links">
+            <li><a href="/eka/" onClick={(e) => handleNavClick(e, null, '/eka/')}>Guru Punvaanii EKA (Anekal)</a></li>
+            <li><a href="/ernika/" onClick={(e) => handleNavClick(e, null, '/ernika/')}>Guru Punvaanii Ernika (Anekal)</a></li>
+            <li><a href="/eureka/" onClick={(e) => handleNavClick(e, null, '/eureka/')}>Guru Punvaanii Eureka (Bidadi)</a></li>
+            <li><a href="/shyam-residency/" onClick={(e) => handleNavClick(e, null, '/shyam-residency/')}>Shyam Residency (Magadi Rd)</a></li>
+            <li><a href="/elegance/" onClick={(e) => handleNavClick(e, null, '/elegance/')}>Guru Punvaanii Elegance (Bidadi)</a></li>
+          </ul>
+        </div>
+
+        {/* Column 3: Quick Navigation */}
         <div className="gp_footer-col">
           <h3 className="gp_footer-title">Quick Links</h3>
           <ul className="gp_footer-links">
-            <li><a href="#er_about" onClick={(e) => handleNavClick(e, 'er_about')}>Overview</a></li>
-            <li><a href="#er_plots" onClick={(e) => handleNavClick(e, 'er_plots')}>Premium Villa Plots</a></li>
-            <li><a href="#er_highlights" onClick={(e) => handleNavClick(e, 'er_highlights')}>Project Highlights</a></li>
-            <li><a href="#er_amenities" onClick={(e) => handleNavClick(e, 'er_amenities')}>Amenities</a></li>
-            <li><a href="#er_location" onClick={(e) => handleNavClick(e, 'er_location')}>Location &amp; Connectivity</a></li>
-            <li><a href="#er_enquiry" onClick={(e) => handleNavClick(e, 'er_enquiry')}>Book Free Site Visit</a></li>
+            {isMainLanding ? (
+              <>
+                <li><a href="#gp_projects" onClick={(e) => handleNavClick(e, 'gp_projects')}>Featured Projects</a></li>
+                <li><a href="#gp_about" onClick={(e) => handleNavClick(e, 'gp_about')}>About Guru Punvaanii</a></li>
+                <li><a href="#gp_why_us" onClick={(e) => handleNavClick(e, 'gp_why_us')}>Why Choose Us</a></li>
+                <li><a href="#gp_reviews" onClick={(e) => handleNavClick(e, 'gp_reviews')}>Customer Reviews</a></li>
+                <li><a href="#gp_promo" onClick={(e) => handleNavClick(e, 'gp_promo')}>Book VIP Site Visit</a></li>
+                <li><a href="#gp_contact" onClick={(e) => handleNavClick(e, 'gp_contact')}>Contact Us</a></li>
+              </>
+            ) : (
+              <>
+                <li><a href="#er_about" onClick={(e) => handleNavClick(e, 'er_about')}>Overview</a></li>
+                <li><a href="#er_plots" onClick={(e) => handleNavClick(e, 'er_plots')}>Premium Villa Plots</a></li>
+                <li><a href="#er_highlights" onClick={(e) => handleNavClick(e, 'er_highlights')}>Project Highlights</a></li>
+                <li><a href="#er_amenities" onClick={(e) => handleNavClick(e, 'er_amenities')}>Amenities</a></li>
+                <li><a href="#er_location" onClick={(e) => handleNavClick(e, 'er_location')}>Location &amp; Connectivity</a></li>
+                <li><a href="#er_enquiry" onClick={(e) => handleNavClick(e, 'er_enquiry')}>Book Free Site Visit</a></li>
+              </>
+            )}
           </ul>
         </div>
 

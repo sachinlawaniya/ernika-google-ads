@@ -7,6 +7,7 @@ import SiteVisitModal from './components/SiteVisitModal.jsx';
 import MobileEnquiryPopup from './components/MobileEnquiryPopup.jsx';
 import FloatingCallBtn from './components/FloatingCallBtn.jsx';
 
+import MainLandingPage from './pages/MainLandingPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import VillaPlotsPage from './pages/VillaPlotsPage.jsx';
 import ProjectHighlightsPage from './pages/ProjectHighlightsPage.jsx';
@@ -44,21 +45,31 @@ function ScrollToTopOrHash() {
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalSource, setModalSource] = useState('');
+  const [modalProjectKey, setModalProjectKey] = useState('');
 
   const [isSiteVisitOpen, setIsSiteVisitOpen] = useState(false);
   const [siteVisitSource, setSiteVisitSource] = useState('');
+  const [siteVisitProjectKey, setSiteVisitProjectKey] = useState('');
 
-  const handleOpenBrochure = (source = '') => {
+  const handleOpenBrochure = (source = '', projectKey = '') => {
     setModalSource(typeof source === 'string' ? source : '');
+    setModalProjectKey(typeof projectKey === 'string' ? projectKey : '');
     setIsModalOpen(true);
   };
-  const handleCloseBrochure = () => setIsModalOpen(false);
+  const handleCloseBrochure = () => {
+    setIsModalOpen(false);
+    setModalProjectKey('');
+  };
 
-  const handleOpenSiteVisit = (source = '') => {
+  const handleOpenSiteVisit = (source = '', projectKey = '') => {
     setSiteVisitSource(typeof source === 'string' ? source : '');
+    setSiteVisitProjectKey(typeof projectKey === 'string' ? projectKey : '');
     setIsSiteVisitOpen(true);
   };
-  const handleCloseSiteVisit = () => setIsSiteVisitOpen(false);
+  const handleCloseSiteVisit = () => {
+    setIsSiteVisitOpen(false);
+    setSiteVisitProjectKey('');
+  };
 
   useEffect(() => {
     // Disable right click context menu (preserving text selection)
@@ -114,19 +125,22 @@ export default function App() {
         <Routes>
           {renderProjectRoutes()}
 
+          {/* Default Developer Landing Page */}
+          <Route path="/" element={<MainLandingPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
+          <Route path="/home" element={<MainLandingPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
+
           {/* Fallback routes */}
-          <Route path="/" element={<Navigate to="/ernika/" replace />} />
           <Route path="/villa-plots" element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
           <Route path="/project-highlights" element={<ProjectHighlightsPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
           <Route path="/location" element={<LocationPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
           <Route path="/book-site-visit" element={<BookSiteVisitPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
 
-          <Route path="*" element={<Navigate to="/ernika/" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
 
         <Footer onOpenModal={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />
-        <BrochureModal isOpen={isModalOpen} onClose={handleCloseBrochure} sourceComment={modalSource} />
-        <SiteVisitModal isOpen={isSiteVisitOpen} onClose={handleCloseSiteVisit} sourceComment={siteVisitSource} />
+        <BrochureModal isOpen={isModalOpen} onClose={handleCloseBrochure} sourceComment={modalSource} projectKey={modalProjectKey} />
+        <SiteVisitModal isOpen={isSiteVisitOpen} onClose={handleCloseSiteVisit} sourceComment={siteVisitSource} projectKey={siteVisitProjectKey} />
         <MobileEnquiryPopup onOpenBrochure={handleOpenBrochure} />
         <FloatingCallBtn />
       </div>

@@ -8,7 +8,7 @@ export default function Header({ onOpenModal, onOpenSiteVisit }) {
   const [scrolled, setScrolled] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { shortName, basePath } = useProjectContext();
+  const { shortName, basePath, isMainLanding } = useProjectContext();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,20 +23,37 @@ export default function Header({ onOpenModal, onOpenSiteVisit }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: 'Overview', sectionId: 'er_about' },
-    { label: `${shortName} Plots`, sectionId: 'er_plots' },
-    { label: 'Project Highlights', sectionId: 'er_highlights' },
-    { label: 'Amenities', sectionId: 'er_amenities' },
-    { label: 'Location & Connectivity', sectionId: 'er_location' },
-    { label: 'Book Site Visit', sectionId: 'er_enquiry' },
-  ];
+  const navLinks = isMainLanding
+    ? [
+        { label: 'Featured Projects', sectionId: 'gp_projects' },
+        { label: 'About Us', sectionId: 'gp_about' },
+        { label: 'Why Choose Us', sectionId: 'gp_why_us' },
+        { label: 'Testimonials', sectionId: 'gp_reviews' },
+        { label: 'VIP Site Visit', sectionId: 'gp_promo' },
+        { label: 'Contact Us', sectionId: 'gp_contact' },
+      ]
+    : [
+        { label: 'Overview', sectionId: 'er_about' },
+        { label: `${shortName} Plots`, sectionId: 'er_plots' },
+        { label: 'Project Highlights', sectionId: 'er_highlights' },
+        { label: 'Amenities', sectionId: 'er_amenities' },
+        { label: 'Location & Connectivity', sectionId: 'er_location' },
+        { label: 'All Projects', path: '/' },
+        { label: 'Book Site Visit', sectionId: 'er_enquiry' },
+      ];
 
-  const handleNavClick = (e, sectionId) => {
+  const handleNavClick = (e, item) => {
     e.preventDefault();
     setMenuActive(false);
 
-    if (sectionId === 'er_enquiry') {
+    if (item.path) {
+      navigate(item.path);
+      return;
+    }
+
+    const { sectionId } = item;
+
+    if (sectionId === 'er_enquiry' || sectionId === 'gp_promo') {
       if (typeof onOpenSiteVisit === 'function') {
         onOpenSiteVisit('Header Drawer Menu - Book Free Site Visit');
         return;
@@ -52,19 +69,22 @@ export default function Header({ onOpenModal, onOpenSiteVisit }) {
       element.scrollIntoView({ behavior: 'smooth' });
       window.history.replaceState(null, '', `#${sectionId}`);
     } else {
-      navigate(`${basePath}/#${sectionId}`);
+      if (isMainLanding) {
+        navigate(`/#${sectionId}`);
+      } else {
+        navigate(`${basePath}/#${sectionId}`);
+      }
     }
   };
 
   const handleLogoClick = (e) => {
     e.preventDefault();
     setMenuActive(false);
-    const heroEl = document.getElementById('er_hero') || document.getElementById('er_page');
-    if (heroEl) {
+    if (isMainLanding) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      window.history.replaceState(null, '', `${basePath}/`);
+      window.history.replaceState(null, '', '/');
     } else {
-      navigate(`${basePath}/`);
+      navigate('/');
     }
   };
 
@@ -115,9 +135,9 @@ export default function Header({ onOpenModal, onOpenSiteVisit }) {
             {navLinks.map((item, idx) => (
               <li key={idx}>
                 <a
-                  href={`#${item.sectionId}`}
+                  href={item.path || `#${item.sectionId}`}
                   className="gp_m-link"
-                  onClick={(e) => handleNavClick(e, item.sectionId)}
+                  onClick={(e) => handleNavClick(e, item)}
                 >
                   {item.label}
                 </a>

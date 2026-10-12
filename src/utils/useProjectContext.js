@@ -695,24 +695,29 @@ export const PROJECTS_DATA = {
 
 export function useProjectContext() {
   const { pathname } = useLocation();
-  const lowerPath = (pathname || '').toLowerCase();
+  const cleanPath = (pathname || '').toLowerCase().replace(/\/$/, '');
+
+  const isMainLanding = cleanPath === '' || cleanPath === '/home';
 
   let projectKey = 'ernika';
-  for (const key of Object.keys(PROJECTS_DATA)) {
-    if (lowerPath.startsWith(PROJECTS_DATA[key].basePath.toLowerCase())) {
-      projectKey = key;
-      break;
+  if (!isMainLanding) {
+    for (const key of Object.keys(PROJECTS_DATA)) {
+      if (cleanPath.startsWith(PROJECTS_DATA[key].basePath.toLowerCase())) {
+        projectKey = key;
+        break;
+      }
     }
   }
 
   const project = PROJECTS_DATA[projectKey];
 
   return {
-    isElegance: project.id === 'elegance',
-    isErnika: project.id === 'ernika',
+    isMainLanding,
+    isElegance: !isMainLanding && project.id === 'elegance',
+    isErnika: !isMainLanding && project.id === 'ernika',
     project,
-    shortName: project.shortName,
-    projectName: project.projectName,
-    basePath: project.basePath,
+    shortName: isMainLanding ? 'Guru Punvaanii' : project.shortName,
+    projectName: isMainLanding ? 'Guru Punvaanii Properties' : project.projectName,
+    basePath: isMainLanding ? '' : project.basePath,
   };
 }

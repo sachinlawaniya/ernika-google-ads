@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useProjectContext } from '../utils/useProjectContext.js';
+import { useProjectContext, PROJECTS_DATA } from '../utils/useProjectContext.js';
 
-export default function SiteVisitModal({ isOpen, onClose, sourceComment }) {
-  const { shortName, projectName, project } = useProjectContext();
+export default function SiteVisitModal({ isOpen, onClose, sourceComment, projectKey }) {
+  const { shortName: ctxShortName, projectName: ctxProjectName, project: ctxProject } = useProjectContext();
+
+  const currentProject = (projectKey && PROJECTS_DATA[projectKey]) || ctxProject || PROJECTS_DATA['ernika'];
+  const shortName = currentProject?.shortName || ctxShortName || 'Guru Punvaanii';
+  const projectName = currentProject?.projectName || ctxProjectName || 'Guru Punvaanii Properties';
 
   const [step, setStep] = useState('input'); // 'input' | 'success'
   const [formData, setFormData] = useState({

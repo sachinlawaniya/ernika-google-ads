@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useProjectContext } from '../utils/useProjectContext.js';
+import { useProjectContext, PROJECTS_DATA } from '../utils/useProjectContext.js';
 
-export default function BrochureModal({ isOpen, onClose, sourceComment }) {
-  const { isElegance, shortName, projectName, project } = useProjectContext();
-  const brochurePdfUrl = project.brochureUrl;
+export default function BrochureModal({ isOpen, onClose, sourceComment, projectKey }) {
+  const { isElegance: ctxIsElegance, shortName: ctxShortName, projectName: ctxProjectName, project: ctxProject } = useProjectContext();
+  
+  const currentProject = (projectKey && PROJECTS_DATA[projectKey]) || ctxProject || PROJECTS_DATA['ernika'];
+  const shortName = currentProject?.shortName || ctxShortName || 'Guru Punvaanii';
+  const projectName = currentProject?.projectName || ctxProjectName || 'Guru Punvaanii Properties';
+  const isElegance = currentProject?.id === 'elegance';
+  const brochurePdfUrl = currentProject?.brochureUrl || 'https://gurupunvaanii.com/';
 
   const [step, setStep] = useState('input'); // 'input' | 'success'
   const [name, setName] = useState('');
@@ -132,10 +137,10 @@ export default function BrochureModal({ isOpen, onClose, sourceComment }) {
             <span>GURU PUNVAANII &nbsp;|&nbsp; {shortName.toUpperCase()}</span>
           </div>
           <h2 id="er_brochureTitle">
-            Get the <em>{shortName}</em><br />layout & brochure
+            Get the <em>{shortName}</em><br />layout &amp; brochure
           </h2>
           <p>
-            {project.brochureDesc}
+            {currentProject?.brochureDesc || 'Share a few details and we’ll send the full brochure — plot layouts, phase-wise pricing and official approvals — straight to your phone.'}
           </p>
         </div>
 
@@ -246,7 +251,7 @@ export default function BrochureModal({ isOpen, onClose, sourceComment }) {
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               <polyline points="9 12 11 14 15 10" />
             </svg>
-            <span>{project.trustBadges?.[0] ? project.trustBadges[0].split(' ')[0] : '100%'}<br />{project.trustBadges?.[0] ? project.trustBadges[0].split(' ')[1] : 'SECURE'}</span>
+            <span>{currentProject?.trustBadges?.[0] ? currentProject.trustBadges[0].split(' ')[0] : '100%'}<br />{currentProject?.trustBadges?.[0] ? currentProject.trustBadges[0].split(' ')[1] : 'SECURE'}</span>
           </div>
           <div className="er_trust-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
@@ -255,7 +260,7 @@ export default function BrochureModal({ isOpen, onClose, sourceComment }) {
               <line x1="8" y1="2" x2="8" y2="6" />
               <line x1="3" y1="10" x2="21" y2="10" />
             </svg>
-            <span>{project.trustBadges?.[1] ? project.trustBadges[1].split(' ')[0] : 'SITE'}<br />{project.trustBadges?.[1] ? project.trustBadges[1].split(' ')[1] : 'VISIT'}</span>
+            <span>{currentProject?.trustBadges?.[1] ? currentProject.trustBadges[1].split(' ')[0] : 'SITE'}<br />{currentProject?.trustBadges?.[1] ? currentProject.trustBadges[1].split(' ')[1] : 'VISIT'}</span>
           </div>
         </div>
       </div>
