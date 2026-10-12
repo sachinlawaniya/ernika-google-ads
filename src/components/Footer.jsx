@@ -82,11 +82,11 @@ export default function Footer({ onOpenModal, onOpenSiteVisit }) {
         <div className="gp_footer-col">
           <h3 className="gp_footer-title">Our Projects</h3>
           <ul className="gp_footer-links">
-            <li><a href="/eka/" onClick={(e) => handleNavClick(e, null, '/eka/')}>Guru Punvaanii EKA (Anekal)</a></li>
-            <li><a href="/ernika/" onClick={(e) => handleNavClick(e, null, '/ernika/')}>Guru Punvaanii Ernika (Anekal)</a></li>
-            <li><a href="/eureka/" onClick={(e) => handleNavClick(e, null, '/eureka/')}>Guru Punvaanii Eureka (Bidadi)</a></li>
+            <li><a href="/eka/" onClick={(e) => handleNavClick(e, null, '/eka/')}> EKA (Anekal)</a></li>
+            <li><a href="/ernika/" onClick={(e) => handleNavClick(e, null, '/ernika/')}> Ernika (Anekal)</a></li>
+            <li><a href="/eureka/" onClick={(e) => handleNavClick(e, null, '/eureka/')}> Eureka (Bidadi)</a></li>
             <li><a href="/shyam-residency/" onClick={(e) => handleNavClick(e, null, '/shyam-residency/')}>Shyam Residency (Magadi Rd)</a></li>
-            <li><a href="/elegance/" onClick={(e) => handleNavClick(e, null, '/elegance/')}>Guru Punvaanii Elegance (Bidadi)</a></li>
+            <li><a href="/elegance/" onClick={(e) => handleNavClick(e, null, '/elegance/')}> Elegance (Bidadi)</a></li>
           </ul>
         </div>
 

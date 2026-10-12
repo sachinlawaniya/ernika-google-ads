@@ -37,14 +37,14 @@ export default function MainLandingPage({ onOpenBrochure, onOpenSiteVisit }) {
   const featuredProjects = [
     {
       id: 'ernika',
-      name: 'Guru Punvaanii Ernika',
+      name: 'Ernika',
       slug: '/ernika/',
       badge: 'AMAZON THEMED VILLA PLOTS',
       approval: 'BMRDA & RERA APPROVED',
       location: 'Anekal, Netaji Road, South Bengaluru',
       category: 'anekal',
       image: ernikaHeroDesktop,
-      price: '₹4,100 / sq.ft* Onwards',
+      price: '₹4,200 / sq.ft* Onwards',
       features: [
         '220 BMRDA Approved Plots Across 12.5 Acres',
         'Bengaluru’s 1st Amazon Forest-Themed Community',
@@ -55,14 +55,14 @@ export default function MainLandingPage({ onOpenBrochure, onOpenSiteVisit }) {
     },
     {
       id: 'eka',
-      name: 'Guru Punvaanii EKA',
+      name: 'EKA',
       slug: '/eka/',
       badge: 'FLAGSHIP 50-ACRE TOWNSHIP',
       approval: 'BMRDA & RERA APPROVED',
       location: 'Anekal, Hosur Road, South Bengaluru',
       category: 'anekal',
       image: ekaHeroDesktop,
-      price: 'Phase 1, 2 & 3 Selling Fast',
+      price: '₹4,225 / sq.ft* Onwards',
       features: [
         '657 BMRDA Approved Plots Across 50 Acres',
         'Lakeview Park & Green Auditorium',
@@ -71,34 +71,34 @@ export default function MainLandingPage({ onOpenBrochure, onOpenSiteVisit }) {
       ],
       reraNo: 'RERA Approved Layout',
     },
-    // {
-    //   id: 'eureka',
-    //   name: 'Guru Punvaanii Eureka',
-    //   slug: '/eureka/',
-    //   badge: 'BMRDA APPROVED PLOTS',
-    //   approval: 'BMRDA & RERA REGISTERED',
-    //   location: 'Dharapura, Bidadi (Near Mysuru Expressway)',
-    //   category: 'bidadi',
-    //   image: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/Entrance-Arch-scaled.jpg',
-    //   price: 'Plots: 30x40, 30x50, 40x50, 40x60',
-    //   features: [
-    //     '243 BMRDA Approved Plots Across 17.5 Acres',
-    //     '12+ Themed Parks, Sports Zones & Gazebos',
-    //     'Just Minutes from Bengaluru-Mysuru Expressway',
-    //     'High ROI Growth Belt in Greater Bengaluru',
-    //   ],
-    //   reraNo: 'RERA Registered Project',
-    // },
+    {
+      id: 'eureka',
+      name: 'Eureka',
+      slug: '/eureka/',
+      badge: 'BMRDA APPROVED PLOTS',
+      approval: 'BMRDA & RERA REGISTERED',
+      location: 'Dharapura, Bidadi (Near Mysuru Expressway)',
+      category: 'bidadi',
+      image: 'https://gurupunvaanii.com/wp-content/uploads/2026/06/Entrance-Arch-scaled.jpg',
+      price: '₹3,100 / sq.ft* Onwards',
+      features: [
+        '243 BMRDA Approved Plots Across 17.5 Acres',
+        '12+ Themed Parks, Sports Zones & Gazebos',
+        'Just Minutes from Bengaluru-Mysuru Expressway',
+        'High ROI Growth Belt in Greater Bengaluru',
+      ],
+      reraNo: 'RERA Registered Project',
+    },
     {
       id: 'shyam_residency',
-      name: 'Guru Punvaanii Shyam Residency',
+      name: 'Shyam Residency',
       slug: '/shyam-residency/',
       badge: 'BDA APPROVED SITES',
       approval: 'BDA APPROVED',
       location: 'Off Andhrahalli, Magadi Road, Bengaluru',
       category: 'magadi',
       image: shyamHeroDesktop,
-      price: '₹1.8 Cr* Onwards',
+      price: '₹8,850 / sq.ft* Onwards',
       features: [
         '115 BDA Approved Plots Across 7.5 Acres',
         '30 to 50 Ft Wide Asphalted Concrete Roads',
@@ -109,14 +109,14 @@ export default function MainLandingPage({ onOpenBrochure, onOpenSiteVisit }) {
     },
     {
       id: 'elegance',
-      name: 'Guru Punvaanii Elegance',
+      name: 'Elegance',
       slug: '/elegance/',
       badge: '4 BHK LUXURY VILLAS & PLOTS',
       approval: 'RERA & BMICAPA APPROVED',
       location: 'Bheemenahalli, Bidadi (Mysuru Road)',
       category: 'bidadi',
       image: 'https://gurupunvaanii.com/wp-content/uploads/elementor/thumbs/Elegance-villa-Elevation-Day-view-rrp67svjk3l1axj8xw8ej31pv7enpmk6wh4nlyt43k.webp',
-      price: '4 BHK Luxury Villas & Plots',
+      price: '₹7,000 / sq.ft* Onwards',
       features: [
         '101 Luxury 4 BHK Villas & Plots Across 6.25 Acres',
         '45% Lush Green Open Space',
@@ -303,11 +303,11 @@ export default function MainLandingPage({ onOpenBrochure, onOpenSiteVisit }) {
 
               <h1 className="gp_hero_main_title">
                 Build Your Dream Villa in Bengaluru’s Prime Locations <br />
-                <span className="gp_highlight_text">100% BDA &amp; BMRDA Approved</span> Gated Plots
+                <span className="gp_highlight_text">100% BDA &amp; BMRDA Approved</span> Plots
               </h1>
 
               <p className="gp_hero_sub_text">
-                Explore handpicked gated plotted developments in <strong>Anekal, Bidadi, Magadi Road &amp; Mysuru Road</strong> by Guru Punvaanii Properties. 100% legal clarity, ready concrete roads &amp; immediate registration.
+                Explore handpicked plotted developments in <strong>Anekal, Bidadi, Magadi Road &amp; Mysuru Road</strong> by Guru Punvaanii Properties. 100% legal clarity, ready concrete roads &amp; immediate registration.
               </p>
 
               {/* Quick USP Highlights */}
@@ -353,7 +353,7 @@ export default function MainLandingPage({ onOpenBrochure, onOpenSiteVisit }) {
                   }}
                 >
                   <i className="fas fa-car-side"></i>
-                  <span>Book Free VIP Site Visit (Free Cab)</span>
+                  <span>Book Free Site Visit</span>
                 </button>
               </div>
             </div>
@@ -521,7 +521,7 @@ export default function MainLandingPage({ onOpenBrochure, onOpenSiteVisit }) {
               <i className="fas fa-layer-group"></i> OUR SIGNATURE DEVELOPMENTS
             </span>
             <h2 className="gp_section_title">
-              Featured Villa Plots &amp; Gated Communities
+              Featured Villa Plots &amp; Plotted Communities
             </h2>
             <p className="gp_section_desc">
               Explore our master-planned communities across Bengaluru’s top investment hotspots. Click on any project to view full floor plans, pricing &amp; layout details.
@@ -575,7 +575,7 @@ export default function MainLandingPage({ onOpenBrochure, onOpenSiteVisit }) {
                   </div>
 
                   <div className="gp_project_price_strip">
-                    <span className="gp_price_label">Highlights:</span>
+                    <span className="gp_price_label">Price:</span>
                     <span className="gp_price_val">{p.price}</span>
                   </div>
 
@@ -814,7 +814,7 @@ export default function MainLandingPage({ onOpenBrochure, onOpenSiteVisit }) {
                   <i className="fas fa-users"></i>
                   <div>
                     <strong>3,000+ Happy Families</strong>
-                    <span>Living in Secure Gated Layouts</span>
+                    <span>Living in Secure Plotted Layouts</span>
                   </div>
                 </div>
               </div>

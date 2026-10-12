@@ -2787,7 +2787,7 @@ select {
   width: 85%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 2.2fr 1.2fr 1.8fr 1.8fr;
+  grid-template-columns: 1.5fr 1.2fr 1.2fr 1.2fr 1.2fr;
   gap: 40px;
   padding-bottom: 60px;
 }
@@ -6561,22 +6561,24 @@ select {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #1b3c34;
+  background: linear-gradient(135deg, #c58b2d 0%, #dfa53f 50%, #b37a24 100%);
   color: #ffffff !important;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 13.5px;
-  padding: 11px 16px;
+  padding: 12px 16px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none !important;
+  box-shadow: 0 4px 14px rgba(197, 139, 45, 0.35);
 }
 
 .gp_btn_project_view:hover {
-  background: #234d42;
+  background: linear-gradient(135deg, #dfa53f 0%, #f3ba2f 50%, #c58b2d 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(27, 60, 52, 0.3);
+  box-shadow: 0 6px 20px rgba(197, 139, 45, 0.5);
+  color: #ffffff !important;
 }
 
 .gp_btn_project_enquire {
@@ -6584,21 +6586,24 @@ select {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background: #f8fafc;
-  color: #334155 !important;
+  background: #ffffff;
+  color: #1b3c34 !important;
   font-weight: 600;
-  font-size: 13.5px;
-  padding: 11px 14px;
+  font-size: 13px;
+  padding: 10px 14px;
   border-radius: 8px;
-  border: 1px solid #cbd5e1;
+  border: 1.5px solid #1b3c34;
   cursor: pointer;
   transition: all 0.25s ease;
   text-decoration: none !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
 }
 
 .gp_btn_project_enquire:hover {
-  background: #e2e8f0;
-  color: #0f172a !important;
+  background: #1b3c34;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(27, 60, 52, 0.2);
 }
 
 /* ── 3. ABOUT COMPANY SECTION ── */

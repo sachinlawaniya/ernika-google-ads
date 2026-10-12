@@ -77,7 +77,7 @@ export default function PlotSizesSection({ onOpenBrochure }) {
                       'Underground Electricity & Water Connections',
                       '30 to 50 Ft Wide Concrete RC Roads',
                       'Lush Parks, Miyawaki Forest & Amenities',
-                      'Dedicated Street Lighting & Gated Security'
+                      'Dedicated Street Lighting & 24/7 Security'
                     ]).map((feat, fIdx) => (
                       <div key={fIdx} className="er_plot-sc-feat-item">
                         <span className="er_plot-sc-check">

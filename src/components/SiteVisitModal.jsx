@@ -5,8 +5,10 @@ export default function SiteVisitModal({ isOpen, onClose, sourceComment, project
   const { shortName: ctxShortName, projectName: ctxProjectName, project: ctxProject } = useProjectContext();
 
   const currentProject = (projectKey && PROJECTS_DATA[projectKey]) || ctxProject || PROJECTS_DATA['ernika'];
+  const project = currentProject;
   const shortName = currentProject?.shortName || ctxShortName || 'Guru Punvaanii';
   const projectName = currentProject?.projectName || ctxProjectName || 'Guru Punvaanii Properties';
+  const brochurePdfUrl = currentProject?.brochureUrl || 'https://gurupunvaanii.com/';
 
   const [step, setStep] = useState('input'); // 'input' | 'success'
   const [formData, setFormData] = useState({
@@ -153,7 +155,16 @@ export default function SiteVisitModal({ isOpen, onClose, sourceComment, project
   if (!isOpen) return null;
 
   return (
-    <div className="er_modal er_active" role="dialog" aria-modal="true">
+    <div
+      className="er_modal er_active"
+      role="dialog"
+      aria-modal="true"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
+    >
       <div className="er_modal-dialog er_sitevisit-modal-dialog">
         <div className="er_modal-pattern"></div>
         <div className="er_watermark-pin">
@@ -323,7 +334,7 @@ export default function SiteVisitModal({ isOpen, onClose, sourceComment, project
                 Thank you <strong>{formData.name}</strong>! Your free site visit for <strong>{shortName}</strong> is scheduled for <strong>{formData.visitDate} ({formData.timeSlot})</strong>. Our team will contact you shortly to confirm details.
               </p>
               <a
-                href={project.brochureUrl}
+                href={brochurePdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'var(--er-gold, #C58B2D)', color: '#ffffff', fontWeight: 700, fontSize: '13.5px', padding: '12px 24px', borderRadius: '8px', textDecoration: 'none', boxShadow: '0 4px 16px rgba(198,138,40,0.35)', transition: 'all 0.3s ease', marginBottom: '8px' }}
@@ -356,7 +367,7 @@ export default function SiteVisitModal({ isOpen, onClose, sourceComment, project
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               <polyline points="9 12 11 14 15 10" />
             </svg>
-            <span>{project.trustBadges?.[0] ? project.trustBadges[0].split(' ')[0] : '100%'}<br />{project.trustBadges?.[0] ? project.trustBadges[0].split(' ')[1] : 'APPROVED'}</span>
+            <span>{currentProject?.trustBadges?.[0] ? currentProject.trustBadges[0].split(' ')[0] : '100%'}<br />{currentProject?.trustBadges?.[0] ? currentProject.trustBadges[0].split(' ')[1] : 'APPROVED'}</span>
           </div>
           <div className="er_trust-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
