@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useProjectContext, PROJECTS_DATA } from '../utils/useProjectContext.js';
+import OtpVerificationView from './OtpVerificationView.jsx';
+import { sendOtp, submitLeadToERP, isValidIndianPhone, cleanPhoneNumber } from '../utils/otpService.js';
 
 export default function BrochureModal({ isOpen, onClose, sourceComment, projectKey }) {
   const { isElegance: ctxIsElegance, shortName: ctxShortName, projectName: ctxProjectName, project: ctxProject } = useProjectContext();
-  
+
   const currentProject = (projectKey && PROJECTS_DATA[projectKey]) || ctxProject || PROJECTS_DATA['ernika'];
   const shortName = currentProject?.shortName || ctxShortName || 'Guru Punvaanii';
   const projectName = currentProject?.projectName || ctxProjectName || 'Guru Punvaanii Properties';
-  const isElegance = currentProject?.id === 'elegance';
   const brochurePdfUrl = currentProject?.brochureUrl || 'https://gurupunvaanii.com/';
 
-  const [step, setStep] = useState('input'); // 'input' | 'success'
+  const [step, setStep] = useState('input'); // 'input' | 'otp' | 'success'
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -35,31 +36,21 @@ export default function BrochureModal({ isOpen, onClose, sourceComment, projectK
   const handlePhoneChange = (e) => {
     const val = e.target.value.replace(/\D/g, '').slice(0, 10);
     setPhone(val);
+    setMsg({ text: '', type: '' });
   };
 
-  const getERPFormattedDateTime = () => {
-    const now = new Date();
-    const dd = String(now.getDate()).padStart(2, '0');
-    const mm = String(now.getMonth() + 1).padStart(2, '0');
-    const yyyy = now.getFullYear();
-    const hh = String(now.getHours()).padStart(2, '0');
-    const min = String(now.getMinutes()).padStart(2, '0');
-    return `${dd}/${mm}/${yyyy} ${hh}:${min}`;
-  };
-
-  // Direct Lead Submission to StrategicERP
-  const handleSubmitLead = (e) => {
+  // Phase 1: Request OTP
+  const handleRequestOtp = async (e) => {
     e.preventDefault();
     setMsg({ text: '', type: '' });
 
     if (!name.trim()) {
-      setMsg({ text: '⚠️ Full Name is required.', type: 'error' });
+      setMsg({ text: '⚠️ Please enter your full name.', type: 'error' });
       return;
     }
 
-    const cleanPhone = phone.replace(/\D/g, '').slice(-10);
-    const phoneRegex = /^[6-9]\d{9}$/;
-    if (!phoneRegex.test(cleanPhone)) {
+    const cleanPhone = cleanPhoneNumber(phone);
+    if (!isValidIndianPhone(cleanPhone)) {
       setMsg({ text: '⚠️ Please enter a valid 10-digit mobile number.', type: 'error' });
       return;
     }
@@ -72,44 +63,33 @@ export default function BrochureModal({ isOpen, onClose, sourceComment, projectK
 
     setLoading(true);
 
-    try {
-      const nowStr = getERPFormattedDateTime();
-      const commentVal = sourceComment
-        ? `${sourceComment} - ${shortName} Landing Page`
-        : `Download Brochure Form - ${shortName} Landing Page`;
+    const otpRes = await sendOtp(cleanPhone);
+    setLoading(false);
 
-      const erpUrl =
-        `https://24.strategicerpcloud.com/strategicerp/SaveFormField.do?actn=SaveData&id=873&globalvar=0&cloudcode=gurupunvaanii&idselected=0&idhidden=0&mobileform=yes&editids=15715/15800/31227/15730/state//31228/31229/31230/33937/15713/30754/34785/15716/37710/37710/` +
-        `&field15715=${encodeURIComponent(cleanPhone)}` +
-        `&field15713=${encodeURIComponent(name.trim())}` +
-        `&field33937=${encodeURIComponent(email.trim())}` +
-        `&field15730=${encodeURIComponent(projectName)}` +
-        `&field15800=${encodeURIComponent(nowStr)}` +
-        `&field31227=${encodeURIComponent(nowStr)}` +
-        `&field31228=${encodeURIComponent('Digital Marketing')}` +
-        `&field31229=${encodeURIComponent('Google Ads')}` +
-        `&field31230=${encodeURIComponent('/ Google Ads /')}` +
-        `&field37710=${encodeURIComponent('+91')}` +
-        `&field15716=${encodeURIComponent(commentVal)}` +
-        `&field34785=`;
-
-      // Fire StrategicERP Pixel Request
-      const erpImg = new Image();
-      erpImg.src = erpUrl;
-
-      // Trigger Google Ads Conversion Event
-      if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'conversion', {
-          send_to: 'AW-CONVERSION_ID/CONVERSION_LABEL',
-        });
-      }
-
-      setLoading(false);
-      setStep('success');
-    } catch (err) {
-      setLoading(false);
-      setStep('success');
+    if (otpRes.success) {
+      setStep('otp');
+    } else {
+      setMsg({ text: `⚠️ ${otpRes.message}`, type: 'error' });
     }
+  };
+
+  // Phase 2: On OTP Verified Callback
+  const handleOtpVerified = () => {
+    const cleanPhone = cleanPhoneNumber(phone);
+    const commentVal = sourceComment
+      ? `${sourceComment} (OTP Verified) - ${shortName} Landing Page`
+      : `Download Brochure Form (OTP Verified) - ${shortName} Landing Page`;
+
+    submitLeadToERP({
+      name,
+      phone: cleanPhone,
+      email,
+      projectName,
+      comments: commentVal,
+      source: 'Google Ads Brochure Modal',
+    });
+
+    setStep('success');
   };
 
   if (!isOpen) return null;
@@ -147,7 +127,7 @@ export default function BrochureModal({ isOpen, onClose, sourceComment, projectK
         {/* Form Body */}
         <div className="er_modal-form">
           {step === 'input' && (
-            <form onSubmit={handleSubmitLead}>
+            <form onSubmit={handleRequestOtp}>
               <div className="er_form-group er_full-width" style={{ marginBottom: '12px' }}>
                 <label htmlFor="er_bName">FULL NAME *</label>
                 <div className="er_input-wrap">
@@ -201,9 +181,19 @@ export default function BrochureModal({ isOpen, onClose, sourceComment, projectK
                   <line x1="22" y1="2" x2="11" y2="13" />
                   <polygon points="22 2 15 22 11 13 2 9 22 2" />
                 </svg>
-                <span>{loading ? 'Submitting…' : 'Submit & Download Brochure'}</span>
+                <span>{loading ? 'Sending OTP…' : 'Get OTP & Download Brochure'}</span>
               </button>
             </form>
+          )}
+
+          {step === 'otp' && (
+            <OtpVerificationView
+              phone={cleanPhoneNumber(phone)}
+              buttonText="Verify OTP & Download Brochure"
+              theme="modal"
+              onChangePhone={() => setStep('input')}
+              onVerified={handleOtpVerified}
+            />
           )}
 
           {step === 'success' && (
@@ -212,10 +202,10 @@ export default function BrochureModal({ isOpen, onClose, sourceComment, projectK
                 ✓
               </div>
               <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '20px', fontWeight: 700, color: '#1e293b', marginBottom: '8px' }}>
-                Form Submitted Successfully!
+                Mobile Verified Successfully!
               </h3>
               <p style={{ fontSize: '13px', color: '#475569', marginBottom: '18px', lineHeight: 1.5 }}>
-                Thank you <strong>{name}</strong>! Your enquiry has been received. Click below to download the official {shortName} brochure PDF.
+                Thank you <strong>{name}</strong>! Your mobile number <strong>+91 {cleanPhoneNumber(phone)}</strong> is verified. Click below to download the official {shortName} brochure PDF.
               </p>
               <a
                 href={brochurePdfUrl}
@@ -240,7 +230,7 @@ export default function BrochureModal({ isOpen, onClose, sourceComment, projectK
           )}
 
           <p style={{ textAlign: 'center', fontSize: '11px', color: '#94a3b8', margin: '12px 0 6px' }}>
-            No spam — only the {shortName} brochure and updates you ask for.
+            No spam — only the {shortName} brochure and verified updates.
           </p>
         </div>
 

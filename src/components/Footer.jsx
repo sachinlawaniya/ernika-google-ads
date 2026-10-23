@@ -83,6 +83,7 @@ export default function Footer({ onOpenModal, onOpenSiteVisit }) {
           <h3 className="gp_footer-title">Our Projects</h3>
           <ul className="gp_footer-links">
             <li><a href="/eka/" onClick={(e) => handleNavClick(e, null, '/eka/')}> EKA (Anekal)</a></li>
+            <li><a href="/exotica/" onClick={(e) => handleNavClick(e, null, '/exotica/')}> Exotica (Attibele)</a></li>
             <li><a href="/ernika/" onClick={(e) => handleNavClick(e, null, '/ernika/')}> Ernika (Anekal)</a></li>
             <li><a href="/eureka/" onClick={(e) => handleNavClick(e, null, '/eureka/')}> Eureka (Bidadi)</a></li>
             <li><a href="/shyam-residency/" onClick={(e) => handleNavClick(e, null, '/shyam-residency/')}>Shyam Residency (Magadi Rd)</a></li>
@@ -98,8 +99,10 @@ export default function Footer({ onOpenModal, onOpenSiteVisit }) {
               <>
                 <li><a href="#gp_projects" onClick={(e) => handleNavClick(e, 'gp_projects')}>Featured Projects</a></li>
                 <li><a href="#gp_about" onClick={(e) => handleNavClick(e, 'gp_about')}>About Guru Punvaanii</a></li>
+                <li><a href="#gp_growth" onClick={(e) => handleNavClick(e, 'gp_growth')}>Our Growth &amp; Offerings</a></li>
                 <li><a href="#gp_why_us" onClick={(e) => handleNavClick(e, 'gp_why_us')}>Why Choose Us</a></li>
                 <li><a href="#gp_reviews" onClick={(e) => handleNavClick(e, 'gp_reviews')}>Customer Reviews</a></li>
+                <li><a href="#gp_faqs" onClick={(e) => handleNavClick(e, 'gp_faqs')}>Frequently Asked Questions</a></li>
                 <li><a href="#gp_promo" onClick={(e) => handleNavClick(e, 'gp_promo')}>Book VIP Site Visit</a></li>
                 <li><a href="#gp_contact" onClick={(e) => handleNavClick(e, 'gp_contact')}>Contact Us</a></li>
               </>
@@ -125,7 +128,7 @@ export default function Footer({ onOpenModal, onOpenSiteVisit }) {
           </div>
           <div className="gp_footer-info-item">
             <i className="fas fa-phone-alt"></i>
-            <span>{displayPhone}</span>
+            <span>+91 8546 8546 00 / +91 7676 000 909</span>
           </div>
           <div className="gp_footer-info-item">
             <i className="fas fa-clock"></i>

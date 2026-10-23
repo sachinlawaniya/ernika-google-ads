@@ -3,6 +3,8 @@ import { useProjectContext } from '../utils/useProjectContext.js';
 import HeroSection from '../components/HeroSection.jsx';
 import CtaSection from '../components/CtaSection.jsx';
 import FaqSection from '../components/FaqSection.jsx';
+import OtpVerificationView from '../components/OtpVerificationView.jsx';
+import { sendOtp, submitLeadToERP, isValidIndianPhone, cleanPhoneNumber } from '../utils/otpService.js';
 
 export default function BookSiteVisitPage({ onOpenBrochure }) {
   const { isElegance, shortName, projectName, project } = useProjectContext();
@@ -22,19 +24,19 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
   });
 
   const [phase, setPhase] = useState('input'); // 'input' | 'otp' | 'success'
-  const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
     if (name === 'phone') {
-      value = value.replace(/\D/g, '');
+      value = value.replace(/\D/g, '').slice(0, 10);
     }
     setFormData({ ...formData, [name]: value });
     setErrorMsg('');
   };
 
+  // Phase 1: Request OTP
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name.trim()) {
@@ -42,9 +44,8 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
       return;
     }
 
-    const cleanPhone = formData.phone.replace(/\D/g, '').slice(-10);
-    const phoneRegex = /^[6-9]\d{9}$/;
-    if (!phoneRegex.test(cleanPhone)) {
+    const cleanPhone = cleanPhoneNumber(formData.phone);
+    if (!isValidIndianPhone(cleanPhone)) {
       setErrorMsg('Please enter a valid 10-digit mobile number');
       return;
     }
@@ -60,79 +61,31 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
     setLoading(true);
     setErrorMsg('');
 
-    try {
-      const d = new Date();
-      const pad = (n) => String(n).padStart(2, '0');
-      const nowStr = `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-      const comments = `SITE VISIT BOOKING: Date=${formData.visitDate || 'Not Specified'}, Slot=${formData.timeSlot}, Message=${formData.message || 'None'}`;
+    const otpRes = await sendOtp(cleanPhone);
+    setLoading(false);
 
-      // 1. Submit lead to StrategicERP API
-      const apiLeadUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name.trim())}&Email=${encodeURIComponent(formData.email.trim() || '')}&MobileNo=${encodeURIComponent(cleanPhone)}&Comments=${encodeURIComponent(comments)}&ProjectName=${encodeURIComponent(shortName)}&Source=GoogleAds_LandingPage`;
-      fetch(apiLeadUrl, { mode: 'no-cors' }).catch(() => { });
-
-      // 2. Fire StrategicERP Image Pixel with Source & Timestamp
-      const erpUrl = `https://24.strategicerpcloud.com/strategicerp/SaveFormField.do?actn=SaveData&id=873&globalvar=0&cloudcode=gurupunvaanii&idselected=0&idhidden=0&mobileform=yes&editids=15715/15800/31227/15730/state//31228/31229/31230/33937/15713/30754/34785/15716/37710/37710/` +
-        `&field15715=${encodeURIComponent(cleanPhone)}` +
-        `&field15713=${encodeURIComponent(formData.name.trim())}` +
-        `&field33937=${encodeURIComponent(formData.email.trim())}` +
-        `&field15730=${encodeURIComponent(projectName)}` +
-        `&field15800=${encodeURIComponent(nowStr)}` +
-        `&field31227=${encodeURIComponent(nowStr)}` +
-        `&field31228=${encodeURIComponent('Digital Marketing')}` +
-        `&field31229=${encodeURIComponent('Google Ads')}` +
-        `&field31230=${encodeURIComponent('/ Google Ads /')}` +
-        `&field37710=${encodeURIComponent('+91')}` +
-        `&field15716=${encodeURIComponent(comments)}` +
-        `&field34785=`;
-
-      const erpImg = new Image();
-      erpImg.src = erpUrl;
-
-      // 3. Trigger Google Ads conversion event
-      if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'conversion', {
-          send_to: 'AW-CONVERSION_ID/CONVERSION_LABEL',
-        });
-      }
-
-      setPhase('success');
-    } catch (err) {
-      setPhase('success');
-    } finally {
-      setLoading(false);
+    if (otpRes.success) {
+      setPhase('otp');
+    } else {
+      setErrorMsg(otpRes.message || 'Failed to send OTP. Please try again.');
     }
   };
 
-  const handleOtpChange = (index, value) => {
-    if (!/^\d*$/.test(value)) return;
-    const newOtp = [...otp];
-    newOtp[index] = value.slice(-1);
-    setOtp(newOtp);
+  // Phase 2: On OTP Verified Callback
+  const handleOtpVerified = () => {
+    const cleanPhone = cleanPhoneNumber(formData.phone);
+    const comments = `SITE VISIT BOOKING: Date=${formData.visitDate || 'Not Specified'}, Slot=${formData.timeSlot}, Message=${formData.message || 'None'} (OTP Verified) - ${shortName} Landing Page`;
 
-    if (value && index < 5) {
-      const nextInput = document.getElementById(`er_sv_otp_${index + 1}`);
-      if (nextInput) nextInput.focus();
-    }
-  };
+    submitLeadToERP({
+      name: formData.name,
+      phone: cleanPhone,
+      email: formData.email,
+      projectName,
+      comments,
+      source: 'Google Ads Site Visit Page',
+    });
 
-  const handleOtpSubmit = async (e) => {
-    e.preventDefault();
-    const enteredOtp = otp.join('');
-    if (enteredOtp.length < 6) {
-      setErrorMsg('Please enter the complete 6-digit OTP');
-      return;
-    }
-
-    setLoading(true);
-    setErrorMsg('');
-
-    try {
-      setPhase('success');
-    } catch (err) {
-      setPhase('success');
-    } finally {
-      setLoading(false);
-    }
+    setPhase('success');
   };
 
   const visitPerks = [
@@ -148,6 +101,18 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
       icon: 'fa-user-nurse',
       color: '#1B3C34'
     },
+    {
+      title: 'Official Document Inspection',
+      desc: 'Examine complete physical approval copies, converted sanction plans, and legal title documents.',
+      icon: 'fa-file-signature',
+      color: '#c68a28'
+    },
+    {
+      title: 'Instant Customized Pricing',
+      desc: 'Receive transparent pricing breakdowns with instant bank loan eligibility assessment.',
+      icon: 'fa-calculator',
+      color: '#1B3C34'
+    }
   ];
 
   return (
@@ -158,40 +123,81 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
         <div className="er_main-content-col">
           {/* Why Visit Section */}
           <section className="er_section er_container">
-            <div className="er_section-head">
-              <span className="er_section-label">COMPLIMENTARY SITE VISIT</span>
-              <h2 className="er_section-h2">Experience {shortName} In Person</h2>
-              <div className="er_gold-line"></div>
-              <p className="er_section-desc">
-                Experience {isElegance ? 'Guru Punvaanii Elegance 4 BHK Luxury Villas & plots in Bidadi' : "Bengaluru's 1st Amazon Forest-Themed Villa plots at Ernika"} in person. We provide free AC cab pickup and drop for you and your family!
+            <div className="er_section-header" style={{ textAlign: 'left', marginBottom: '24px' }}>
+              <span className="er_section-badge" style={{ margin: '0 0 8px 0' }}>EXPERIENCE IN PERSON</span>
+              <h2 className="er_section-title">Why Book a Dedicated Site Visit?</h2>
+              <p className="er_section-sub">
+                Nothing compares to standing on the ground where your future home will stand. Experience the tranquility, wide roads, and master planning first-hand.
               </p>
             </div>
 
-            <div className="er_perks-grid">
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+              gap: '16px',
+              marginBottom: '32px'
+            }}>
               {visitPerks.map((perk, idx) => (
-                <div key={idx} className="er_perk-card">
-                  <div className="er_perk-icon" style={{ color: perk.color, backgroundColor: `${perk.color}15` }}>
+                <div key={idx} style={{
+                  background: '#ffffff',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '12px',
+                  padding: '20px',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px'
+                }}>
+                  <div style={{
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '10px',
+                    background: `${perk.color}15`,
+                    color: perk.color,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '18px'
+                  }}>
                     <i className={`fas ${perk.icon}`}></i>
                   </div>
-                  <div>
-                    <h4>{perk.title}</h4>
-                    <p>{perk.desc}</p>
-                  </div>
+                  <h4 style={{ margin: 0, fontSize: '15px', fontWeight: 700, color: '#1e293b' }}>{perk.title}</h4>
+                  <p style={{ margin: 0, fontSize: '13px', color: '#64748b', lineHeight: 1.5 }}>{perk.desc}</p>
                 </div>
               ))}
             </div>
 
-            {/* Direct Contact Card */}
-            <div className="er_contact-direct-card" style={{ marginTop: '30px' }}>
-              <h3><i className="fas fa-headset"></i> Direct Customer Helpline</h3>
-              <p>Prefer talking directly? Call our site visit coordinators now:</p>
-              <div className="er_phone-numbers">
-                <a href={`tel:${isElegance ? '7676000909' : '9008347898'}`} className="er_phone-chip">
-                  <i className="fas fa-phone-alt"></i> {isElegance ? '7676 000 909' : '9008 3478 98'}
-                </a>
-              </div>
-              <div className="er_timing-badge">
-                <i className="fas fa-clock"></i> Site Operating Hours: 10:00 AM - 06:00 PM (Open 7 Days a Week)
+            {/* Site Visit Protocol Card */}
+            <div style={{
+              background: 'linear-gradient(135deg, #1B3C34 0%, #112822 100%)',
+              color: '#ffffff',
+              borderRadius: '16px',
+              padding: '28px',
+              position: 'relative',
+              overflow: 'hidden',
+              marginBottom: '32px'
+            }}>
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <span style={{
+                  color: '#c68a28',
+                  fontSize: '11px',
+                  fontWeight: 800,
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase'
+                }}>
+                  ★ COMFORT &amp; SAFETY FIRST
+                </span>
+                <h3 style={{ margin: '8px 0 12px 0', fontSize: '20px', fontWeight: 700 }}>
+                  Doorstep Cab Service Guidelines
+                </h3>
+                <p style={{ margin: '0 0 16px 0', fontSize: '13.5px', color: '#cbd5e1', lineHeight: 1.6, maxWidth: '650px' }}>
+                  Our sanitized AC cabs are dispatched at your preferred time slot anywhere across Bengaluru. Pickups are scheduled at your doorstep with real-time driver tracking and professional customer care support.
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', fontSize: '13px', color: '#e2e8f0' }}>
+                  <span><i className="fas fa-check-circle" style={{ color: '#c68a28', marginRight: '6px' }}></i> Dedicated Chauffeur</span>
+                  <span><i className="fas fa-check-circle" style={{ color: '#c68a28', marginRight: '6px' }}></i> Family-Friendly AC Cars</span>
+                  <span><i className="fas fa-check-circle" style={{ color: '#c68a28', marginRight: '6px' }}></i> Zero Cost &amp; Zero Obligation</span>
+                </div>
               </div>
             </div>
           </section>
@@ -200,12 +206,12 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
           <FaqSection />
         </div>
 
-        {/* Sticky Sidebar Form for Site Visit */}
-        <aside className="er_sticky-sidebar-col">
+        {/* Sidebar Sticky Booking Form */}
+        <aside id="er_enquiry" className="er_sticky-sidebar-col">
           <div className="er_quick-enquiry-card">
             <div className="er_quick-card-head">
               <span className="er_quick-badge">
-                <i className="fas fa-calendar-check"></i> SCHEDULE FREE VISIT
+                <i className="fas fa-calendar-check"></i> FREE VIP SERVICE
               </span>
               <h3 className="er_quick-title">Book Free Site Visit</h3>
               <p className="er_quick-sub">Choose date &amp; slot for guided inspection &amp; cab pickup</p>
@@ -248,6 +254,7 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
                         value={formData.phone}
                         onChange={handleInputChange}
                         maxLength="10"
+                        inputMode="numeric"
                         required
                       />
                     </div>
@@ -292,21 +299,36 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
                         name="timeSlot"
                         value={formData.timeSlot}
                         onChange={handleInputChange}
-                        className="er_select-input"
+                        required
                       >
-                        <option value="10:00 AM - 01:00 PM">10:00 AM - 01:00 PM (Morning)</option>
-                        <option value="01:00 PM - 04:00 PM">01:00 PM - 04:00 PM (Afternoon)</option>
-                        <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM (Evening)</option>
+                        <option value="10:00 AM - 01:00 PM">Morning (10:00 AM - 01:00 PM)</option>
+                        <option value="01:00 PM - 04:00 PM">Afternoon (01:00 PM - 04:00 PM)</option>
+                        <option value="04:00 PM - 06:30 PM">Evening (04:00 PM - 06:30 PM)</option>
                       </select>
+                    </div>
+                  </div>
+
+                  <div className="er_quick-field">
+                    <label htmlFor="er_sv_message">Pickup Address / Remarks</label>
+                    <div className="er_quick-input-icon er_quick-textarea-icon">
+                      <i className="fas fa-map-marker-alt"></i>
+                      <textarea
+                        id="er_sv_message"
+                        name="message"
+                        rows="2"
+                        placeholder="Your pickup area / landmark in Bengaluru..."
+                        value={formData.message}
+                        onChange={handleInputChange}
+                      ></textarea>
                     </div>
                   </div>
 
                   <button type="submit" className="er_quick-submit-btn" disabled={loading}>
                     {loading ? (
-                      <span><i className="fas fa-spinner fa-spin"></i> Booking...</span>
+                      <span><i className="fas fa-spinner fa-spin"></i> Sending OTP...</span>
                     ) : (
                       <>
-                        <span>Confirm Free Site Visit</span>
+                        <span>Get OTP &amp; Confirm Booking</span>
                         <i className="fas fa-arrow-right"></i>
                       </>
                     )}
@@ -315,67 +337,37 @@ export default function BookSiteVisitPage({ onOpenBrochure }) {
               )}
 
               {phase === 'otp' && (
-                <form onSubmit={handleOtpSubmit} className="er_quick-form">
-                  <div className="er_quick-otp-notice">
-                    Enter 6-digit OTP sent to <strong>+91 {formData.phone}</strong>
-                  </div>
-
-                  <div className="er_quick-otp-grid">
-                    {otp.map((digit, idx) => (
-                      <input
-                        key={idx}
-                        id={`er_sv_otp_${idx}`}
-                        type="text"
-                        maxLength="1"
-                        inputMode="numeric"
-                        className="er_quick-otp-box"
-                        value={digit}
-                        onChange={(e) => handleOtpChange(idx, e.target.value)}
-                      />
-                    ))}
-                  </div>
-
-                  <button type="submit" className="er_quick-submit-btn" disabled={loading}>
-                    {loading ? (
-                      <span><i className="fas fa-spinner fa-spin"></i> Verifying...</span>
-                    ) : (
-                      <>
-                        <span>Verify OTP &amp; Confirm Booking</span>
-                        <i className="fas fa-check-circle"></i>
-                      </>
-                    )}
-                  </button>
-
-                  <button
-                    type="button"
-                    className="er_quick-back-btn"
-                    onClick={() => setPhase('input')}
-                  >
-                    Edit Booking Details
-                  </button>
-                </form>
+                <OtpVerificationView
+                  phone={cleanPhoneNumber(formData.phone)}
+                  buttonText="Verify OTP &amp; Confirm Booking"
+                  theme="quick"
+                  onChangePhone={() => setPhase('input')}
+                  onVerified={handleOtpVerified}
+                />
               )}
 
               {phase === 'success' && (
                 <div className="er_quick-success-box">
                   <i className="fas fa-calendar-check er_quick-success-icon"></i>
-                  <h4>Form Submitted Successfully!</h4>
-                  <p>Thank you <strong>{formData.name}</strong>. Your site visit is confirmed for <strong>{formData.visitDate || 'Today'} ({formData.timeSlot})</strong>.</p>
-                  <a
-                    href={project.brochureUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="er_quick-submit-btn"
-                    style={{ textDecoration: 'none', marginBottom: '10px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
-                  >
-                    <i className="fas fa-download"></i>
-                    <span>Download Brochure PDF</span>
-                  </a>
+                  <h4>Site Visit Confirmed!</h4>
+                  <p>
+                    Thank you <strong>{formData.name}</strong>! Your mobile number <strong>+91 {cleanPhoneNumber(formData.phone)}</strong> has been verified. Your free site visit is confirmed for <strong>{formData.visitDate || 'Your Selected Date'} ({formData.timeSlot})</strong>. Our team will contact you shortly to confirm the cab pickup details.
+                  </p>
                   <button
                     type="button"
                     className="er_quick-submit-btn"
                     style={{ background: '#f8fafc', color: '#475569', border: '1px solid #cbd5e1' }}
-                    onClick={() => setPhase('input')}
+                    onClick={() => {
+                      setFormData({
+                        name: '',
+                        phone: '',
+                        email: '',
+                        visitDate: '',
+                        timeSlot: '10:00 AM - 01:00 PM',
+                        message: '',
+                      });
+                      setPhase('input');
+                    }}
                   >
                     Book Another Visit
                   </button>

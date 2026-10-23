@@ -19,6 +19,8 @@ import imgAerialView from '../assets/gallery/ernika_aerial_view.webp';
 import imgModernVilla from '../assets/gallery/ernika_modern_villa.webp';
 import imgAerialViewAlt from '../assets/gallery/ernika_Aerial-View.webp';
 import imgOverview from '../assets/gallery/ernika_img.webp';
+import ekaHero from '../assets/eka_hero.jpg';
+import eleganceHero from '../assets/elegance_hero.jpg';
 
 export default function GallerySection() {
   const { isElegance, project } = useProjectContext();
@@ -39,9 +41,7 @@ export default function GallerySection() {
   ];
 
   const eleganceImages = [
-    // { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Villa-Entrance-Arch-Night-View.webp', title: 'Elegance Villa Entrance Arch' },
-    // { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-villa-Elevation-Day-view.webp', title: 'Elegance Villa Elevation Day View' },
-    // { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Villa-Elevation-Night-View.webp', title: 'Elegance Villa Elevation Night View' },
+    { src: eleganceHero, title: 'Guru Punvaanii Elegance 4 BHK Climate-Controlled Villas' },
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/09/Screenshot-2026-09-04-153650.png', title: 'Elegance Villa Elevation Day & Night View' },
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Entrance-Hall.webp', title: 'Elegance Entrance Hall' },
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/balcony-space-scaled-1.webp', title: 'Elegance Balcony Space' },
@@ -57,6 +57,7 @@ export default function GallerySection() {
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Private-Garden.webp', title: 'Elegance Private Villa Garden' },
   ];
   const ekaImages = [
+    { src: ekaHero, title: 'Guru Punvaanii EKA 50-Acre Legacy Villa Plots' },
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Entrance-Arch-1.webp', title: 'EKA Entrance Arch' },
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Gazebo.webp', title: 'EKA Gazebo' },
     { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Jogging-Track.webp', title: 'EKA Jogging Track' },
@@ -86,8 +87,26 @@ export default function GallerySection() {
     { src: 'https://gurupunvaanii.com/wp-content/uploads/elementor/thumbs/DSC02347-1-scaled-rkhq2zqkwzro01c4ttvhyjw8mxae7zekhnn6dn8flo.jpg', title: 'Shyam Residency Entrance' }
   ];
 
-  const galleryImages = isElegance ? eleganceImages : project.id === 'eka' ? ekaImages : project.id === 'eureka' ? eurekaImages : project.id === 'shyam_residency' ? shyamResidencyImages : ernikaImages;
+  const exoticaImages = [
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Exotica-Entrance-Arch.webp', title: 'Exotica Grand Mediterranean Entrance Arch' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Exotica-Mediterranean-Park.webp', title: 'Exotica Mediterranean-Themed Park' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/plots-in-Attibele.webp', title: 'Plots in Attibele - Exotica' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Exotica-Outdoor-Gym.webp', title: 'Exotica Outdoor Gym & Fitness Zone' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Exotica-Plots-in-Attibele-scaled-1.webp', title: 'Exotica Plots in Attibele Avenue' },
+    { src: 'https://gurupunvaanii.com/wp-content/uploads/2026/07/plots-in-Attibele-scaled.jpg', title: 'Exotica Aerial Plotted Development' },
+  ];
 
+  const galleryImages = isElegance
+    ? eleganceImages
+    : project.id === 'eka'
+      ? ekaImages
+      : project.id === 'eureka'
+        ? eurekaImages
+        : project.id === 'shyam_residency'
+          ? shyamResidencyImages
+          : project.id === 'exotica'
+            ? exoticaImages
+            : ernikaImages;
 
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
@@ -119,11 +138,11 @@ export default function GallerySection() {
                 ? 'Discover Eureka, a thoughtfully crafted villa plot community where convenience meets tranquility. From the welcoming entrance arch to the modern clubhouse, kids play area, and scenic viewpoints, every element is designed to enhance your lifestyle. Take a walk through the well-planned spaces and imagine the life you can build here.'
                 : project.id === 'shyam_residency'
                   ? 'Shyam Residency looks as good as it sounds. There are spaces designed for your peace, convenience, and comfort, so you can live your dream life. Everything you see is built keeping you and your family in mind.'
-                  : project.id === 'ernika'
-                    ? 'Here you can have a closer look at the life we have built around Ernika. These are the spaces that your family will grow up calling home. Take your time to look around and see all the reasons why Ernika is worth it.'
-                    : project.id === 'puneeth'
-                      ? 'Here you can have a closer look at the life we have built around Puneeth. These are the spaces that your family will grow up calling home. Take your time to look around and see all the reasons why Puneeth is worth it.'
-                      : 'Here you can have a closer look at the life we have built around Puneeth. These are the spaces that your family will grow up calling home. Take your time to look around and see all the reasons why Puneeth is worth it.'
+                  : project.id === 'exotica'
+                    ? 'The sculpted gardens, arched gateways, wide sun-lit spaces, along with the Mediterranean Cypress, and open greens, will make you forget that you live in one of India’s fastest-growing cities. Walk through the images and imagine coming home to this every day. This is a place that brings you closer to building your dream life.'
+                    : project.id === 'ernika'
+                      ? 'Here you can have a closer look at the life we have built around Ernika. These are the spaces that your family will grow up calling home. Take your time to look around and see all the reasons why Ernika is worth it.'
+                      : 'Here you can have a closer look at the life we have built around the project. These are the spaces that your family will grow up calling home.'
           }
         </p>
       </div>

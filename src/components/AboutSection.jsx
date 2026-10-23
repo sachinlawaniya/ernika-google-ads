@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useProjectContext } from '../utils/useProjectContext.js';
 import shyamOverviewDesktop from '../assets/shyam_overview_desktop.png';
 import shyamOverviewMobile from '../assets/shyam_overview_mobile.png';
@@ -8,6 +8,39 @@ export default function AboutSection({ onOpenBrochure }) {
   const { project } = useProjectContext();
   const isShyam = project.id === 'shyam_residency';
   const isErnika = project.id === 'ernika';
+
+  const desktopVideoRef = useRef(null);
+  const mobileVideoRef = useRef(null);
+  const videoBoxRef = useRef(null);
+
+  // Play automatically when in viewport, pause when scrolled away
+  useEffect(() => {
+    const videoBox = videoBoxRef.current;
+    if (!videoBox) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const isMobile = window.innerWidth <= 768;
+          const targetVideo = isMobile
+            ? (mobileVideoRef.current || desktopVideoRef.current)
+            : (desktopVideoRef.current || mobileVideoRef.current);
+
+          if (targetVideo) {
+            if (entry.isIntersecting) {
+              targetVideo.play().catch(() => {});
+            } else {
+              targetVideo.pause();
+            }
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(videoBox);
+    return () => observer.disconnect();
+  }, [project.heroVideoDesktop, project.heroVideoMobile]);
 
   return (
     <section id="er_about" className="er_intro er_section">
@@ -41,18 +74,37 @@ export default function AboutSection({ onOpenBrochure }) {
             </button>
           </div>
         </div>
-        <div className="er_intro-image er_intro-video-frame-box">
-          {project.heroVideoDesktop ? (
-            <video
-              className="er_intro-video-element"
-              autoPlay
-              muted
-              loop
-              playsInline
-              controls
-            >
-              <source src={project.heroVideoDesktop} type="video/mp4" />
-            </video>
+        <div className="er_intro-image er_intro-video-frame-box" ref={videoBoxRef}>
+          {project.heroVideoDesktop || project.heroVideoMobile ? (
+            <>
+              {/* Desktop Video */}
+              <video
+                ref={desktopVideoRef}
+                className="er_intro-video-element er_video_desktop_only exo_hero-video exo_hero-desktop"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                controls
+              >
+                <source src={project.heroVideoDesktop || project.heroVideoMobile} type="video/mp4" />
+              </video>
+
+              {/* Mobile Video */}
+              <video
+                ref={mobileVideoRef}
+                className="er_intro-video-element er_video_mobile_only exo_hero-video exo_hero-mobile"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                controls
+              >
+                <source src={project.heroVideoMobile || project.heroVideoDesktop} type="video/mp4" />
+              </video>
+            </>
           ) : (
             <iframe
               src={`https://www.youtube.com/embed/${project.heroVideoId || project.walkthroughVideoId}?autoplay=1&mute=1&controls=1&loop=1&playlist=${project.heroVideoId || project.walkthroughVideoId}&playsinline=1&rel=0`}

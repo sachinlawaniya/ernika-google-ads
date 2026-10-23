@@ -225,6 +225,51 @@ export default function LocationSection() {
           { name: 'Dmart', time: '20 Mins', minutes: 20, itemIcon: 'fa-shopping-cart' },
         ]
       }
+    ],
+    exotica: [
+      {
+        category: 'Educational Institutions',
+        icon: 'fa-graduation-cap',
+        items: [
+          { name: 'Alliance University', time: '12 Mins', minutes: 12, itemIcon: 'fa-school' },
+          { name: 'Government First Grade College Anekal', time: '8 Mins', minutes: 8, itemIcon: 'fa-school' },
+          { name: 'Surya College of Engineering', time: '12 Mins', minutes: 12, itemIcon: 'fa-school' },
+          { name: 'Sri Sairam College of Engineering', time: '10 Mins', minutes: 10, itemIcon: 'fa-school' },
+          { name: 'Anekal Polytechnic College', time: '10 Mins', minutes: 10, itemIcon: 'fa-school' },
+        ]
+      },
+      {
+        category: 'Healthcare & Hospitals',
+        icon: 'fa-hospital-user',
+        items: [
+          { name: 'Ganga Speciality Hospital', time: '6 Mins', minutes: 6, itemIcon: 'fa-user-md' },
+          { name: 'Aditi Multi Speciality Hospital', time: '8 Mins', minutes: 8, itemIcon: 'fa-user-md' },
+          { name: 'Anekal Government Hospital', time: '8 Mins', minutes: 8, itemIcon: 'fa-user-md' },
+          { name: 'Athreya Hospital', time: '12 Mins', minutes: 12, itemIcon: 'fa-user-md' },
+          { name: 'Sri Sai Hospitals', time: '12 Mins', minutes: 12, itemIcon: 'fa-user-md' },
+          { name: 'Narayana Hrudayalaya', time: '20 Mins', minutes: 20, itemIcon: 'fa-user-md' },
+        ]
+      },
+      {
+        category: 'IT & Industrial Corridors',
+        icon: 'fa-laptop-house',
+        items: [
+          { name: 'Attibele Industrial Area', time: '8 Mins', minutes: 8, itemIcon: 'fa-building' },
+          { name: 'Bommasandra Industrial Area', time: '15 Mins', minutes: 15, itemIcon: 'fa-building' },
+          { name: 'Jigani Industrial Corridor', time: '15 Mins', minutes: 15, itemIcon: 'fa-building' },
+          { name: 'Electronic City Phase 1 & 2', time: '20 Mins', minutes: 20, itemIcon: 'fa-building' },
+        ]
+      },
+      {
+        category: 'Connectivity & Landmarks',
+        icon: 'fa-route',
+        items: [
+          { name: 'Upcoming STRR Ring Road', time: '5 Mins', minutes: 5, itemIcon: 'fa-road' },
+          { name: 'Attibele Junction & Hosur Road', time: '10 Mins', minutes: 10, itemIcon: 'fa-road' },
+          { name: 'Bommasandra Metro Station', time: '18 Mins', minutes: 18, itemIcon: 'fa-train' },
+          { name: 'Anekal Railway Station', time: '8 Mins', minutes: 8, itemIcon: 'fa-train' },
+        ]
+      }
     ]
   };
 
@@ -280,6 +325,16 @@ export default function LocationSection() {
       f2_desc: 'Quick and easy access to Electronic City',
       f3_title: 'Metro & Express Trains',
       f3_desc: 'Conveniently connected to metro links & railway stations',
+    },
+    exotica: {
+      p1: 'South Bangalore has always been an ideal first choice for families and investors alike. Bringing you a home on the Anekal-Attibele Road offers infrastructure development, strong industrial employment in the neighborhood, and growing residential demand.',
+      p2: 'Beyond the hype, Exotica introduces Bangalore’s first Mediterranean-themed plotted community. It is a place that was thought through, so you can step out of your homes and feel good about your decision every day.',
+      f1_title: 'STRR & Highway Link',
+      f1_desc: 'Direct access to upcoming Satellite Town Ring Road (STRR)',
+      f2_title: 'IT & Industrial Hubs',
+      f2_desc: 'Near Electronic City, Attibele & Bommasandra industrial corridors',
+      f3_title: 'Metro & Rail Links',
+      f3_desc: 'Quick access to Bommasandra Metro & Anekal Railway Station',
     }
   };
 

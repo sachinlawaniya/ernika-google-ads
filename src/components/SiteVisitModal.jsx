@@ -1,52 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useProjectContext, PROJECTS_DATA } from '../utils/useProjectContext.js';
+import OtpVerificationView from './OtpVerificationView.jsx';
+import { sendOtp, submitLeadToERP, isValidIndianPhone, cleanPhoneNumber } from '../utils/otpService.js';
 
 export default function SiteVisitModal({ isOpen, onClose, sourceComment, projectKey }) {
   const { shortName: ctxShortName, projectName: ctxProjectName, project: ctxProject } = useProjectContext();
 
   const currentProject = (projectKey && PROJECTS_DATA[projectKey]) || ctxProject || PROJECTS_DATA['ernika'];
-  const project = currentProject;
   const shortName = currentProject?.shortName || ctxShortName || 'Guru Punvaanii';
   const projectName = currentProject?.projectName || ctxProjectName || 'Guru Punvaanii Properties';
-  const brochurePdfUrl = currentProject?.brochureUrl || 'https://gurupunvaanii.com/';
 
-  const [step, setStep] = useState('input'); // 'input' | 'success'
+  const [step, setStep] = useState('input'); // 'input' | 'otp' | 'success'
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
-    visitDate: '',
-    timeSlot: '10:00 AM - 01:00 PM',
     message: '',
   });
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState({ text: '', type: '' });
 
-  // Get tomorrow's date formatted as YYYY-MM-DD for min date
-  const getTodayDateStr = () => {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const dd = String(today.getDate()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd}`;
-  };
-
-  const getTomorrowDateStr = () => {
-    const d = new Date();
-    d.setDate(d.getDate() + 1);
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, '0');
-    const dd = String(d.getDate()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd}`;
-  };
-
   useEffect(() => {
-    if (isOpen) {
-      setFormData((prev) => ({
-        ...prev,
-        visitDate: prev.visitDate || getTomorrowDateStr(),
-      }));
-    } else {
+    if (!isOpen) {
       resetModal();
     }
   }, [isOpen]);
@@ -57,8 +32,6 @@ export default function SiteVisitModal({ isOpen, onClose, sourceComment, project
       name: '',
       phone: '',
       email: '',
-      visitDate: getTomorrowDateStr(),
-      timeSlot: '10:00 AM - 01:00 PM',
       message: '',
     });
     setLoading(false);
@@ -74,17 +47,8 @@ export default function SiteVisitModal({ isOpen, onClose, sourceComment, project
     setMsg({ text: '', type: '' });
   };
 
-  const getERPFormattedDateTime = () => {
-    const now = new Date();
-    const dd = String(now.getDate()).padStart(2, '0');
-    const mm = String(now.getMonth() + 1).padStart(2, '0');
-    const yyyy = now.getFullYear();
-    const hh = String(now.getHours()).padStart(2, '0');
-    const min = String(now.getMinutes()).padStart(2, '0');
-    return `${dd}/${mm}/${yyyy} ${hh}:${min}`;
-  };
-
-  const handleSubmit = async (e) => {
+  // Phase 1: Request OTP
+  const handleRequestOtp = async (e) => {
     e.preventDefault();
     setMsg({ text: '', type: '' });
 
@@ -93,9 +57,8 @@ export default function SiteVisitModal({ isOpen, onClose, sourceComment, project
       return;
     }
 
-    const cleanPhone = formData.phone.replace(/\D/g, '').slice(-10);
-    const phoneRegex = /^[6-9]\d{9}$/;
-    if (!phoneRegex.test(cleanPhone)) {
+    const cleanPhone = cleanPhoneNumber(formData.phone);
+    if (!isValidIndianPhone(cleanPhone)) {
       setMsg({ text: '⚠️ Please enter a valid 10-digit mobile number.', type: 'error' });
       return;
     }
@@ -110,46 +73,31 @@ export default function SiteVisitModal({ isOpen, onClose, sourceComment, project
 
     setLoading(true);
 
-    try {
-      const nowStr = getERPFormattedDateTime();
-      const comments = `SITE VISIT BOOKING: Date=${formData.visitDate || 'Tomorrow'}, Slot=${formData.timeSlot}, Message=${formData.message.trim() || 'Site Visit Requested'} | Source: ${sourceComment || 'Book Site Visit Modal'} - ${shortName} Landing Page`;
+    const otpRes = await sendOtp(cleanPhone);
+    setLoading(false);
 
-      // 1. Submit lead to StrategicERP lead creation API
-      const apiLeadUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name.trim())}&Email=${encodeURIComponent(formData.email.trim() || '')}&MobileNo=${encodeURIComponent(cleanPhone)}&Comments=${encodeURIComponent(comments)}&ProjectName=${encodeURIComponent(shortName)}&Source=GoogleAds_LandingPage`;
-      fetch(apiLeadUrl, { mode: 'no-cors' }).catch(() => { });
-
-      // 2. Fire StrategicERP Image Pixel
-      const erpUrl =
-        `https://24.strategicerpcloud.com/strategicerp/SaveFormField.do?actn=SaveData&id=873&globalvar=0&cloudcode=gurupunvaanii&idselected=0&idhidden=0&mobileform=yes&editids=15715/15800/31227/15730/state//31228/31229/31230/33937/15713/30754/34785/15716/37710/37710/` +
-        `&field15715=${encodeURIComponent(cleanPhone)}` +
-        `&field15713=${encodeURIComponent(formData.name.trim())}` +
-        `&field33937=${encodeURIComponent(formData.email.trim())}` +
-        `&field15730=${encodeURIComponent(projectName)}` +
-        `&field15800=${encodeURIComponent(nowStr)}` +
-        `&field31227=${encodeURIComponent(nowStr)}` +
-        `&field31228=${encodeURIComponent('Digital Marketing')}` +
-        `&field31229=${encodeURIComponent('Google Ads')}` +
-        `&field31230=${encodeURIComponent('/ Google Ads /')}` +
-        `&field37710=${encodeURIComponent('+91')}` +
-        `&field15716=${encodeURIComponent(comments)}` +
-        `&field34785=`;
-
-      const erpImg = new Image();
-      erpImg.src = erpUrl;
-
-      // 3. Trigger Google Ads Conversion Event
-      if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'conversion', {
-          send_to: 'AW-CONVERSION_ID/CONVERSION_LABEL',
-        });
-      }
-
-      setLoading(false);
-      setStep('success');
-    } catch (err) {
-      setLoading(false);
-      setStep('success');
+    if (otpRes.success) {
+      setStep('otp');
+    } else {
+      setMsg({ text: `⚠️ ${otpRes.message}`, type: 'error' });
     }
+  };
+
+  // Phase 2: On OTP Verified Callback
+  const handleOtpVerified = () => {
+    const cleanPhone = cleanPhoneNumber(formData.phone);
+    const comments = `SITE VISIT BOOKING: ${formData.message.trim() ? `Message=${formData.message.trim()} | ` : ''}Source: ${sourceComment || 'Book Site Visit Modal'} (OTP Verified) - ${shortName} Landing Page`;
+
+    submitLeadToERP({
+      name: formData.name,
+      phone: cleanPhone,
+      email: formData.email,
+      projectName,
+      comments,
+      source: 'Google Ads Site Visit Modal',
+    });
+
+    setStep('success');
   };
 
   if (!isOpen) return null;
@@ -185,19 +133,19 @@ export default function SiteVisitModal({ isOpen, onClose, sourceComment, project
             <span className="er_brand-icon"></span>
             <span>GURU PUNVAANII &nbsp;|&nbsp; {shortName.toUpperCase()}</span>
           </div>
-          <h2 id="er_brochureTitle">
-            Book a <em>Free Site Visit</em>
+          <h2>
+            Book Your Free <em>Site Visit</em>
           </h2>
           <p>
-            Experience <strong>{projectName}</strong> in person. Guided plot inspection &amp; layout walkthrough!
+            Experience {shortName} in person with free doorstep AC cab pickup &amp; guided plot inspection.
           </p>
         </div>
 
         {/* Form Body */}
         <div className="er_modal-form">
           {step === 'input' && (
-            <form onSubmit={handleSubmit}>
-              <div className="er_form-group er_full-width" style={{ marginBottom: '10px' }}>
+            <form onSubmit={handleRequestOtp}>
+              <div className="er_form-group er_full-width" style={{ marginBottom: '12px' }}>
                 <label htmlFor="er_sv_modal_name">FULL NAME *</label>
                 <div className="er_input-wrap">
                   <i className="far fa-user er_input-icon"></i>
@@ -213,7 +161,7 @@ export default function SiteVisitModal({ isOpen, onClose, sourceComment, project
                 </div>
               </div>
 
-              <div className="er_form-row" style={{ marginBottom: '10px' }}>
+              <div className="er_form-row" style={{ marginBottom: '12px' }}>
                 <div className="er_form-group">
                   <label htmlFor="er_sv_modal_phone">PHONE NUMBER *</label>
                   <div className="er_input-wrap">
@@ -231,7 +179,6 @@ export default function SiteVisitModal({ isOpen, onClose, sourceComment, project
                     />
                   </div>
                 </div>
-
                 <div className="er_form-group">
                   <label htmlFor="er_sv_modal_email">EMAIL ADDRESS</label>
                   <div className="er_input-wrap">
@@ -240,59 +187,10 @@ export default function SiteVisitModal({ isOpen, onClose, sourceComment, project
                       type="email"
                       id="er_sv_modal_email"
                       name="email"
-                      placeholder="you@email.com"
+                      placeholder="you@email.com (optional)"
                       value={formData.email}
                       onChange={handleInputChange}
                     />
-                  </div>
-                </div>
-              </div>
-
-              <div className="er_form-row" style={{ marginBottom: '10px' }}>
-                <div className="er_form-group">
-                  <label htmlFor="er_sv_modal_date">VISIT DATE *</label>
-                  <div className="er_input-wrap">
-                    <i className="far fa-calendar-alt er_input-icon"></i>
-                    <input
-                      type="date"
-                      id="er_sv_modal_date"
-                      name="visitDate"
-                      min={getTodayDateStr()}
-                      required
-                      value={formData.visitDate}
-                      onChange={handleInputChange}
-                      style={{ paddingLeft: '38px' }}
-                    />
-                  </div>
-                </div>
-
-                <div className="er_form-group">
-                  <label htmlFor="er_sv_modal_slot">TIME SLOT *</label>
-                  <div className="er_input-wrap">
-                    <i className="far fa-clock er_input-icon"></i>
-                    <select
-                      id="er_sv_modal_slot"
-                      name="timeSlot"
-                      value={formData.timeSlot}
-                      onChange={handleInputChange}
-                      className="er_select-input"
-                      style={{
-                        width: '100%',
-                        height: '42px',
-                        padding: '0 10px 0 38px',
-                        border: '1px solid #f3e9d8',
-                        borderRadius: '10px',
-                        fontSize: '12px',
-                        color: '#1e293b',
-                        background: '#fdfbf7',
-                        outline: 'none',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      <option value="10:00 AM - 01:00 PM">10 AM - 1 PM (Morning)</option>
-                      <option value="01:00 PM - 04:00 PM">1 PM - 4 PM (Afternoon)</option>
-                      <option value="04:00 PM - 06:00 PM">4 PM - 6 PM (Evening)</option>
-                    </select>
                   </div>
                 </div>
               </div>
@@ -317,35 +215,39 @@ export default function SiteVisitModal({ isOpen, onClose, sourceComment, project
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                   <polyline points="22 4 12 14.01 9 11.01" />
                 </svg>
-                <span>{loading ? 'Confirming Visit…' : 'Confirm Free Site Visit'}</span>
+                <span>{loading ? 'Sending OTP…' : 'Get OTP & Confirm Site Visit'}</span>
               </button>
             </form>
           )}
 
+          {step === 'otp' && (
+            <OtpVerificationView
+              phone={cleanPhoneNumber(formData.phone)}
+              buttonText="Verify OTP & Confirm Free Site Visit"
+              theme="modal"
+              onChangePhone={() => setStep('input')}
+              onVerified={handleOtpVerified}
+            />
+          )}
+
           {step === 'success' && (
-            <div style={{ textAlign: 'center', padding: '18px 14px', background: 'rgba(34,197,94,0.06)', border: '1.5px solid #22c55e', borderRadius: '12px' }}>
-              <div style={{ width: '48px', height: '48px', background: '#22c55e', color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 10px', fontSize: '22px', fontWeight: 700 }}>
+            <div style={{ textAlign: 'center', padding: '22px 16px', background: 'rgba(34,197,94,0.06)', border: '1.5px solid #22c55e', borderRadius: '12px' }}>
+              <div style={{ width: '48px', height: '48px', background: '#22c55e', color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px', fontSize: '22px', fontWeight: 700 }}>
                 ✓
               </div>
-              <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '19px', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
+              <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '19px', fontWeight: 700, color: '#1e293b', marginBottom: '8px' }}>
                 Site Visit Booked Successfully!
               </h3>
-              <p style={{ fontSize: '13px', color: '#475569', marginBottom: '14px', lineHeight: 1.5 }}>
-                Thank you <strong>{formData.name}</strong>! Your free site visit for <strong>{shortName}</strong> is scheduled for <strong>{formData.visitDate} ({formData.timeSlot})</strong>. Our team will contact you shortly to confirm details.
+              <p style={{ fontSize: '13.5px', color: '#475569', marginBottom: '18px', lineHeight: 1.5 }}>
+                Thank you <strong>{formData.name}</strong>! Your mobile number <strong>+91 {cleanPhoneNumber(formData.phone)}</strong> has been verified. Your free site visit request for <strong>{shortName}</strong> has been registered. Our property manager will call you shortly to confirm the pickup details.
               </p>
-              <a
-                href={brochurePdfUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'var(--er-gold, #C58B2D)', color: '#ffffff', fontWeight: 700, fontSize: '13.5px', padding: '12px 24px', borderRadius: '8px', textDecoration: 'none', boxShadow: '0 4px 16px rgba(198,138,40,0.35)', transition: 'all 0.3s ease', marginBottom: '8px' }}
+              <button
+                type="button"
+                onClick={onClose}
+                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'var(--er-gold, #C58B2D)', color: '#ffffff', fontWeight: 700, fontSize: '13.5px', padding: '12px 28px', borderRadius: '8px', border: 'none', cursor: 'pointer', boxShadow: '0 4px 16px rgba(198,138,40,0.35)', transition: 'all 0.3s ease' }}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                <span>Download Project Brochure PDF</span>
-              </a>
+                <span>Close &amp; Return to Page</span>
+              </button>
             </div>
           )}
 
@@ -356,7 +258,7 @@ export default function SiteVisitModal({ isOpen, onClose, sourceComment, project
           )}
 
           <p style={{ textAlign: 'center', fontSize: '11px', color: '#94a3b8', margin: '10px 0 4px' }}>
-            Guided Plot Inspection • Instant Confirmation • 100% Secure
+            Guided Plot Inspection • Doorstep AC Cab Pickup • 100% Secure
           </p>
         </div>
 

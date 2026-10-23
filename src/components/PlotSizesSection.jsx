@@ -167,9 +167,9 @@ export default function PlotSizesSection({ onOpenBrochure }) {
             <img
               src={activeImage === 'day' ? Plots.imageDay : Plots.imageNight}
               alt={`${project.shortName} Villa Elevation`}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              style={{ width: '100%', height: '100%', objectFit: '100%' }}
             />
-            <div className="er_premium-image-toggles" style={{ position: 'absolute', top: '15px', left: '15px', display: 'flex', gap: '8px' }}>
+            <div className="er_premium-image-toggles" style={{ position: 'absolute', top: '15px', left: '50%', display: 'flex', gap: '8px' }}>
               <button
                 style={{ padding: '6px 12px', borderRadius: '20px', border: 'none', background: activeImage === 'day' ? '#fff' : 'rgba(255,255,255,0.7)', cursor: 'pointer', fontSize: '12px', fontWeight: 'bold' }}
                 onClick={() => setActiveImage('day')}

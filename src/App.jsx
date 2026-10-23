@@ -4,6 +4,7 @@ import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import BrochureModal from './components/BrochureModal.jsx';
 import SiteVisitModal from './components/SiteVisitModal.jsx';
+import QuickEnquiryModal from './components/QuickEnquiryModal.jsx';
 import MobileEnquiryPopup from './components/MobileEnquiryPopup.jsx';
 import FloatingCallBtn from './components/FloatingCallBtn.jsx';
 
@@ -51,6 +52,10 @@ export default function App() {
   const [siteVisitSource, setSiteVisitSource] = useState('');
   const [siteVisitProjectKey, setSiteVisitProjectKey] = useState('');
 
+  const [isQuickEnquiryOpen, setIsQuickEnquiryOpen] = useState(false);
+  const [quickEnquiryProject, setQuickEnquiryProject] = useState(null);
+  const [quickEnquirySource, setQuickEnquirySource] = useState('');
+
   const handleOpenBrochure = (source = '', projectKey = '') => {
     setModalSource(typeof source === 'string' ? source : '');
     setModalProjectKey(typeof projectKey === 'string' ? projectKey : '');
@@ -69,6 +74,16 @@ export default function App() {
   const handleCloseSiteVisit = () => {
     setIsSiteVisitOpen(false);
     setSiteVisitProjectKey('');
+  };
+
+  const handleOpenQuickEnquiry = (project = null, source = '') => {
+    setQuickEnquiryProject(project);
+    setQuickEnquirySource(typeof source === 'string' ? source : 'Project Card Quick Enquiry');
+    setIsQuickEnquiryOpen(true);
+  };
+  const handleCloseQuickEnquiry = () => {
+    setIsQuickEnquiryOpen(false);
+    setQuickEnquiryProject(null);
   };
 
   useEffect(() => {
@@ -126,8 +141,8 @@ export default function App() {
           {renderProjectRoutes()}
 
           {/* Default Developer Landing Page */}
-          <Route path="/" element={<MainLandingPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
-          <Route path="/home" element={<MainLandingPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
+          <Route path="/" element={<MainLandingPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} onOpenQuickEnquiry={handleOpenQuickEnquiry} />} />
+          <Route path="/home" element={<MainLandingPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} onOpenQuickEnquiry={handleOpenQuickEnquiry} />} />
 
           {/* Fallback routes */}
           <Route path="/villa-plots" element={<VillaPlotsPage onOpenBrochure={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />} />
@@ -141,6 +156,7 @@ export default function App() {
         <Footer onOpenModal={handleOpenBrochure} onOpenSiteVisit={handleOpenSiteVisit} />
         <BrochureModal isOpen={isModalOpen} onClose={handleCloseBrochure} sourceComment={modalSource} projectKey={modalProjectKey} />
         <SiteVisitModal isOpen={isSiteVisitOpen} onClose={handleCloseSiteVisit} sourceComment={siteVisitSource} projectKey={siteVisitProjectKey} />
+        <QuickEnquiryModal isOpen={isQuickEnquiryOpen} onClose={handleCloseQuickEnquiry} project={quickEnquiryProject} sourceComment={quickEnquirySource} />
         <MobileEnquiryPopup onOpenBrochure={handleOpenBrochure} />
         <FloatingCallBtn />
       </div>

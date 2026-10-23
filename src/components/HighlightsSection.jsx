@@ -47,6 +47,15 @@ export default function HighlightsSection() {
       { icon: 'fas fa-swimming-pool', title: '12+', desc: 'Amenities' },
       { icon: 'fas fa-file-signature', title: 'BDA', desc: 'Approved' },
       { icon: 'fas fa-location-dot', title: 'Magadi Road', desc: 'Bengaluru' },
+    ],
+    exotica: [
+      { icon: 'fas fa-map-marked-alt', title: '16.75 Acres', desc: 'Land Area' },
+      { icon: 'fas fa-border-all', title: '266', desc: 'Villa Plots' },
+      { icon: 'fas fa-swimming-pool', title: '30+', desc: 'Amenities' },
+      { icon: 'fas fa-file-signature', title: 'STRR & BMRDA', desc: 'Approved' },
+      { icon: 'fas fa-stamp', title: 'RERA', desc: 'Approved' },
+      { icon: 'fas fa-umbrella-beach', title: 'Mediterranean', desc: 'Themed Community' },
+      { icon: 'fas fa-location-dot', title: 'Attibele Road', desc: 'Bengaluru' },
     ]
   };
 

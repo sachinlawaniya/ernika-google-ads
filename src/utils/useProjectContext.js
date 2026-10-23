@@ -1,8 +1,9 @@
 import { useLocation } from 'react-router-dom';
 import ernikaHeroDesktop from '../assets/ernika_hero.jpg';
 import ernikaHeroMobile from '../assets/ernika_hero_mobile.jpg';
-import ekaHeroDesktop from '../assets/EKA Landscape.jpg.jpeg';
-import ekaHeroMobile from '../assets/EKA Post.jpg.jpeg';
+import ekaHeroDesktop from '../assets/eka_hero.jpg';
+import ekaHeroMobile from '../assets/eka_hero.jpg';
+import eleganceHero from '../assets/elegance_hero.jpg';
 import shyamHeroDesktop from '../assets/shyam_overview_desktop.png';
 import shyamHeroMobile from '../assets/shyam_overview_mobile.png';
 
@@ -157,7 +158,7 @@ export const PROJECTS_DATA = {
     title: 'Guru Punvaanii Elegance | Premium 4 BHK Villas & Plots in Bidadi, Bengaluru',
     location: 'Bidadi, Bengaluru',
     tagline: 'Experience Premium 4 BHK Villas & plots in Bidadi, Bengaluru',
-    badge: 'PREMIUM 4 BHK VILLAS & Plots ',
+    badge: '4 BHK CLIMATE-CONTROLLED VILLAS',
     formHeading: 'Elegance - Greater Bengaluru',
     formSubHeading: 'RERA & BMICAPA Approved Luxury Villas & Plots Community in Bidadi',
     priceHighlight: {
@@ -166,16 +167,17 @@ export const PROJECTS_DATA = {
       crUnit: '/sq.ft',
       star: '*',
       unit: 'ONWARDS',
-      reraTitle: 'RERA & BMICAPA',
-      reraNumber: 'Approved Layout'
+      reraTitle: 'RERA Number',
+      reraNumber: 'PRM/KA/RERA/1270/302/PR/300924/007104'
     },
     heroVideoId: 'OfP_mLfh4kE',
     walkthroughVideoId: 'Ry91N2Y-DLw',
     approvalText: 'RERA & BMICAPA Approved Luxury Plots Community in Bidadi',
     approvalBadge: 'RERA & BMICAPA APPROVED',
     entranceArch: "https://gurupunvaanii.com/wp-content/uploads/2026/08/Elegance-Villa-Entrance-Arch-Night-View-2048x938.webp",
-    elevationDayImg: 'https://gurupunvaanii.com/wp-content/uploads/elementor/thumbs/Elegance-villa-Elevation-Day-view-rrp67svjk3l1axj8xw8ej31pv7enpmk6wh4nlyt43k.webp',
-    elevationNightImg: 'https://gurupunvaanii.com/wp-content/uploads/elementor/thumbs/Elegance-Villa-Elevation-Night-View-rrp67ttdqxmbmjhvsen13kt6gla0xbnx8ls538rpxc.webp',
+    elevationDayImg: eleganceHero,
+    elevationNightImg: eleganceHero,
+    elevationMobileImg: eleganceHero,
     proximityMapUrl: 'https://elegance-proximities.gurupunvaanii.com/',
     proximityMargins: {
       desktop: '-36px',
@@ -243,7 +245,7 @@ export const PROJECTS_DATA = {
       description: 'Guru Punvaanii Elegance offers premium 4 BHK villas and plots in Bidadi with RERA & BMICAPA approval, giving you full flexibility to build your dream home.',
       type: 'premium-card',
       imageNight: 'https://gurupunvaanii.com/wp-content/uploads/elementor/thumbs/Elegance-Villa-Elevation-Night-View-rrp67ttdqxmbmjhvsen13kt6gla0xbnx8ls538rpxc.webp',
-      imageDay: 'https://gurupunvaanii.com/wp-content/uploads/elementor/thumbs/Elegance-villa-Elevation-Day-view-rrp67svjk3l1axj8xw8ej31pv7enpmk6wh4nlyt43k.webp',
+      imageDay: eleganceHero,
       cardTitle: 'Elegance',
       location: 'Bheemenahalli, Bidadi (Mysuru Road)',
       sizeArea: '6 Acres 12 Guntas',
@@ -630,31 +632,137 @@ export const PROJECTS_DATA = {
     id: 'exotica',
     shortName: 'Exotica',
     projectName: 'Guru Punvaanii Exotica',
-    title: 'Guru Punvaanii Exotica | Premium Residential Plots in Attibele, Bengaluru',
-    location: 'Off Anekal, Attibele Road',
-    tagline: 'Residential Plots',
+    title: 'Guru Punvaanii Exotica | Mediterranean-Themed Plots for Sale in Attibele',
+    location: 'Anekal-Attibele Road, Bengaluru',
+    tagline: 'Bangalore’s 1st Mediterranean-Themed Plotted Development in Attibele',
+    badge: 'MEDITERRANEAN THEMED VILLA PLOTS',
     formHeading: 'Exotica - Attibele Road',
-    formSubHeading: '266 Plots across 16.75 Acres',
+    formSubHeading: 'STRR, BMRDA & RERA Approved Plots Across 16.75 Acres',
     priceHighlight: {
       currency: '₹',
       amount: '3,750',
       crUnit: '/sq.ft',
       star: '*',
       unit: 'ONWARDS',
+      reraTitle: 'RERA No.',
+      reraNumber: 'PRM/KA/RERA/1251/308/PR/181223/006496'
     },
-    approvalText: '266 Plots across 16.75 Acres',
+    heroVideoDesktop: 'https://gurupunvaanii.com/wp-content/uploads/2026/07/Exotica-Desktop.mp4',
+    heroVideoMobile: 'https://gurupunvaanii.com/wp-content/uploads/2026/07/Exotica-Mobile-Version.mp4',
+    approvalText: 'STRR, BMRDA & RERA Approved Plots Across 16.75 Acres',
+    approvalBadge: 'STRR & BMRDA APPROVED',
+    elevationDayImg: 'https://gurupunvaanii.com/wp-content/uploads/2026/07/Exotica-Plots-in-Attibele-1-scaled.jpg',
+    elevationNightImg: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Exotica-Entrance-Arch.webp',
+    elevationMobileImg: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Exotica-Entrance-Arch.webp',
+    googleMapUrl: 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3891.883389299339!2d77.7402197!3d12.7210296!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae6ffa2f90397b%3A0x975e90f4704e3d9c!2sGuru%20Punvaanii%20EXOTICA!5e0!3m2!1sen!2sin!4v1782925564364!5m2!1sen!2sin',
+    brochureUrl: 'https://gurupunvaanii.com/wp-content/uploads/2026/08/Exotica_compressed.pdf',
+    brochureDesc: 'Download the official Exotica brochure — plot layout plan, phase pricing, STRR & BMRDA legal approvals, and 30+ Mediterranean amenities.',
+    trustBadges: ['STRR & BMRDA APPROVED', 'RERA APPROVED LAYOUT', 'CLEAR MARKETABLE TITLES', '30+ LIFESTYLE AMENITIES'],
     basePath: '/exotica',
     featureBullets: [
-      '266 Plots across 16.75 Acres',
-      'Residential Plots',
-      'A to Z Amenities & Clubhouse',
-      'Concrete Roads & Underground Utilities',
-      'Prime Location in Off Anekal, Attibele Road'
+      'STRR & BMRDA Approved Layout',
+      'Bangalore’s 1st Mediterranean-Themed Plotted Community',
+      '30+ Premium Curated Lifestyle Amenities',
+      'Clear Marketable Titles & 100% RERA Registered',
+      'Prime Location on Anekal-Attibele Road, South Bengaluru'
     ],
-    about: { paragraphs: [] },
-    amenities: [],
-    faqs: [],
-    plots: { type: 'grid', list: [] }
+    about: {
+      paragraphs: [
+        'Exotica by Guru Punvaanii is Bangalore’s first Mediterranean-themed plotted development on the Anekal-Attibele road. We made sure these homes stay true to the theme by bringing you homes that feel like a permanent escape.',
+        'Our inspirations are the sun-warmed coastlines of Europe, which give Exotica the aesthetic that Bangalore never had before. With a guarded arched entrance, tall Mediterranean cypress trees, the bougainvillea, and the stone benches beside the sculpted gardens are not just decor. It is the atmosphere of a place that was thought through, so you can step out of your homes and feel good about your decision every day.',
+        'So, these plots in Anekal-Attibele Road sit in a location that is far enough from the city’s chaos yet close enough to keep you connected to the major industrial and IT corridors. It is a kind of balance that is harder to find. These are not just plots in Attibele, but a foundation of a life you will be genuinely proud to come home to every single day.'
+      ]
+    },
+    amenitiesDesc: 'When choosing the amenities, we thought about how you would want to spend your evenings and weekends. We craft spaces to move, breathe, and where you can enjoy quality time. Every facility within the community has been designed with the Mediterranean spirit in mind for the people who believe that a good life is living outdoors, together.',
+    amenities: [
+      { icon: 'fas fa-archway', title: 'Grand Mediterranean-Themed Arch' },
+      { icon: 'fas fa-tree', title: 'Mediterranean-Themed Parks' },
+      { icon: 'fas fa-futbol', title: 'Mini Football Court' },
+      { icon: 'fas fa-golf-ball', title: 'Mini Golf Court' },
+      { icon: 'fas fa-seedling', title: 'Mediterranean Flower & Fruit Parks' },
+      { icon: 'fas fa-dumbbell', title: 'Outdoor Gym' },
+      { icon: 'fas fa-running', title: 'Jogging Track' },
+      { icon: 'fas fa-child', title: 'Children’s Play Area' },
+      { icon: 'fas fa-monument', title: 'Sculpted Gardens & Stone Benches' },
+      { icon: 'fas fa-water', title: 'Landscaped Water Bodies' },
+      { icon: 'fas fa-road', title: 'RCC Internal Roads With Footpath' },
+      { icon: 'fas fa-shield-alt', title: '24/7 Security & CCTV Surveillance' }
+    ],
+    specificationsDesc: 'While the beauty draws you in, what keeps Exotica holding its ground is what’s underneath. We build our projects the right way from the ground up, not just for aesthetics. Everything has been executed to a standard that complements the design of the project, because the plot is only as good as the foundation it stands on.',
+    specifications: [
+      { icon: 'fa-road', title: 'RCC Road With Footpath' },
+      { icon: 'fa-recycle', title: 'Sewage Treatment Plant (STP)' },
+      { icon: 'fa-bolt', title: 'Underground Electrical Lines' },
+      { icon: 'fa-lightbulb', title: 'Street Lights' },
+      { icon: 'fa-shoe-prints', title: 'Pathway Pavers' },
+      { icon: 'fa-water', title: 'DWC Sewage Pipes' },
+      { icon: 'fa-door-closed', title: 'Security Room' },
+      { icon: 'fa-video', title: 'CCTV Surveillance' },
+      { icon: 'fa-faucet-drip', title: 'Installation of Pipeline for Kabini Water Connection' }
+    ],
+    cta: {
+      title: 'Looking for Plots for Sale in Attibele to Invest?',
+      desc: 'South Bangalore has always been an ideal first choice for families and investors alike. Which is why bringing you a home in such a prime location, which offers infrastructure development, strong industrial employment in the neighborhood, and growing residential demand, only makes it a more valuable opportunity. Most people who visit Exotica stop thinking about it purely as an investment fairly quickly. It just looks like somewhere you would actually want to live.',
+      tags: [
+        { icon: 'fas fa-shield-alt', text: 'STRR & BMRDA Approved' },
+        { icon: 'fas fa-tree', text: '30+ Premium Amenities' },
+        { icon: 'fas fa-file-contract', text: 'Clear Marketable Titles' },
+        { icon: 'fas fa-stamp', text: 'RERA Approved Layout' }
+      ]
+    },
+    faqs: [
+      {
+        q: 'Where is Exotica Located?',
+        a: 'Exotica by Guru Punvaanii is located on the Anekal-Attibele Road in South Bangalore, offering seamless connectivity to Electronic City, Hosur Road IT & industrial corridors, and the upcoming STRR ring road while keeping you away from city chaos.'
+      },
+      {
+        q: 'What makes Exotica different from other plotted developments?',
+        a: 'Exotica is Bangalore’s first Mediterranean-themed plotted development. From the arched entrance and the landscaped gardens to the street lighting and the Mediterranean flora, bougainvillea, stone benches, and cypress trees, there is nothing else quite like these plots in Anekal Attibele Road.'
+      },
+      {
+        q: 'Is the project RERA approved?',
+        a: 'Yes! Exotica is fully RERA registered (PRM/KA/RERA/1251/308/PR/181223/006496) and approved by STRR & BMRDA with clear marketable titles and all major bank loan approvals.'
+      },
+      {
+        q: 'What plot sizes are available at Exotica?',
+        a: 'Exotica offers multiple plot dimensions such as 9.14m × 12.19m (30×40 ft - 1,200 sq.ft), 9.14m × 15.24m (30×50 ft - 1,500 sq.ft), and 12.19m × 18.29m (40×60 ft - 2,400 sq.ft), giving you full flexibility to build your Mediterranean dream villa.'
+      },
+      {
+        q: 'How well-connected is the project to daily essentials?',
+        a: 'You will be very well connected to reputed schools and colleges within a 10-minute drive, along with multi-specialty healthcare, and Electronic City, which is just 20 km away.'
+      },
+      {
+        q: 'What amenities are available within the community?',
+        a: 'At Exotica, you can find everything for everyone. There is a children’s play area, mini football court, mini golf court, outdoor gym, jogging track, flower & fruit parks, Mediterranean-style street lighting, underground electricity, and sewage connections, all within the RCC internal roads.'
+      }
+    ],
+    plots: {
+      description: 'Exotica offers multiple plot dimensions — 30×40 ft, 30×50 ft, and 40×60 ft, designed to give you the flexibility to build your Mediterranean dream villa.',
+      type: 'grid',
+      list: [
+        {
+          size: '30 × 40 FT (9.14m × 12.19m)',
+          sqft: '1,200 SqFt',
+          desc: 'Ideal for modern 3BHK Mediterranean duplex villas. Compact luxury layout surrounded by cypress trees and floral parks.',
+          badge: 'Popular Choice',
+          icon: 'fa-vector-square'
+        },
+        {
+          size: '30 × 50 FT (9.14m × 15.24m)',
+          sqft: '1,500 SqFt',
+          desc: 'Spacious villa plots for grand family residences with private garden, open courtyards, and sun-lit terraces.',
+          badge: 'Mediterranean Luxury',
+          icon: 'fa-crown'
+        },
+        {
+          size: '40 × 60 FT (12.19m × 18.29m)',
+          sqft: '2,400 SqFt',
+          desc: 'Signature executive villa plots tailored for luxury architectural villas with private pool and expansive lawns.',
+          badge: 'Exclusive Estates',
+          icon: 'fa-chess-king'
+        }
+      ]
+    }
   },
   etasha: {
     id: 'etasha',

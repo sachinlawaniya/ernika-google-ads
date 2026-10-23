@@ -8,7 +8,7 @@ import 'swiper/css/navigation';
 export default function SpecificationsSection() {
   const { project } = useProjectContext();
 
-  const specs = [
+  const defaultSpecs = [
     { icon: 'fa-shield-alt', title: '24/7 Security' },
     { icon: 'fa-road', title: '30 Feet Concrete Road With Plantation' },
     { icon: 'fa-water', title: 'Overhead Water Tank' },
@@ -18,6 +18,8 @@ export default function SpecificationsSection() {
     { icon: 'fa-recycle', title: 'STP' },
   ];
 
+  const specs = project.specifications && project.specifications.length > 0 ? project.specifications : defaultSpecs;
+
   const slides = [...specs, ...specs];
 
   const descriptions = {
@@ -26,9 +28,10 @@ export default function SpecificationsSection() {
     eka: 'With our properties at Guru Punvaanii, you never have to second-guess the quality. At these plots in Anekal, Bangalore, the infrastructure is not a promise we make, but what you get. Across our three phases, we believe that a plot is only as valuable as the foundation it sits on. ',
     eureka: 'Eureka offers top-tier specifications, thoughtfully planned infrastructure, and sustainable systems to ensure your investment stands the test of time in a tranquil environment.',
     shyam_residency: 'Shyam Residency is equipped with BDA-approved specifications, featuring 30 to 50 feet wide roads, underground utilities, and premium infrastructure for a peaceful life.',
+    exotica: 'While the beauty draws you in, what keeps Exotica holding its ground is what’s underneath. We build our projects the right way from the ground up, not just for aesthetics. Everything has been executed to a standard that complements the design of the project, because the plot is only as good as the foundation it stands on.',
   };
 
-  const currentDesc = descriptions[project.id] || descriptions.ernika;
+  const currentDesc = project.specificationsDesc || descriptions[project.id] || descriptions.ernika;
 
   return (
     <section id="er_specification" className="er_section er_specification">

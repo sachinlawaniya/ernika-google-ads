@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useProjectContext } from '../utils/useProjectContext.js';
+import OtpVerificationView from './OtpVerificationView.jsx';
+import { sendOtp, submitLeadToERP, isValidIndianPhone, cleanPhoneNumber } from '../utils/otpService.js';
 
 export default function QuickEnquiryForm({ onOpenBrochure, onClose, formId = 'er_enquiry' }) {
   const { project, shortName, projectName } = useProjectContext();
@@ -11,20 +13,21 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose, formId = 'er
     message: '',
   });
 
-  const [phase, setPhase] = useState('input'); // 'input' | 'success'
+  const [phase, setPhase] = useState('input'); // 'input' | 'otp' | 'success'
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
     if (name === 'phone') {
-      value = value.replace(/\D/g, '');
+      value = value.replace(/\D/g, '').slice(0, 10);
     }
     setFormData({ ...formData, [name]: value });
     setErrorMsg('');
   };
 
-  const handleFormSubmit = async (e) => {
+  // Phase 1: Request OTP
+  const handleRequestOtp = async (e) => {
     e.preventDefault();
 
     if (!formData.name.trim()) {
@@ -32,9 +35,8 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose, formId = 'er
       return;
     }
 
-    const cleanPhone = formData.phone.replace(/\D/g, '').slice(-10);
-    const phoneRegex = /^[6-9]\d{9}$/;
-    if (!phoneRegex.test(cleanPhone)) {
+    const cleanPhone = cleanPhoneNumber(formData.phone);
+    if (!isValidIndianPhone(cleanPhone)) {
       setErrorMsg('Please enter a valid 10-digit mobile number');
       return;
     }
@@ -50,32 +52,31 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose, formId = 'er
     setLoading(true);
     setErrorMsg('');
 
-    try {
-      // 1. Submit lead to StrategicERP API
-      const erpUrl = `https://strategicerp.cloud/api/v1/lead_creation.php?Name=${encodeURIComponent(formData.name.trim())}&Email=${encodeURIComponent(formData.email.trim() || '')}&MobileNo=${encodeURIComponent(cleanPhone)}&Comments=${encodeURIComponent(formData.message || 'Quick Enquiry Form')}&ProjectName=${encodeURIComponent(shortName)}&Source=GoogleAds_LandingPage`;
-      fetch(erpUrl, { mode: 'no-cors' }).catch(() => { });
+    const otpRes = await sendOtp(cleanPhone);
+    setLoading(false);
 
-      // 2. Fire StrategicERP Image Pixel
-      const d = new Date();
-      const pad = (n) => String(n).padStart(2, '0');
-      const nowStr = `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-      const pixelUrl = `https://24.strategicerpcloud.com/strategicerp/SaveFormField.do?actn=SaveData&id=873&globalvar=0&cloudcode=gurupunvaanii&idselected=0&idhidden=0&mobileform=yes&editids=15715/15800/31227/15730/state//31228/31229/31230/33937/15713/30754/34785/15716/37710/37710/&field15715=${encodeURIComponent(cleanPhone)}&field15713=${encodeURIComponent(formData.name.trim())}&field33937=${encodeURIComponent(formData.email.trim())}&field15730=${encodeURIComponent(projectName)}&field15800=${encodeURIComponent(nowStr)}&field31227=${encodeURIComponent(nowStr)}&field31228=${encodeURIComponent('Digital Marketing')}&field31229=${encodeURIComponent('Google Ads')}&field31230=${encodeURIComponent('/ Google Ads /')}&field37710=${encodeURIComponent('+91')}&field15716=${encodeURIComponent('Quick Enquiry Form')}&field34785=`;
-      const erpImg = new Image();
-      erpImg.src = pixelUrl;
-
-      // 3. Trigger Google Ads conversion event
-      if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'conversion', {
-          send_to: 'AW-CONVERSION_ID/CONVERSION_LABEL',
-        });
-      }
-
-      setPhase('success');
-    } catch (err) {
-      setPhase('success');
-    } finally {
-      setLoading(false);
+    if (otpRes.success) {
+      setPhase('otp');
+    } else {
+      setErrorMsg(otpRes.message || 'Failed to send OTP. Please try again.');
     }
+  };
+
+  // Phase 2: On OTP Verified Callback
+  const handleOtpVerified = () => {
+    const cleanPhone = cleanPhoneNumber(formData.phone);
+    const comments = `${formData.message || 'Quick Enquiry Form'} (OTP Verified) - ${shortName} Landing Page`;
+
+    submitLeadToERP({
+      name: formData.name,
+      phone: cleanPhone,
+      email: formData.email,
+      projectName,
+      comments,
+      source: 'Google Ads Quick Enquiry Form',
+    });
+
+    setPhase('success');
   };
 
   return (
@@ -152,7 +153,7 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose, formId = 'er
         )}
 
         {phase === 'input' && (
-          <form onSubmit={handleFormSubmit} className="er_quick-form">
+          <form onSubmit={handleRequestOtp} className="er_quick-form">
             <div className="er_quick-field">
               <label htmlFor="er_sticky_name">Your Name *</label>
               <div className="er_quick-input-icon">
@@ -181,6 +182,7 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose, formId = 'er
                   value={formData.phone}
                   onChange={handleInputChange}
                   maxLength="10"
+                  inputMode="numeric"
                   required
                 />
               </div>
@@ -194,7 +196,7 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose, formId = 'er
                   id="er_sticky_email"
                   type="email"
                   name="email"
-                  placeholder="Email ID"
+                  placeholder="Email ID (optional)"
                   value={formData.email}
                   onChange={handleInputChange}
                 />
@@ -209,7 +211,7 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose, formId = 'er
                   id="er_sticky_msg"
                   name="message"
                   rows="2"
-                  placeholder="Preferred plot size (30x40, 30x50) or site visit date..."
+                  placeholder="Preferred plot size (30x40, 30x50) or remarks..."
                   value={formData.message}
                   onChange={handleInputChange}
                 ></textarea>
@@ -218,10 +220,10 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose, formId = 'er
 
             <button type="submit" className="er_quick-submit-btn" disabled={loading}>
               {loading ? (
-                <span><i className="fas fa-spinner fa-spin"></i> Submitting...</span>
+                <span><i className="fas fa-spinner fa-spin"></i> Sending OTP...</span>
               ) : (
                 <>
-                  <span>Submit </span>
+                  <span>Get OTP &amp; Submit</span>
                   <i className="fas fa-arrow-right"></i>
                 </>
               )}
@@ -229,25 +231,27 @@ export default function QuickEnquiryForm({ onOpenBrochure, onClose, formId = 'er
           </form>
         )}
 
+        {phase === 'otp' && (
+          <OtpVerificationView
+            phone={cleanPhoneNumber(formData.phone)}
+            buttonText="Verify OTP &amp; Submit Enquiry"
+            theme="quick"
+            onChangePhone={() => setPhase('input')}
+            onVerified={handleOtpVerified}
+          />
+        )}
+
         {phase === 'success' && (
           <div className="er_quick-success-box">
             <i className="fas fa-check-circle er_quick-success-icon"></i>
-            <h4>Form Submitted Successfully!</h4>
-            <p>Thank you for your enquiry. Your details have been received. Click below to download the official brochure.</p>
-            <a
-              href={project.brochureUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="er_quick-submit-btn"
-              style={{ textDecoration: 'none', marginBottom: '10px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
-            >
-              <i className="fas fa-download"></i>
-              <span>Download Brochure PDF</span>
-            </a>
+            <h4>Enquiry Submitted Successfully!</h4>
+            <p>
+              Thank you <strong>{formData.name}</strong>! Your mobile number <strong>+91 {cleanPhoneNumber(formData.phone)}</strong> has been verified. Our senior property manager will get in touch with you shortly.
+            </p>
             <button
               type="button"
               className="er_quick-submit-btn"
-              style={{ background: '#f8fafc', color: '#475569', border: '1px solid #cbd5e1' }}
+              style={{ background: '#f8fafc', color: '#475569', border: '1px solid #cbd5e1', marginBottom: '8px' }}
               onClick={() => {
                 setFormData({ name: '', email: '', phone: '', message: '' });
                 setPhase('input');
